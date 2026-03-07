@@ -1,351 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sustainable Materials Space</title>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eco‑Friendly Material Library</title>
 
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root{
+  --bg:#ffffff;
+  --text:#111111;
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      overflow: hidden;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
+*{box-sizing:border-box}
 
-    body {
-      position: relative;
-    }
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  overflow:hidden;
+}
 
-    #app {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
+#app{
+  width:100%;
+  height:100%;
+  position:relative;
+}
 
-    .home {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      background: #fff;
-      overflow: hidden;
-    }
+/* HEADER */
+.header{
+  position:absolute;
+  top:22px;
+  width:100%;
+  text-align:center;
+  font-size:20px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:500;
+}
 
-    .material {
-      position: absolute;
-      display: block;
-      border: 0;
-      background: transparent;
-      padding: 0;
-      margin: 0;
-      cursor: pointer;
-      transition: transform 280ms ease, filter 280ms ease;
-      animation: driftX var(--drift-x-duration, 14s) ease-in-out infinite alternate,
-                 driftY var(--drift-y-duration, 18s) ease-in-out infinite alternate;
-      transform-origin: center center;
-      z-index: 1;
-    }
+.home{
+  width:100%;
+  height:100%;
+  position:relative;
+}
 
-    .material:hover {
-      transform: scale(1.18);
-      filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.13));
-      z-index: 3;
-    }
+.material{
+  position:absolute;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:0;
 
-    .material img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      user-select: none;
-      -webkit-user-drag: none;
-      pointer-events: none;
-      filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.07));
-    }
+  transition:transform .25s ease,filter .25s ease;
 
-    .label {
-      position: absolute;
-      left: 50%;
-      bottom: -34px;
-      transform: translateX(-50%) translateY(6px);
-      opacity: 0;
-      pointer-events: none;
-      white-space: nowrap;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #111;
-      transition: opacity 220ms ease, transform 220ms ease;
-    }
+  /* FASTER FLOAT */
+  animation:
+    driftX var(--dx,6s) ease-in-out infinite alternate,
+    driftY var(--dy,8s) ease-in-out infinite alternate;
+}
 
-    .material:hover .label {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+.material:hover{
+  transform:scale(1.25);
+  filter:drop-shadow(0 20px 35px rgba(0,0,0,.15));
+  z-index:5;
+}
 
-    .detail {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      padding: 32px;
-      cursor: pointer;
-    }
+.material img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+}
 
-    .detail p {
-      margin: 0;
-      max-width: 760px;
-      color: var(--text);
-      font-size: clamp(20px, 2.1vw, 34px);
-      line-height: 1.65;
-      text-align: center;
-      letter-spacing: 0.01em;
-      font-weight: 400;
-    }
+.label{
+  position:absolute;
+  left:50%;
+  bottom:-32px;
+  transform:translateX(-50%) translateY(6px);
+  opacity:0;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:all .2s ease;
+}
 
-    @keyframes driftX {
-      from {
-        translate: calc(var(--drift-x) * -1) 0;
-      }
-      to {
-        translate: var(--drift-x) 0;
-      }
-    }
+.material:hover .label{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
 
-    @keyframes driftY {
-      from {
-        transform: translateY(calc(var(--drift-y) * -1));
-      }
-      to {
-        transform: translateY(var(--drift-y));
-      }
-    }
+/* DETAIL PAGE */
+.page{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px;
+  overflow:auto;
+}
 
-    @media (max-width: 768px) {
-      .detail p {
-        font-size: clamp(18px, 5vw, 24px);
-        max-width: 92vw;
-      }
+.page img{
+  width:180px;
+  margin-bottom:20px;
+}
 
-      .label {
-        font-size: 12px;
-        bottom: -28px;
-      }
+.title{
+  font-size:28px;
+  margin-bottom:12px;
+}
 
-      .material:hover {
-        transform: scale(1.12);
-      }
-    }
-  </style>
+.description{
+  max-width:650px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.impact{
+  margin-top:20px;
+  font-size:16px;
+  color:#333;
+}
+
+.creatorLink{
+  margin-top:60px;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.creator img{
+  width:200px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+
+.creator p{
+  max-width:700px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+/* FLOAT ANIMATIONS */
+@keyframes driftX{
+from{transform:translateX(-12px)}
+to{transform:translateX(12px)}
+}
+
+@keyframes driftY{
+from{translate:0 -14px}
+to{translate:0 14px}
+}
+
+</style>
 </head>
+
 <body>
-  <div id="app"></div>
+<div id="app"></div>
 
-  <script>
-    const materials = [
-      {
-        slug: "cork",
-        image: "./cork.png",
-        alt: "Cork",
-        paragraphs: [
-          "Cork is harvested from the bark of cork oak trees without cutting the tree down, which allows the tree to continue living, regenerating, and absorbing carbon over time. Its soft texture, acoustic performance, and renewability make it one of the most quietly radical materials in sustainable design.",
-          "Cork exists in a rare space between beauty and ecological intelligence. It is lightweight, renewable, biodegradable, and naturally insulating, proving that a material can feel warm, tactile, and refined while still participating in a longer environmental cycle of care.",
-          "The value of cork is not just that it comes from nature, but that it is taken in a way that lets nature continue. Harvested carefully and repeatedly from the same tree, cork suggests a design future rooted in renewal rather than extraction."
-        ]
-      },
-      {
-        slug: "cob",
-        image: "./cob.png",
-        alt: "Cob",
-        paragraphs: [
-          "Cob is made from earth, sand, straw, and water, forming a building material that feels ancient and immediate at the same time. Its low embodied energy and handmade character offer a direct reminder that sustainability can be both deeply local and deeply human.",
-          "Built from simple natural ingredients, cob carries almost no industrial distance between the ground and the wall. It is slow, tactile, and place-based, showing that resilient design does not always need to come from high-tech systems to feel visionary.",
-          "Cob asks architecture to move at the speed of touch. With minimal processing and a strong connection to local material cycles, it turns soil into shelter and transforms construction into something more intimate, grounded, and ecologically aware."
-        ]
-      },
-      {
-        slug: "timber",
-        image: "./timber.png",
-        alt: "Timber",
-        paragraphs: [
-          "Timber stores carbon as it grows and carries that memory into the built environment. When responsibly sourced, it becomes more than structure; it becomes a material that links forests, craft, and construction into a quieter and more regenerative architectural language.",
-          "There is something uniquely powerful about timber because it can feel both engineered and alive. Its warmth, structural capacity, and lower carbon potential compared to many conventional materials make it central to conversations about how buildings might hold both performance and atmosphere.",
-          "Timber brings a sense of softness to architecture without sacrificing strength. In a more sustainable future, its value lies not only in how it performs, but in how clearly it reminds us that buildings can come from living systems rather than only extracted ones."
-        ]
-      },
-      {
-        slug: "kraft-paper",
-        image: "./kraft-paper.png",
-        alt: "Kraft Paper",
-        paragraphs: [
-          "Kraft paper is often overlooked because it feels ordinary, but its simplicity is part of its intelligence. Recyclable, versatile, and materially honest, it represents a design mindset that values lower processing, reduced waste, and the quiet dignity of things that do not need excess to matter.",
-          "In its rawness, kraft paper carries a kind of ecological clarity. It can wrap, protect, layer, and communicate with almost no visual noise, suggesting that sustainability is sometimes less about invention and more about choosing the humble material that already does enough.",
-          "Kraft paper shows how even temporary materials can participate in a more thoughtful system. Lightweight and recyclable, it stands for restraint, reminding us that sustainable design is often shaped by what we choose not to overcomplicate."
-        ]
-      },
-      {
-        slug: "bamboo",
-        image: "./bamboo.png",
-        alt: "Bamboo",
-        paragraphs: [
-          "Bamboo grows with extraordinary speed, making it one of the most compelling rapidly renewable materials in the world. Its elegance and strength challenge the idea that ecological responsibility must look rustic or compromised; instead, it can look precise, light, and beautifully alive.",
-          "Because bamboo matures quickly and regenerates after harvest, it offers a radically different material timeline from many traditional resources. It suggests a future in which design aligns more closely with growth, renewal, and the intelligence already present in living systems.",
-          "Bamboo feels almost architectural before it is ever built into anything. Linear, strong, and regenerative, it holds an unusual balance of delicacy and performance, giving sustainable design a material language that is both graceful and forward-looking."
-        ]
-      }
-    ];
+<script>
 
-    const app = document.getElementById('app');
+const materials=[
+{
+name:"Cork",
+image:"./cork.png",
+slug:"cork",
+description:"Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",
+impact:"Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."
+},
+{
+name:"Cob",
+image:"./cob.png",
+slug:"cob",
+description:"Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",
+impact:"Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."
+},
+{
+name:"Timber",
+image:"./timber.png",
+slug:"timber",
+description:"Timber stores carbon absorbed during a tree's growth. Modern mass‑timber systems allow wood to replace more carbon‑intensive materials in structural buildings.",
+impact:"Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."
+},
+{
+name:"Kraft Paper",
+image:"./kraft-paper.png",
+slug:"kraft",
+description:"Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",
+impact:"Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."
+},
+{
+name:"Bamboo",
+image:"./bamboo.png",
+slug:"bamboo",
+description:"Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",
+impact:"Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."
+}
+]
 
-    const randomBetween = (min, max) => Math.random() * (max - min) + min;
-    const pick = (array) => array[Math.floor(Math.random() * array.length)];
+const app=document.getElementById("app")
 
-    function createRandomPath(slug) {
-      return `/${slug}-${Math.random().toString(36).slice(2, 8)}`;
-    }
+function random(min,max){return Math.random()*(max-min)+min}
 
-    function getMaterialFromPath(pathname) {
-      const clean = pathname.replace(/^\//, '');
-      if (!clean) return null;
-      return materials.find((material) => clean.startsWith(material.slug));
-    }
+function goHome(){history.pushState({},"","/");render()}
 
-    function goHome() {
-      history.pushState({}, '', '/');
-      render();
-    }
+function openCreator(){history.pushState({},"","/creator");render()}
 
-    function goToMaterial(material) {
-      const path = createRandomPath(material.slug);
-      history.pushState({ material: material.slug }, '', path);
-      render();
-    }
+function openMaterial(mat){history.pushState({},"","/"+mat.slug);render()}
 
-    function circlesOverlap(a, b) {
-      const dx = a.cx - b.cx;
-      const dy = a.cy - b.cy;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      return distance < (a.radius + b.radius);
-    }
+function renderHome(){
 
-    function renderHome() {
-      app.innerHTML = '';
-      const home = document.createElement('div');
-      home.className = 'home';
+app.innerHTML=""
 
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const isMobile = vw < 768;
-      const sizes = isMobile
-        ? [132, 144, 136, 128, 140]
-        : [220, 245, 230, 210, 238];
+const header=document.createElement("div")
+header.className="header"
+header.textContent="Eco‑Friendly Material Library"
 
-      const placed = [];
-      const edgePadding = isMobile ? 20 : 36;
-      const floatAllowance = isMobile ? 18 : 26;
-      const labelSpace = 40;
+const home=document.createElement("div")
+home.className="home"
 
-      materials.forEach((material, index) => {
-        const button = document.createElement('button');
-        button.className = 'material';
-        button.setAttribute('aria-label', material.alt);
+const placed=[]
 
-        const size = sizes[index] * randomBetween(0.96, 1.08);
-        const radius = size / 2 + floatAllowance + 16;
+materials.forEach(m=>{
 
-        let cx = vw / 2;
-        let cy = vh / 2;
-        let placedSafely = false;
-        let tries = 0;
+const size=random(190,240)
+let x,y
+let safe=false
 
-        while (!placedSafely && tries < 500) {
-          cx = randomBetween(edgePadding + radius, vw - edgePadding - radius);
-          cy = randomBetween(edgePadding + radius, vh - edgePadding - radius - labelSpace);
+while(!safe){
 
-          placedSafely = true;
+x=random(80,window.innerWidth-size-80)
+y=random(120,window.innerHeight-size-80)
 
-          for (const other of placed) {
-            if (circlesOverlap({ cx, cy, radius }, other)) {
-              placedSafely = false;
-              break;
-            }
-          }
+safe=true
 
-          tries += 1;
-        }
+for(const p of placed){
 
-        placed.push({ cx, cy, radius: radius + 10 });
+const dx=x-p.x
+const dy=y-p.y
+const dist=Math.sqrt(dx*dx+dy*dy)
 
-        button.style.left = `${cx - size / 2}px`;
-        button.style.top = `${cy - size / 2}px`;
-        button.style.width = `${size}px`;
-        button.style.height = `${size}px`;
-        button.style.setProperty('--drift-x', `${randomBetween(10, 22).toFixed(1)}px`);
-        button.style.setProperty('--drift-y', `${randomBetween(10, 24).toFixed(1)}px`);
-        button.style.setProperty('--drift-x-duration', `${randomBetween(10, 16).toFixed(1)}s`);
-        button.style.setProperty('--drift-y-duration', `${randomBetween(13, 20).toFixed(1)}s`);
-        button.style.animationDelay = `${randomBetween(-7, 0).toFixed(1)}s, ${randomBetween(-9, 0).toFixed(1)}s`;
+if(dist<260){safe=false;break}
+}
+}
 
-        const img = document.createElement('img');
-        img.src = material.image;
-        img.alt = material.alt;
-        img.loading = 'eager';
+placed.push({x,y})
 
-        const label = document.createElement('span');
-        label.className = 'label';
-        label.textContent = material.alt;
+const btn=document.createElement("button")
+btn.className="material"
 
-        button.appendChild(img);
-        button.appendChild(label);
-        button.addEventListener('click', () => goToMaterial(material));
-        home.appendChild(button);
-      });
+btn.style.left=x+"px"
+btn.style.top=y+"px"
+btn.style.width=size+"px"
+btn.style.height=size+"px"
 
-      app.appendChild(home);
-    }
+btn.style.setProperty("--dx",random(5,7)+"s")
+btn.style.setProperty("--dy",random(6,8)+"s")
 
-    function renderDetail(material) {
-      const paragraph = pick(material.paragraphs);
-      app.innerHTML = `
-        <div class="detail" aria-label="${material.alt} detail page">
-          <p>${paragraph}</p>
-        </div>
-      `;
+btn.onclick=()=>openMaterial(m)
 
-      const detail = app.querySelector('.detail');
-      detail.addEventListener('click', goHome);
-    }
+const img=document.createElement("img")
+img.src=m.image
 
-    function render() {
-      const material = getMaterialFromPath(window.location.pathname);
-      if (material) {
-        renderDetail(material);
-      } else {
-        renderHome();
-      }
-    }
+const label=document.createElement("div")
+label.className="label"
+label.textContent=m.name
 
-    window.addEventListener('popstate', render);
-    window.addEventListener('resize', () => {
-      if (window.location.pathname === '/') {
-        renderHome();
-      }
-    });
+btn.appendChild(img)
+btn.appendChild(label)
 
-    render();
-  </script>
+home.appendChild(btn)
+
+})
+
+app.appendChild(header)
+app.appendChild(home)
+}
+
+function renderMaterial(mat){
+
+app.innerHTML=`
+
+<div class="page">
+
+<img src="${mat.image}">
+
+<div class="title">${mat.name}</div>
+
+<div class="description">${mat.description}</div>
+
+<div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
+
+<div class="creatorLink" onclick="openCreator()">Meet the Creator!</div>
+
+</div>
+
+`
+}
+
+function renderCreator(){
+
+app.innerHTML=`
+
+<div class="page creator">
+
+<img src="./Dillon.jpg">
+
+<p>
+Hey! I'm Dillon, an undergraduate student studying Theatre Design & Technology with a growing focus on sustainable architecture and lighting design. I believe creativity shouldn't just shape experiences on stage — it should also help shape a better world.
+<br><br>
+My background in theatrical lighting taught me how powerful light and space can be in shaping human experience. As my interests evolved toward architecture, I became especially passionate about how energy‑efficient lighting and sustainable materials can transform buildings into tools for climate responsibility.
+<br><br>
+Looking ahead, I hope to bridge the worlds of lighting and architecture to design spaces where sustainability, beauty, and human well‑being work together. Next fall I'll be heading to graduate school to pursue a Master of Science in Architecture with a focus on sustainability.
+<br><br>
+Stay tuned — this is just the beginning of the project.
+</p>
+
+<div class="creatorLink" onclick="goHome()">Back to Library</div>
+
+</div>
+
+`
+}
+
+function render(){
+
+const path=window.location.pathname
+
+if(path==="/creator"){
+renderCreator()
+return
+}
+
+const mat=materials.find(m=>"/"+m.slug===path)
+
+if(mat){renderMaterial(mat)}
+else{renderHome()}
+
+}
+
+window.onpopstate=render
+
+render()
+
+</script>
+
 </body>
 </html>
