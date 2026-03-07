@@ -73,17 +73,19 @@ body{
 
 .material{
   position:absolute;
+  left:0;
+  top:0;
   border:0;
   background:transparent;
   cursor:pointer;
   padding:0;
-  transition:transform .25s ease, filter .25s ease, opacity .25s ease;
+  transition:filter .25s ease, opacity .25s ease;
   z-index:2;
-  will-change:transform,left,top;
+  will-change:transform;
+  transform:translate3d(0,0,0) scale(1);
 }
 
 .material:hover{
-  transform:scale(1.25);
   filter:drop-shadow(0 20px 35px rgba(0,0,0,.15)) drop-shadow(0 0 12px rgba(0,0,0,.08));
   z-index:5;
 }
@@ -294,6 +296,7 @@ const materials = [
 const app = document.getElementById("app");
 let floatItems = [];
 let animationFrame = null;
+let lastTime = 0;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -338,29 +341,40 @@ function overlaps(candidate, placed) {
 function setupFloatingPhysics(items) {
   floatItems = items;
   cancelAnimationFrame(animationFrame);
+  lastTime = performance.now();
 
-  const tick = () => {
+  const tick = (now) => {
+    const dt = Math.min((now - lastTime) / 16.67, 2);
+    lastTime = now;
+
     const vw = window.innerWidth;
     const vh = window.innerHeight;
 
-    floatItems.forEach(item => {
-      item.x += item.vx;
-      item.y += item.vy;
+    for (const item of floatItems) {
+      item.x += item.vx * dt;
+      item.y += item.vy * dt;
 
       const minX = item.padding;
       const maxX = vw - item.size - item.padding;
       const minY = item.topPadding;
       const maxY = vh - item.size - item.bottomPadding;
 
-      if (item.x <= minX || item.x >= maxX) item.vx *= -1;
-      if (item.y <= minY || item.y >= maxY) item.vy *= -1;
+      if (item.x <= minX) {
+        item.x = minX;
+        item.vx = Math.abs(item.vx);
+      } else if (item.x >= maxX) {
+        item.x = maxX;
+        item.vx = -Math.abs(item.vx);
+      }
 
-      item.x = Math.max(minX, Math.min(maxX, item.x));
-      item.y = Math.max(minY, Math.min(maxY, item.y));
-
-      item.el.style.left = item.x + "px";
-      item.el.style.top = item.y + "px";
-    });
+      if (item.y <= minY) {
+        item.y = minY;
+        item.vy = Math.abs(item.vy);
+      } else if (item.y >= maxY) {
+        item.y = maxY;
+        item.vy = -Math.abs(item.vy);
+      }
+    }
 
     for (let i = 0; i < floatItems.length; i++) {
       for (let j = i + 1; j < floatItems.length; j++) {
@@ -370,33 +384,39 @@ function setupFloatingPhysics(items) {
         const ay = a.y + a.size / 2;
         const bx = b.x + b.size / 2;
         const by = b.y + b.size / 2;
-        const dx = ax - bx;
-        const dy = ay - by;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const minDist = (a.size + b.size) * 0.56;
+        const dx = bx - ax;
+        const dy = by - ay;
+        const distance = Math.sqrt(dx * dx + dy * dy) || 0.001;
+        const minDist = (a.size + b.size) * 0.58;
 
         if (distance < minDist) {
-          const swapVX = a.vx;
-          const swapVY = a.vy;
+          const overlap = (minDist - distance) / 2;
+          const nx = dx / distance;
+          const ny = dy / distance;
+
+          a.x -= nx * overlap;
+          a.y -= ny * overlap;
+          b.x += nx * overlap;
+          b.y += ny * overlap;
+
+          const avx = a.vx;
+          const avy = a.vy;
           a.vx = b.vx;
           a.vy = b.vy;
-          b.vx = swapVX;
-          b.vy = swapVY;
-
-          const push = (minDist - distance) / 2 || 4;
-          const angle = Math.atan2(dy || 1, dx || 1);
-          a.x += Math.cos(angle) * push;
-          a.y += Math.sin(angle) * push;
-          b.x -= Math.cos(angle) * push;
-          b.y -= Math.sin(angle) * push;
+          b.vx = avx;
+          b.vy = avy;
         }
       }
+    }
+
+    for (const item of floatItems) {
+      item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${item.scale})`;
     }
 
     animationFrame = requestAnimationFrame(tick);
   };
 
-  tick();
+  animationFrame = requestAnimationFrame(tick);
 }
 
 function cancelFloating() {
@@ -453,8 +473,6 @@ function renderHome() {
 
       const btn = document.createElement("button");
       btn.className = "material";
-      btn.style.left = x + "px";
-      btn.style.top = y + "px";
       btn.style.width = size + "px";
       btn.style.height = size + "px";
       btn.onclick = () => openMaterial(m);
@@ -470,6 +488,14 @@ function renderHome() {
 
       btn.appendChild(img);
       btn.appendChild(label);
+      btn.addEventListener('mouseenter', () => {
+        const item = items.find(entry => entry.el === btn);
+        if (item) item.scale = 1.25;
+      });
+      btn.addEventListener('mouseleave', () => {
+        const item = items.find(entry => entry.el === btn);
+        if (item) item.scale = 1;
+      });
       home.appendChild(btn);
 
       items.push({
@@ -477,11 +503,12 @@ function renderHome() {
         x,
         y,
         size,
-        vx: random(-0.28, 0.28) || 0.16,
-        vy: random(-0.24, 0.24) || -0.14,
+        vx: random(-0.22, 0.22) || 0.12,
+        vy: random(-0.18, 0.18) || -0.10,
         padding,
         topPadding,
-        bottomPadding
+        bottomPadding,
+        scale: 1
       });
     });
 
