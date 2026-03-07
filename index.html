@@ -1,12 +1,599 @@
-<style>
-  :root {
-    --bg: #e8f5e9;
-    --fg: #000000;
-    --highlight: #ffcc00;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eco-Friendly Material Library</title>
 
-<div style="background-color: var(--bg); padding: 20px;">
-  <h1>Welcome to the Eco Materials Library</h1>
-  <p>Explore sustainable materials and their uses.</p>
-</div>
+<style>
+:root{
+  --bg:#ffffff;
+  --text:#111111;
+  --muted:#5f5f5f;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  overflow:hidden;
+}
+
+body{
+  animation:fadeIn 1.2s ease;
+}
+
+#app{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+.fade-layer{
+  width:100%;
+  height:100%;
+  animation:pageFade .45s ease;
+}
+
+.header{
+  position:absolute;
+  top:22px;
+  width:100%;
+  text-align:center;
+  font-size:22px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:500;
+  z-index:10;
+}
+
+.subhead{
+  position:absolute;
+  top:72px;
+  width:100%;
+  text-align:center;
+  font-size:13px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  z-index:10;
+  line-height:1.8;
+}
+
+.home{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+.material{
+  position:absolute;
+  left:0;
+  top:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:0;
+  transition:filter .25s ease, opacity .25s ease;
+  z-index:2;
+  will-change:transform;
+  transform:translate3d(0,0,0) scale(1);
+}
+
+.material:hover{
+  filter:drop-shadow(0 20px 35px rgba(0,0,0,.15)) drop-shadow(0 0 12px rgba(0,0,0,.08));
+  z-index:5;
+}
+
+.material img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+.label{
+  position:absolute;
+  left:50%;
+  bottom:-32px;
+  transform:translateX(-50%) translateY(6px);
+  opacity:0;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:all .2s ease;
+  white-space:nowrap;
+}
+
+.material:hover .label{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.creatorHome{
+  position:absolute;
+  bottom:28px;
+  width:100%;
+  text-align:center;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:underline;
+  z-index:10;
+}
+
+.page{
+  width:100%;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:48px 40px;
+  overflow:auto;
+  color:var(--text);
+}
+
+.page img{
+  width:180px;
+  margin-bottom:20px;
+}
+
+.title{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.description{
+  max-width:650px;
+  font-size:18px;
+  line-height:1.6;
+  color:var(--text);
+}
+
+.description a,
+.impact a,
+.page a,
+.title a{
+  color:var(--text);
+  text-decoration:none;
+}
+
+.impact{
+  margin-top:20px;
+  font-size:16px;
+  color:#333;
+  max-width:700px;
+  line-height:1.6;
+}
+
+.creator img{
+  width:200px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+
+.creator p{
+  max-width:700px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.creatorMeta{
+  margin-top:22px;
+  font-size:16px;
+  line-height:1.9;
+}
+
+.creatorMeta div{margin:2px 0}
+
+.creatorMeta a,
+.creatorLink{
+  color:var(--text);
+}
+
+.creatorLink{
+  margin-top:40px;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes pageFade{
+  from{opacity:0; transform:translateY(6px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+@media (max-width: 768px){
+  .header{
+    font-size:18px;
+    letter-spacing:.14em;
+    top:18px;
+    padding:0 14px;
+  }
+
+  .subhead{
+    top:72px;
+    font-size:11px;
+    padding:0 18px;
+    line-height:1.7;
+  }
+
+  .creatorHome{
+    bottom:18px;
+    font-size:14px;
+  }
+
+  .page{
+    padding:36px 22px;
+  }
+
+  .page img{
+    width:150px;
+  }
+
+  .title{
+    font-size:24px;
+  }
+
+  .description,
+  .creator p{
+    font-size:17px;
+  }
+
+  .impact,
+  .creatorMeta{
+    font-size:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script>
+const materials = [
+  {
+    name: "Cork",
+    image: "./cork.png",
+    slug: "cork",
+    description: "Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",
+    impact: "Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."
+  },
+  {
+    name: "Cob",
+    image: "./cob.png",
+    slug: "cob",
+    description: "Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",
+    impact: "Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."
+  },
+  {
+    name: "Timber",
+    image: "./timber.png",
+    slug: "timber",
+    description: "Timber stores carbon absorbed during a tree's growth. Modern mass-timber systems allow wood to replace more carbon-intensive materials in structural buildings.",
+    impact: "Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."
+  },
+  {
+    name: "Kraft Paper",
+    image: "./kraft-paper.png",
+    slug: "kraft",
+    description: "Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",
+    impact: "Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."
+  },
+  {
+    name: "Bamboo",
+    image: "./bamboo.png",
+    slug: "bamboo",
+    description: "Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",
+    impact: "Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."
+  }
+];
+
+const app = document.getElementById("app");
+let floatItems = [];
+let animationFrame = null;
+let lastTime = 0;
+
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function pathForMaterial(mat) {
+  return "/" + mat.slug;
+}
+
+function fadeRender(callback) {
+  cancelFloating();
+  app.innerHTML = "<div class='fade-layer'></div>";
+  const layer = app.querySelector('.fade-layer');
+  callback(layer);
+}
+
+function goHome() {
+  history.pushState({}, "", "/");
+  render();
+}
+
+function openCreator() {
+  history.pushState({}, "", "/creator");
+  render();
+}
+
+function openMaterial(mat) {
+  history.pushState({}, "", pathForMaterial(mat));
+  render();
+}
+
+function overlaps(candidate, placed) {
+  for (const p of placed) {
+    const dx = candidate.cx - p.cx;
+    const dy = candidate.cy - p.cy;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < candidate.buffer + p.buffer) return true;
+  }
+  return false;
+}
+
+function setupFloatingPhysics(items) {
+  floatItems = items;
+  cancelAnimationFrame(animationFrame);
+  lastTime = performance.now();
+
+  const tick = (now) => {
+    const dt = Math.min((now - lastTime) / 16.67, 2);
+    lastTime = now;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    for (const item of floatItems) {
+      item.x += item.vx * dt;
+      item.y += item.vy * dt;
+
+      const minX = item.padding;
+      const maxX = vw - item.size - item.padding;
+      const minY = item.topPadding;
+      const maxY = vh - item.size - item.bottomPadding;
+
+      if (item.x <= minX) {
+        item.x = minX;
+        item.vx = Math.abs(item.vx);
+      } else if (item.x >= maxX) {
+        item.x = maxX;
+        item.vx = -Math.abs(item.vx);
+      }
+
+      if (item.y <= minY) {
+        item.y = minY;
+        item.vy = Math.abs(item.vy);
+      } else if (item.y >= maxY) {
+        item.y = maxY;
+        item.vy = -Math.abs(item.vy);
+      }
+    }
+
+    for (let i = 0; i < floatItems.length; i++) {
+      for (let j = i + 1; j < floatItems.length; j++) {
+        const a = floatItems[i];
+        const b = floatItems[j];
+        const ax = a.x + a.size / 2;
+        const ay = a.y + a.size / 2;
+        const bx = b.x + b.size / 2;
+        const by = b.y + b.size / 2;
+        const dx = bx - ax;
+        const dy = by - ay;
+        const distance = Math.sqrt(dx * dx + dy * dy) || 0.001;
+        const minDist = (a.size + b.size) * 0.58;
+
+        if (distance < minDist) {
+          const overlap = (minDist - distance) / 2;
+          const nx = dx / distance;
+          const ny = dy / distance;
+
+          a.x -= nx * overlap;
+          a.y -= ny * overlap;
+          b.x += nx * overlap;
+          b.y += ny * overlap;
+
+          const avx = a.vx;
+          const avy = a.vy;
+          a.vx = b.vx;
+          a.vy = b.vy;
+          b.vx = avx;
+          b.vy = avy;
+        }
+      }
+    }
+
+    for (const item of floatItems) {
+      item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${item.scale})`;
+    }
+
+    animationFrame = requestAnimationFrame(tick);
+  };
+
+  animationFrame = requestAnimationFrame(tick);
+}
+
+function cancelFloating() {
+  if (animationFrame) cancelAnimationFrame(animationFrame);
+  animationFrame = null;
+  floatItems = [];
+}
+
+function renderHome() {
+  fadeRender(layer => {
+    const header = document.createElement("div");
+    header.className = "header";
+    header.textContent = "Eco-Friendly Material Library";
+
+    const subhead = document.createElement("div");
+    subhead.className = "subhead";
+    subhead.innerHTML = "Click a material to explore<br>This is a prototype";
+
+    const creator = document.createElement("div");
+    creator.className = "creatorHome";
+    creator.textContent = "Meet the Creator!";
+    creator.onclick = openCreator;
+
+    const home = document.createElement("div");
+    home.className = "home";
+
+    const placed = [];
+    const items = [];
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const isMobile = vw < 768;
+
+    materials.forEach(m => {
+      const size = isMobile ? random(125, 155) : random(190, 240);
+      const padding = isMobile ? 20 : 34;
+      const topPadding = isMobile ? 120 : 130;
+      const bottomPadding = isMobile ? 80 : 90;
+      const buffer = size * 0.72;
+
+      let x = 0;
+      let y = 0;
+      let safe = false;
+      let tries = 0;
+
+      while (!safe && tries < 500) {
+        x = random(padding, vw - size - padding);
+        y = random(topPadding, vh - size - bottomPadding);
+        const candidate = { cx: x + size / 2, cy: y + size / 2, buffer };
+        safe = !overlaps(candidate, placed);
+        tries++;
+      }
+
+      placed.push({ cx: x + size / 2, cy: y + size / 2, buffer });
+
+      const btn = document.createElement("button");
+      btn.className = "material";
+      btn.style.width = size + "px";
+      btn.style.height = size + "px";
+      btn.onclick = () => openMaterial(m);
+      btn.setAttribute('aria-label', m.name);
+
+      const img = document.createElement("img");
+      img.src = m.image;
+      img.alt = m.name;
+
+      const label = document.createElement("div");
+      label.className = "label";
+      label.textContent = m.name;
+
+      btn.appendChild(img);
+      btn.appendChild(label);
+      btn.addEventListener('mouseenter', () => {
+        const item = items.find(entry => entry.el === btn);
+        if (item) item.scale = 1.25;
+      });
+      btn.addEventListener('mouseleave', () => {
+        const item = items.find(entry => entry.el === btn);
+        if (item) item.scale = 1;
+      });
+      home.appendChild(btn);
+
+      items.push({
+        el: btn,
+        x,
+        y,
+        size,
+        vx: random(-0.10, 0.10) || 0.06,
+        vy: random(-0.08, 0.08) || -0.05,
+        padding,
+        topPadding,
+        bottomPadding,
+        scale: 1
+      });
+    });
+
+    layer.appendChild(header);
+    layer.appendChild(subhead);
+    layer.appendChild(home);
+    layer.appendChild(creator);
+
+    setupFloatingPhysics(items);
+  });
+}
+
+function renderMaterial(mat) {
+  fadeRender(layer => {
+    layer.innerHTML = `
+      <div class="page">
+        <img src="${mat.image}" alt="${mat.name}">
+        <div class="title">${mat.name}</div>
+        <div class="description">${mat.description}</div>
+        <div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
+        <div class="creatorLink" onclick="goHome()">Back to Library</div>
+      </div>
+    `;
+  });
+}
+
+function renderCreator() {
+  fadeRender(layer => {
+    layer.innerHTML = `
+      <div class="page creator">
+        <img src="./Dillon.jpg" alt="Dillon">
+        <p>
+          Hey! I'm Dillon, an undergraduate student studying Theatre Design & Technology with a growing focus on sustainable architecture and lighting design. I believe creativity should not only shape memorable experiences, but also help shape a better world.
+          <br><br>
+          My background in theatrical design taught me how powerfully light, atmosphere, and space can influence human experience. As that creative foundation evolved into an interest in architecture, I became especially drawn to the role that sustainable materials and energy-efficient lighting can play in creating healthier, more climate-conscious buildings.
+          <br><br>
+          Looking ahead, I hope to bridge light and architecture in ways that bring sustainability, beauty, and human well-being together. Next fall, I'll be headed to graduate school for a Master of Science in Architecture with a focus on sustainability.
+          <br><br>
+          Stay tuned — this is just the beginning of the project.
+        </p>
+        <div class="creatorMeta">
+          <div><a href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/dillonmthomas/</a></div>
+          <div><a href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">@bydillonthomas</a></div>
+          <div><a href="mailto:dillonmthomas@outlook.com">dillonmthomas@outlook.com</a></div>
+        </div>
+        <div class="creatorLink" onclick="goHome()">Back to Library</div>
+      </div>
+    `;
+  });
+}
+
+function render() {
+  const path = window.location.pathname;
+
+  if (path === "/creator") {
+    renderCreator();
+    return;
+  }
+
+  const mat = materials.find(m => pathForMaterial(m) === path);
+  if (mat) {
+    renderMaterial(mat);
+  } else {
+    renderHome();
+  }
+}
+
+window.goHome = goHome;
+window.openCreator = openCreator;
+window.onpopstate = render;
+window.addEventListener('resize', () => {
+  if (window.location.pathname === '/') renderHome();
+});
+
+render();
+</script>
+</body>
+</html>
