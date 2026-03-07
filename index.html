@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Eco‑Friendly Material Library</title>
+<title>Eco-Friendly Material Library</title>
 
 <style>
-:root{
-  --bg:#ffffff;
-  --text:#111111;
-}
-
+:root{--bg:#ffffff;--text:#111111}
 *{box-sizing:border-box}
 
 html,body{
@@ -23,13 +19,8 @@ html,body{
   overflow:hidden;
 }
 
-#app{
-  width:100%;
-  height:100%;
-  position:relative;
-}
+#app{width:100%;height:100%;position:relative}
 
-/* HEADER */
 .header{
   position:absolute;
   top:22px;
@@ -41,11 +32,7 @@ html,body{
   font-weight:500;
 }
 
-.home{
-  width:100%;
-  height:100%;
-  position:relative;
-}
+.home{width:100%;height:100%;position:relative}
 
 .material{
   position:absolute;
@@ -53,13 +40,9 @@ html,body{
   background:transparent;
   cursor:pointer;
   padding:0;
-
   transition:transform .25s ease,filter .25s ease;
-
-  /* FASTER FLOAT */
-  animation:
-    driftX var(--dx,6s) ease-in-out infinite alternate,
-    driftY var(--dy,8s) ease-in-out infinite alternate;
+  animation:driftX var(--dx,6s) ease-in-out infinite alternate,
+           driftY var(--dy,8s) ease-in-out infinite alternate;
 }
 
 .material:hover{
@@ -87,12 +70,18 @@ html,body{
   transition:all .2s ease;
 }
 
-.material:hover .label{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+.material:hover .label{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.creatorHome{
+  position:absolute;
+  bottom:28px;
+  width:100%;
+  text-align:center;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:underline;
 }
 
-/* DETAIL PAGE */
 .page{
   width:100%;
   height:100%;
@@ -105,58 +94,22 @@ html,body{
   overflow:auto;
 }
 
-.page img{
-  width:180px;
-  margin-bottom:20px;
-}
+.page img{width:180px;margin-bottom:20px}
 
-.title{
-  font-size:28px;
-  margin-bottom:12px;
-}
+.title{font-size:28px;margin-bottom:12px}
 
-.description{
-  max-width:650px;
-  font-size:18px;
-  line-height:1.6;
-}
+.description{max-width:650px;font-size:18px;line-height:1.6}
 
-.impact{
-  margin-top:20px;
-  font-size:16px;
-  color:#333;
-}
+.impact{margin-top:20px;font-size:16px;color:#333}
 
-.creatorLink{
-  margin-top:60px;
-  font-size:15px;
-  cursor:pointer;
-  text-decoration:underline;
-}
+.creator img{width:200px;border-radius:8px;margin-bottom:20px}
 
-.creator img{
-  width:200px;
-  border-radius:8px;
-  margin-bottom:20px;
-}
+.creator p{max-width:700px;font-size:18px;line-height:1.6}
 
-.creator p{
-  max-width:700px;
-  font-size:18px;
-  line-height:1.6;
-}
+.creatorLink{margin-top:40px;font-size:15px;cursor:pointer;text-decoration:underline}
 
-/* FLOAT ANIMATIONS */
-@keyframes driftX{
-from{transform:translateX(-12px)}
-to{transform:translateX(12px)}
-}
-
-@keyframes driftY{
-from{translate:0 -14px}
-to{translate:0 14px}
-}
-
+@keyframes driftX{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
+@keyframes driftY{from{translate:0 -14px}to{translate:0 14px}}
 </style>
 </head>
 
@@ -166,41 +119,11 @@ to{translate:0 14px}
 <script>
 
 const materials=[
-{
-name:"Cork",
-image:"./cork.png",
-slug:"cork",
-description:"Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",
-impact:"Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."
-},
-{
-name:"Cob",
-image:"./cob.png",
-slug:"cob",
-description:"Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",
-impact:"Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."
-},
-{
-name:"Timber",
-image:"./timber.png",
-slug:"timber",
-description:"Timber stores carbon absorbed during a tree's growth. Modern mass‑timber systems allow wood to replace more carbon‑intensive materials in structural buildings.",
-impact:"Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."
-},
-{
-name:"Kraft Paper",
-image:"./kraft-paper.png",
-slug:"kraft",
-description:"Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",
-impact:"Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."
-},
-{
-name:"Bamboo",
-image:"./bamboo.png",
-slug:"bamboo",
-description:"Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",
-impact:"Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."
-}
+{name:"Cork",image:"./cork.png",slug:"cork",description:"Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",impact:"Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."},
+{name:"Cob",image:"./cob.png",slug:"cob",description:"Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",impact:"Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."},
+{name:"Timber",image:"./timber.png",slug:"timber",description:"Timber stores carbon absorbed during a tree's growth. Modern mass-timber systems allow wood to replace more carbon-intensive materials in structural buildings.",impact:"Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."},
+{name:"Kraft Paper",image:"./kraft-paper.png",slug:"kraft",description:"Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",impact:"Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."},
+{name:"Bamboo",image:"./bamboo.png",slug:"bamboo",description:"Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",impact:"Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."}
 ]
 
 const app=document.getElementById("app")
@@ -208,9 +131,7 @@ const app=document.getElementById("app")
 function random(min,max){return Math.random()*(max-min)+min}
 
 function goHome(){history.pushState({},"","/");render()}
-
 function openCreator(){history.pushState({},"","/creator");render()}
-
 function openMaterial(mat){history.pushState({},"","/"+mat.slug);render()}
 
 function renderHome(){
@@ -219,7 +140,12 @@ app.innerHTML=""
 
 const header=document.createElement("div")
 header.className="header"
-header.textContent="Eco‑Friendly Material Library"
+header.textContent="Eco-Friendly Material Library"
+
+const creator=document.createElement("div")
+creator.className="creatorHome"
+creator.textContent="Meet the Creator!"
+creator.onclick=openCreator
 
 const home=document.createElement("div")
 home.className="home"
@@ -280,6 +206,7 @@ home.appendChild(btn)
 
 app.appendChild(header)
 app.appendChild(home)
+app.appendChild(creator)
 }
 
 function renderMaterial(mat){
@@ -296,7 +223,7 @@ app.innerHTML=`
 
 <div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
 
-<div class="creatorLink" onclick="openCreator()">Meet the Creator!</div>
+<div class="creatorLink" onclick="goHome()">Back to Library</div>
 
 </div>
 
@@ -314,9 +241,9 @@ app.innerHTML=`
 <p>
 Hey! I'm Dillon, an undergraduate student studying Theatre Design & Technology with a growing focus on sustainable architecture and lighting design. I believe creativity shouldn't just shape experiences on stage — it should also help shape a better world.
 <br><br>
-My background in theatrical lighting taught me how powerful light and space can be in shaping human experience. As my interests evolved toward architecture, I became especially passionate about how energy‑efficient lighting and sustainable materials can transform buildings into tools for climate responsibility.
+My background in theatrical lighting taught me how powerful light and space can be in shaping human experience. As my interests evolved toward architecture, I became especially passionate about how energy-efficient lighting and sustainable materials can transform buildings into tools for climate responsibility.
 <br><br>
-Looking ahead, I hope to bridge the worlds of lighting and architecture to design spaces where sustainability, beauty, and human well‑being work together. Next fall I'll be heading to graduate school to pursue a Master of Science in Architecture with a focus on sustainability.
+Looking ahead, I hope to bridge the worlds of lighting and architecture to design spaces where sustainability, beauty, and human well-being work together. Next fall I'll be heading to graduate school to pursue a Master of Science in Architecture with a focus on sustainability.
 <br><br>
 Stay tuned — this is just the beginning of the project.
 </p>
