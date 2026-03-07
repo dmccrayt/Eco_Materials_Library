@@ -19,6 +19,16 @@ html,body{
   overflow:hidden;
 }
 
+body.fade-out{
+  opacity:0;
+  transition:opacity .35s ease;
+}
+
+body.fade-in{
+  opacity:1;
+  transition:opacity .45s ease;
+}
+
 #app{width:100%;height:100%;position:relative}
 
 .header{
@@ -30,9 +40,10 @@ html,body{
   letter-spacing:.12em;
   text-transform:uppercase;
   font-weight:500;
+  z-index:10;
 }
 
-.home{width:100%;height:100%;position:relative}
+.home{width:100%;height:100%;position:relative;overflow:hidden}
 
 .material{
   position:absolute;
@@ -40,9 +51,8 @@ html,body{
   background:transparent;
   cursor:pointer;
   padding:0;
-  transition:transform .25s ease,filter .25s ease;
-  animation:driftX var(--dx,6s) ease-in-out infinite alternate,
-           driftY var(--dy,8s) ease-in-out infinite alternate;
+  transition:transform .25s ease,filter .25s ease,opacity .25s ease;
+  z-index:2;
 }
 
 .material:hover{
@@ -56,6 +66,8 @@ html,body{
   height:100%;
   object-fit:contain;
   pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
 }
 
 .label{
@@ -68,6 +80,7 @@ html,body{
   letter-spacing:.08em;
   text-transform:uppercase;
   transition:all .2s ease;
+  white-space:nowrap;
 }
 
 .material:hover .label{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -80,6 +93,7 @@ html,body{
   font-size:15px;
   cursor:pointer;
   text-decoration:underline;
+  z-index:10;
 }
 
 .page{
@@ -95,29 +109,32 @@ html,body{
 }
 
 .page img{width:180px;margin-bottom:20px}
-
 .title{font-size:28px;margin-bottom:12px}
-
 .description{max-width:650px;font-size:18px;line-height:1.6}
-
-.impact{margin-top:20px;font-size:16px;color:#333}
-
+.impact{margin-top:20px;font-size:16px;color:#333;max-width:720px;line-height:1.55}
 .creator img{width:200px;border-radius:8px;margin-bottom:20px}
-
 .creator p{max-width:700px;font-size:18px;line-height:1.6}
-
+.creatorMeta{margin-top:22px;font-size:16px;line-height:1.9}
+.creatorMeta div{margin:2px 0}
+.creatorMeta a{color:#111;text-decoration:underline}
 .creatorLink{margin-top:40px;font-size:15px;cursor:pointer;text-decoration:underline}
 
-@keyframes driftX{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
-@keyframes driftY{from{translate:0 -14px}to{translate:0 14px}}
+@media (max-width: 768px){
+  .header{font-size:16px;top:18px;padding:0 12px}
+  .creatorHome{bottom:20px;font-size:14px}
+  .page{padding:28px 20px}
+  .page img{width:150px}
+  .title{font-size:24px}
+  .description,.creator p{font-size:16px}
+  .impact,.creatorMeta{font-size:15px}
+}
 </style>
 </head>
 
-<body>
+<body class="fade-in">
 <div id="app"></div>
 
 <script>
-
 const materials=[
 {name:"Cork",image:"./cork.png",slug:"cork",description:"Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",impact:"Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."},
 {name:"Cob",image:"./cob.png",slug:"cob",description:"Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",impact:"Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."},
@@ -127,155 +144,241 @@ const materials=[
 ]
 
 const app=document.getElementById("app")
+let animationFrame=null
+let floatingItems=[]
 
 function random(min,max){return Math.random()*(max-min)+min}
+function clamp(value,min,max){return Math.max(min,Math.min(max,value))}
 
-function goHome(){history.pushState({},"","/");render()}
-function openCreator(){history.pushState({},"","/creator");render()}
-function openMaterial(mat){history.pushState({},"","/"+mat.slug);render()}
+function transitionTo(path){
+  document.body.classList.remove('fade-in')
+  document.body.classList.add('fade-out')
+  setTimeout(()=>{
+    history.pushState({},"",path)
+    render()
+    requestAnimationFrame(()=>{
+      document.body.classList.remove('fade-out')
+      document.body.classList.add('fade-in')
+    })
+  },220)
+}
+
+function goHome(){transitionTo('/')}
+function openCreator(){transitionTo('/creator')}
+function openMaterial(mat){transitionTo('/'+mat.slug)}
+
+function stopFloating(){
+  if(animationFrame) cancelAnimationFrame(animationFrame)
+  animationFrame=null
+  floatingItems=[]
+}
 
 function renderHome(){
+  stopFloating()
+  app.innerHTML=""
 
-app.innerHTML=""
+  const header=document.createElement("div")
+  header.className="header"
+  header.textContent="Eco-Friendly Material Library"
 
-const header=document.createElement("div")
-header.className="header"
-header.textContent="Eco-Friendly Material Library"
+  const creator=document.createElement("div")
+  creator.className="creatorHome"
+  creator.textContent="Meet the Creator!"
+  creator.onclick=openCreator
 
-const creator=document.createElement("div")
-creator.className="creatorHome"
-creator.textContent="Meet the Creator!"
-creator.onclick=openCreator
+  const home=document.createElement("div")
+  home.className="home"
 
-const home=document.createElement("div")
-home.className="home"
+  const placed=[]
+  const vw=window.innerWidth
+  const vh=window.innerHeight
+  const isMobile=vw<768
+  const minSize=isMobile?120:190
+  const maxSize=isMobile?155:240
+  const headerBuffer=isMobile?110:125
+  const footerBuffer=isMobile?90:95
+  const edgePadding=isMobile?22:38
+  const hoverGap=isMobile?42:58
 
-const placed=[]
+  materials.forEach(m=>{
+    const size=random(minSize,maxSize)
+    let x,y
+    let safe=false
+    let attempts=0
 
-materials.forEach(m=>{
+    while(!safe && attempts<800){
+      x=random(edgePadding,vw-size-edgePadding)
+      y=random(headerBuffer,vh-size-footerBuffer)
+      safe=true
 
-const size=random(190,240)
-let x,y
-let safe=false
+      for(const p of placed){
+        const c1x=x+size/2
+        const c1y=y+size/2
+        const c2x=p.x+p.size/2
+        const c2y=p.y+p.size/2
+        const dist=Math.hypot(c1x-c2x,c1y-c2y)
+        const minDist=(size/2)+(p.size/2)+hoverGap
+        if(dist<minDist){safe=false;break}
+      }
+      attempts++
+    }
 
-while(!safe){
+    placed.push({x,y,size})
 
-x=random(80,window.innerWidth-size-80)
-y=random(120,window.innerHeight-size-80)
+    const btn=document.createElement("button")
+    btn.className="material"
+    btn.style.left=x+"px"
+    btn.style.top=y+"px"
+    btn.style.width=size+"px"
+    btn.style.height=size+"px"
+    btn.onclick=()=>openMaterial(m)
 
-safe=true
+    const img=document.createElement("img")
+    img.src=m.image
+    img.alt=m.name
 
-for(const p of placed){
+    const label=document.createElement("div")
+    label.className="label"
+    label.textContent=m.name
 
-const dx=x-p.x
-const dy=y-p.y
-const dist=Math.sqrt(dx*dx+dy*dy)
+    btn.appendChild(img)
+    btn.appendChild(label)
+    home.appendChild(btn)
 
-if(dist<260){safe=false;break}
+    floatingItems.push({
+      el:btn,
+      x,
+      y,
+      size,
+      vx:random(-0.18,0.18) || 0.12,
+      vy:random(-0.16,0.16) || -0.11
+    })
+  })
+
+  app.appendChild(header)
+  app.appendChild(home)
+  app.appendChild(creator)
+  startFloating(vw,vh,headerBuffer,footerBuffer,edgePadding,hoverGap)
 }
-}
 
-placed.push({x,y})
+function startFloating(vw,vh,headerBuffer,footerBuffer,edgePadding,hoverGap){
+  const tick=()=>{
+    floatingItems.forEach(item=>{
+      item.x += item.vx
+      item.y += item.vy
 
-const btn=document.createElement("button")
-btn.className="material"
+      const minX=edgePadding
+      const maxX=vw-item.size-edgePadding
+      const minY=headerBuffer
+      const maxY=vh-item.size-footerBuffer
 
-btn.style.left=x+"px"
-btn.style.top=y+"px"
-btn.style.width=size+"px"
-btn.style.height=size+"px"
+      if(item.x<=minX || item.x>=maxX){
+        item.vx*=-1
+        item.x=clamp(item.x,minX,maxX)
+      }
+      if(item.y<=minY || item.y>=maxY){
+        item.vy*=-1
+        item.y=clamp(item.y,minY,maxY)
+      }
+    })
 
-btn.style.setProperty("--dx",random(5,7)+"s")
-btn.style.setProperty("--dy",random(6,8)+"s")
+    for(let i=0;i<floatingItems.length;i++){
+      for(let j=i+1;j<floatingItems.length;j++){
+        const a=floatingItems[i]
+        const b=floatingItems[j]
+        const ax=a.x+a.size/2
+        const ay=a.y+a.size/2
+        const bx=b.x+b.size/2
+        const by=b.y+b.size/2
+        const dx=bx-ax
+        const dy=by-ay
+        const dist=Math.hypot(dx,dy) || 0.001
+        const minDist=(a.size/2)+(b.size/2)+hoverGap*0.5
 
-btn.onclick=()=>openMaterial(m)
+        if(dist<minDist){
+          const overlap=minDist-dist
+          const nx=dx/dist
+          const ny=dy/dist
 
-const img=document.createElement("img")
-img.src=m.image
+          a.x -= nx*(overlap/2)
+          a.y -= ny*(overlap/2)
+          b.x += nx*(overlap/2)
+          b.y += ny*(overlap/2)
 
-const label=document.createElement("div")
-label.className="label"
-label.textContent=m.name
+          const tempVx=a.vx
+          const tempVy=a.vy
+          a.vx=b.vx
+          a.vy=b.vy
+          b.vx=tempVx
+          b.vy=tempVy
+        }
+      }
+    }
 
-btn.appendChild(img)
-btn.appendChild(label)
+    floatingItems.forEach(item=>{
+      item.el.style.left=item.x+"px"
+      item.el.style.top=item.y+"px"
+    })
 
-home.appendChild(btn)
-
-})
-
-app.appendChild(header)
-app.appendChild(home)
-app.appendChild(creator)
+    animationFrame=requestAnimationFrame(tick)
+  }
+  tick()
 }
 
 function renderMaterial(mat){
-
-app.innerHTML=`
-
-<div class="page">
-
-<img src="${mat.image}">
-
-<div class="title">${mat.name}</div>
-
-<div class="description">${mat.description}</div>
-
-<div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
-
-<div class="creatorLink" onclick="goHome()">Back to Library</div>
-
-</div>
-
-`
+  stopFloating()
+  app.innerHTML=`
+  <div class="page">
+    <img src="${mat.image}" alt="${mat.name}">
+    <div class="title">${mat.name}</div>
+    <div class="description">${mat.description}</div>
+    <div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
+    <div class="creatorLink" onclick="goHome()">Back to Library</div>
+  </div>`
 }
 
 function renderCreator(){
-
-app.innerHTML=`
-
-<div class="page creator">
-
-<img src="./Dillon.jpg">
-
-<p>
-Hey! I'm Dillon, an undergraduate student studying Theatre Design & Technology with a growing focus on sustainable architecture and lighting design. I believe creativity shouldn't just shape experiences on stage — it should also help shape a better world.
-<br><br>
-My background in theatrical lighting taught me how powerful light and space can be in shaping human experience. As my interests evolved toward architecture, I became especially passionate about how energy-efficient lighting and sustainable materials can transform buildings into tools for climate responsibility.
-<br><br>
-Looking ahead, I hope to bridge the worlds of lighting and architecture to design spaces where sustainability, beauty, and human well-being work together. Next fall I'll be heading to graduate school to pursue a Master of Science in Architecture with a focus on sustainability.
-<br><br>
-Stay tuned — this is just the beginning of the project.
-</p>
-
-<div class="creatorLink" onclick="goHome()">Back to Library</div>
-
-</div>
-
-`
+  stopFloating()
+  app.innerHTML=`
+  <div class="page creator">
+    <img src="./Dillon.jpg" alt="Dillon">
+    <p>
+      Hey! I'm Dillon, an undergraduate student studying Theatre Design & Technology with a growing focus on sustainable architecture and lighting design. I believe creativity shouldn't just shape experiences on stage — it should also help shape a better world.
+      <br><br>
+      My background in theatrical lighting taught me how powerful light and space can be in shaping human experience. As my interests evolved toward architecture, I became especially passionate about how energy-efficient lighting and sustainable materials can transform buildings into tools for climate responsibility.
+      <br><br>
+      Looking ahead, I hope to bridge the worlds of lighting and architecture to design spaces where sustainability, beauty, and human well-being work together. Next fall I'll be heading to graduate school to pursue a Master of Science in Architecture with a focus on sustainability.
+      <br><br>
+      Stay tuned — this is just the beginning of the project.
+    </p>
+    <div class="creatorMeta">
+      <div><a href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/dillonmthomas/</a></div>
+      <div><a href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">@bydillonthomas</a></div>
+      <div><a href="mailto:dillonmthomas@outlook.com">dillonmthomas@outlook.com</a></div>
+    </div>
+    <div class="creatorLink" onclick="goHome()">Back to Library</div>
+  </div>`
 }
 
 function render(){
-
-const path=window.location.pathname
-
-if(path==="/creator"){
-renderCreator()
-return
+  const path=window.location.pathname
+  if(path==="/creator") return renderCreator()
+  const mat=materials.find(m=>"/"+m.slug===path)
+  if(mat) return renderMaterial(mat)
+  renderHome()
 }
 
-const mat=materials.find(m=>"/"+m.slug===path)
-
-if(mat){renderMaterial(mat)}
-else{renderHome()}
-
+window.onpopstate=()=>{
+  document.body.classList.remove('fade-out')
+  document.body.classList.add('fade-in')
+  render()
 }
 
-window.onpopstate=render
+window.addEventListener('resize',()=>{
+  if(window.location.pathname==='/') renderHome()
+})
 
 render()
-
 </script>
-
 </body>
 </html>
