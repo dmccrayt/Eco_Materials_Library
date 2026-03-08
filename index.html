@@ -5,19 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Eco-Friendly Material Library</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
+<style>
 :root{
-  --bg:#FFFCF2;
+  --bg:#ffffff;
   --text:#111111;
   --muted:#5f5f5f;
 }
 
-*{
-box-sizing:border-box;
-font-family:"Poppins", sans-serif;
-}
+*{box-sizing:border-box}
 
 html,body{
   margin:0;
@@ -25,12 +20,12 @@ html,body{
   width:100%;
   height:100%;
   background:var(--bg);
-  font-family:"Poppins", sans-serif;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   overflow:hidden;
 }
 
 body{
-  animation:fadeIn 1.6s ease;
+  animation:fadeIn 1.2s ease;
 }
 
 #app{
@@ -42,7 +37,7 @@ body{
 .fade-layer{
   width:100%;
   height:100%;
-  animation:pageFade 1.6s ease;
+  animation:pageFade .45s ease;
 }
 
 .header{
@@ -50,8 +45,8 @@ body{
   top:22px;
   width:100%;
   text-align:center;
-  font-size:25px;
-  letter-spacing:.85em
+  font-size:22px;
+  letter-spacing:.18em;
   text-transform:uppercase;
   font-weight:500;
   z-index:10;
@@ -76,7 +71,8 @@ body{
   position:relative;
 }
 
-.material{
+.material,
+.categoryOrb{
   position:absolute;
   left:0;
   top:0;
@@ -84,13 +80,14 @@ body{
   background:transparent;
   cursor:pointer;
   padding:0;
-  transition:filter .5s ease, opacity .5s ease
+  transition:filter .25s ease, opacity .25s ease;
   z-index:2;
   will-change:transform;
   transform:translate3d(0,0,0) scale(1);
 }
 
-.material:hover{
+.material:hover,
+.categoryOrb:hover{
   filter:drop-shadow(0 20px 35px rgba(0,0,0,.15)) drop-shadow(0 0 12px rgba(0,0,0,.08));
   z-index:5;
 }
@@ -122,7 +119,30 @@ body{
   transform:translateX(-50%) translateY(0);
 }
 
-.creatorHome{
+.categoryOrb{
+  width:220px;
+  height:220px;
+  border-radius:999px;
+  border:1px solid rgba(17,17,17,.1);
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(3px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.categoryText{
+  font-size:18px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--text);
+  text-align:center;
+  line-height:1.35;
+  padding:24px;
+}
+
+.creatorHome,
+.backTop{
   position:absolute;
   bottom:28px;
   width:100%;
@@ -131,6 +151,14 @@ body{
   cursor:pointer;
   text-decoration:underline;
   z-index:10;
+}
+
+.backTop{
+  bottom:auto;
+  top:22px;
+  text-align:left;
+  left:26px;
+  width:auto;
 }
 
 .page{
@@ -236,8 +264,24 @@ body{
     line-height:1.7;
   }
 
+  .categoryOrb{
+    width:146px;
+    height:146px;
+  }
+
+  .categoryText{
+    font-size:13px;
+    padding:16px;
+  }
+
   .creatorHome{
     bottom:18px;
+    font-size:14px;
+  }
+
+  .backTop{
+    top:18px;
+    left:18px;
     font-size:14px;
   }
 
@@ -275,6 +319,7 @@ const materials = [
     name: "Cork",
     image: "./cork.png",
     slug: "cork",
+    categories: ["insulation", "finishes", "low-carbon"],
     description: "Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",
     impact: "Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."
   },
@@ -282,6 +327,7 @@ const materials = [
     name: "Cob",
     image: "./cob.png",
     slug: "cob",
+    categories: ["structural", "low-carbon"],
     description: "Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",
     impact: "Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."
   },
@@ -289,6 +335,7 @@ const materials = [
     name: "Timber",
     image: "./timber.png",
     slug: "timber",
+    categories: ["structural", "low-carbon", "finishes"],
     description: "Timber stores carbon absorbed during a tree's growth. Modern mass-timber systems allow wood to replace more carbon-intensive materials in structural buildings.",
     impact: "Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."
   },
@@ -296,6 +343,7 @@ const materials = [
     name: "Kraft Paper",
     image: "./kraft-paper.png",
     slug: "kraft",
+    categories: ["finishes", "low-carbon"],
     description: "Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",
     impact: "Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."
   },
@@ -303,9 +351,17 @@ const materials = [
     name: "Bamboo",
     image: "./bamboo.png",
     slug: "bamboo",
+    categories: ["structural", "finishes", "low-carbon"],
     description: "Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",
     impact: "Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."
   }
+];
+
+const categories = [
+  { name: "Structural", slug: "structural" },
+  { name: "Insulation", slug: "insulation" },
+  { name: "Finishes", slug: "finishes" },
+  { name: "Low Carbon", slug: "low-carbon" }
 ];
 
 const app = document.getElementById("app");
@@ -318,7 +374,11 @@ function random(min, max) {
 }
 
 function pathForMaterial(mat) {
-  return "/" + mat.slug;
+  return "/material/" + mat.slug;
+}
+
+function pathForCategory(cat) {
+  return "/category/" + cat.slug;
 }
 
 function fadeRender(callback) {
@@ -340,6 +400,11 @@ function openCreator() {
 
 function openMaterial(mat) {
   history.pushState({}, "", pathForMaterial(mat));
+  render();
+}
+
+function openCategory(cat) {
+  history.pushState({}, "", pathForCategory(cat));
   render();
 }
 
@@ -440,97 +505,151 @@ function cancelFloating() {
   floatItems = [];
 }
 
+function createFloatingItems(entries, type) {
+  const placed = [];
+  const items = [];
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const isMobile = vw < 768;
+
+  entries.forEach(entry => {
+    const size = type === 'category'
+      ? (isMobile ? random(132, 152) : random(190, 230))
+      : (isMobile ? random(125, 155) : random(190, 240));
+
+    const padding = isMobile ? 20 : 34;
+    const topPadding = isMobile ? 126 : 136;
+    const bottomPadding = isMobile ? 80 : 92;
+    const buffer = type === 'category' ? size * 0.78 : size * 0.72;
+
+    let x = 0;
+    let y = 0;
+    let safe = false;
+    let tries = 0;
+
+    while (!safe && tries < 500) {
+      x = random(padding, vw - size - padding);
+      y = random(topPadding, vh - size - bottomPadding);
+      const candidate = { cx: x + size / 2, cy: y + size / 2, buffer };
+      safe = !overlaps(candidate, placed);
+      tries++;
+    }
+
+    placed.push({ cx: x + size / 2, cy: y + size / 2, buffer });
+
+    let el;
+
+    if (type === 'category') {
+      el = document.createElement('button');
+      el.className = 'categoryOrb';
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.setAttribute('aria-label', entry.name);
+      el.onclick = () => openCategory(entry);
+      const text = document.createElement('div');
+      text.className = 'categoryText';
+      text.textContent = entry.name;
+      el.appendChild(text);
+    } else {
+      el = document.createElement('button');
+      el.className = 'material';
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.setAttribute('aria-label', entry.name);
+      el.onclick = () => openMaterial(entry);
+      const img = document.createElement('img');
+      img.src = entry.image;
+      img.alt = entry.name;
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = entry.name;
+      el.appendChild(img);
+      el.appendChild(label);
+    }
+
+    el.addEventListener('mouseenter', () => {
+      const item = items.find(i => i.el === el);
+      if (item) item.scale = 1.15;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      const item = items.find(i => i.el === el);
+      if (item) item.scale = 1;
+    });
+
+    items.push({
+      el,
+      x,
+      y,
+      size,
+      vx: random(-0.10, 0.10) || 0.06,
+      vy: random(-0.08, 0.08) || -0.05,
+      padding,
+      topPadding,
+      bottomPadding,
+      scale: 1
+    });
+  });
+
+  return items;
+}
+
 function renderHome() {
   fadeRender(layer => {
-    const header = document.createElement("div");
-    header.className = "header";
-    header.textContent = "Eco-Friendly Material Library";
+    const header = document.createElement('div');
+    header.className = 'header';
+    header.textContent = 'Eco-Friendly Material Library';
 
-    const subhead = document.createElement("div");
-    subhead.className = "subhead";
-    subhead.innerHTML = "Click a material to explore<br>This is a prototype";
+    const subhead = document.createElement('div');
+    subhead.className = 'subhead';
+    subhead.innerHTML = 'Choose a category to explore<br>This is a prototype';
 
-    const creator = document.createElement("div");
-    creator.className = "creatorHome";
-    creator.textContent = "Meet the Creator!";
+    const creator = document.createElement('div');
+    creator.className = 'creatorHome';
+    creator.textContent = 'Meet the Creator!';
     creator.onclick = openCreator;
 
-    const home = document.createElement("div");
-    home.className = "home";
+    const home = document.createElement('div');
+    home.className = 'home';
 
-    const placed = [];
-    const items = [];
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const isMobile = vw < 768;
-
-    materials.forEach(m => {
-      const size = isMobile ? random(125, 155) : random(190, 240);
-      const padding = isMobile ? 20 : 34;
-      const topPadding = isMobile ? 120 : 130;
-      const bottomPadding = isMobile ? 80 : 90;
-      const buffer = size * 0.72;
-
-      let x = 0;
-      let y = 0;
-      let safe = false;
-      let tries = 0;
-
-      while (!safe && tries < 500) {
-        x = random(padding, vw - size - padding);
-        y = random(topPadding, vh - size - bottomPadding);
-        const candidate = { cx: x + size / 2, cy: y + size / 2, buffer };
-        safe = !overlaps(candidate, placed);
-        tries++;
-      }
-
-      placed.push({ cx: x + size / 2, cy: y + size / 2, buffer });
-
-      const btn = document.createElement("button");
-      btn.className = "material";
-      btn.style.width = size + "px";
-      btn.style.height = size + "px";
-      btn.onclick = () => openMaterial(m);
-      btn.setAttribute('aria-label', m.name);
-
-      const img = document.createElement("img");
-      img.src = m.image;
-      img.alt = m.name;
-
-      const label = document.createElement("div");
-      label.className = "label";
-      label.textContent = m.name;
-
-      btn.appendChild(img);
-      btn.appendChild(label);
-      btn.addEventListener('mouseenter', () => {
-        const item = items.find(entry => entry.el === btn);
-        if (item) item.scale = 1.25;
-      });
-      btn.addEventListener('mouseleave', () => {
-        const item = items.find(entry => entry.el === btn);
-        if (item) item.scale = 1;
-      });
-      home.appendChild(btn);
-
-      items.push({
-        el: btn,
-        x,
-        y,
-        size,
-        vx: random(-0.10, 0.10) || 0.06,
-        vy: random(-0.08, 0.08) || -0.05,
-        padding,
-        topPadding,
-        bottomPadding,
-        scale: 1
-      });
-    });
+    const items = createFloatingItems(categories, 'category');
+    items.forEach(item => home.appendChild(item.el));
 
     layer.appendChild(header);
     layer.appendChild(subhead);
     layer.appendChild(home);
     layer.appendChild(creator);
+
+    setupFloatingPhysics(items);
+  });
+}
+
+function renderCategory(cat) {
+  fadeRender(layer => {
+    const back = document.createElement('div');
+    back.className = 'backTop';
+    back.textContent = 'Back';
+    back.onclick = goHome;
+
+    const header = document.createElement('div');
+    header.className = 'header';
+    header.textContent = cat.name;
+
+    const subhead = document.createElement('div');
+    subhead.className = 'subhead';
+    subhead.innerHTML = 'Click a material to explore';
+
+    const home = document.createElement('div');
+    home.className = 'home';
+
+    const filtered = materials.filter(m => m.categories.includes(cat.slug));
+    const items = createFloatingItems(filtered, 'material');
+    items.forEach(item => home.appendChild(item.el));
+
+    layer.appendChild(back);
+    layer.appendChild(header);
+    layer.appendChild(subhead);
+    layer.appendChild(home);
 
     setupFloatingPhysics(items);
   });
@@ -544,7 +663,7 @@ function renderMaterial(mat) {
         <div class="title">${mat.name}</div>
         <div class="description">${mat.description}</div>
         <div class="impact"><strong>Climate Impact:</strong> ${mat.impact}</div>
-        <div class="creatorLink" onclick="goHome()">Back to Library</div>
+        <div class="creatorLink" onclick="history.back()">Back</div>
       </div>
     `;
   });
@@ -578,24 +697,31 @@ function renderCreator() {
 function render() {
   const path = window.location.pathname;
 
-  if (path === "/creator") {
+  if (path === '/creator') {
     renderCreator();
+    return;
+  }
+
+  const category = categories.find(c => pathForCategory(c) === path);
+  if (category) {
+    renderCategory(category);
     return;
   }
 
   const mat = materials.find(m => pathForMaterial(m) === path);
   if (mat) {
     renderMaterial(mat);
-  } else {
-    renderHome();
+    return;
   }
+
+  renderHome();
 }
 
 window.goHome = goHome;
 window.openCreator = openCreator;
 window.onpopstate = render;
 window.addEventListener('resize', () => {
-  if (window.location.pathname === '/') renderHome();
+  render();
 });
 
 render();
