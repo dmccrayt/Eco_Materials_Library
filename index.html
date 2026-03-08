@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eco-Friendly Material Library</title>
 
 <style>
@@ -61,7 +61,6 @@ body{
   letter-spacing:.09em;
   text-transform:uppercase;
   color:var(--muted);
-  z-index:10;
   line-height:1.8;
 }
 
@@ -73,20 +72,17 @@ body{
 
 .material{
   position:absolute;
-  left:0;
-  top:0;
   border:0;
   background:transparent;
   cursor:pointer;
   padding:0;
-  transition:filter .5s ease, opacity .5s ease;
+  transition:filter .5s ease;
   z-index:2;
-  will-change:transform;
   transform:translate3d(0,0,0) scale(1);
 }
 
 .material:hover{
-  filter:drop-shadow(0 20px 35px rgba(0,0,0,.15)) drop-shadow(0 0 12px rgba(0,0,0,.08));
+  filter:drop-shadow(0 20px 35px rgba(0,0,0,.15));
   z-index:5;
 }
 
@@ -95,26 +91,22 @@ body{
   height:100%;
   object-fit:contain;
   pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
 }
 
 .label{
   position:absolute;
   left:50%;
   bottom:-32px;
-  transform:translateX(-50%) translateY(6px);
+  transform:translateX(-50%);
   opacity:0;
   font-size:13px;
   letter-spacing:.08em;
   text-transform:uppercase;
-  transition:all .2s ease;
-  white-space:nowrap;
+  transition:.2s;
 }
 
 .material:hover .label{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
 }
 
 .creatorHome{
@@ -125,7 +117,6 @@ body{
   font-size:15px;
   cursor:pointer;
   text-decoration:underline;
-  z-index:10;
 }
 
 .page{
@@ -155,21 +146,11 @@ body{
   max-width:650px;
   font-size:18px;
   line-height:1.6;
-  color:var(--text);
-}
-
-.description a,
-.impact a,
-.page a,
-.title a{
-  color:var(--text);
-  text-decoration:none;
 }
 
 .impact{
   margin-top:20px;
   font-size:16px;
-  color:#333;
   max-width:700px;
   line-height:1.6;
 }
@@ -180,23 +161,10 @@ body{
   margin-bottom:20px;
 }
 
-.creator p{
-  max-width:700px;
-  font-size:18px;
-  line-height:1.6;
-}
-
 .creatorMeta{
   margin-top:22px;
   font-size:16px;
   line-height:1.9;
-}
-
-.creatorMeta div{margin:2px 0}
-
-.creatorMeta a,
-.creatorLink{
-  color:var(--text);
 }
 
 .creatorLink{
@@ -215,49 +183,6 @@ body{
   from{opacity:0; transform:translateY(6px)}
   to{opacity:1; transform:translateY(0)}
 }
-
-@media (max-width: 768px){
-  .header{
-    font-size:18px;
-    letter-spacing:.14em;
-    top:18px;
-    padding:0 14px;
-  }
-
-  .subhead{
-    top:72px;
-    font-size:11px;
-    padding:0 18px;
-    line-height:1.7;
-  }
-
-  .creatorHome{
-    bottom:18px;
-    font-size:14px;
-  }
-
-  .page{
-    padding:36px 22px;
-  }
-
-  .page img{
-    width:150px;
-  }
-
-  .title{
-    font-size:24px;
-  }
-
-  .description,
-  .creator p{
-    font-size:17px;
-  }
-
-  .impact,
-  .creatorMeta{
-    font-size:15px;
-  }
-}
 </style>
 </head>
 
@@ -265,80 +190,250 @@ body{
 <div id="app"></div>
 
 <script>
+
 const materials = [
-  {
-    name: "Cork",
-    image: "./cork.png",
-    slug: "cork",
-    description: "Cork is harvested from the bark of cork oak trees without cutting the tree down. Because the bark regenerates, the same tree can be harvested many times over its lifetime. Cork is lightweight, naturally insulating, and widely used in flooring and acoustic materials.",
-    impact: "Compared to vinyl flooring, cork has dramatically lower embodied carbon and is renewable because the tree continues growing after harvest."
-  },
-  {
-    name: "Cob",
-    image: "./cob.png",
-    slug: "cob",
-    description: "Cob is a traditional building material made from earth, sand, straw, and water. It can be sculpted into walls by hand and has been used for centuries around the world.",
-    impact: "Compared to concrete, cob has almost zero industrial processing and therefore far lower carbon emissions."
-  },
-  {
-    name: "Timber",
-    image: "./timber.png",
-    slug: "timber",
-    description: "Timber stores carbon absorbed during a tree's growth. Modern mass-timber systems allow wood to replace more carbon-intensive materials in structural buildings.",
-    impact: "Compared to steel framing, sustainably sourced timber can significantly reduce embodied carbon in buildings."
-  },
-  {
-    name: "Kraft Paper",
-    image: "./kraft-paper.png",
-    slug: "kraft",
-    description: "Kraft paper is a strong paper product made from wood pulp. It is recyclable, biodegradable, and widely used for packaging and protective wrapping.",
-    impact: "Compared to plastic packaging, kraft paper decomposes naturally and can be recycled many times."
-  },
-  {
-    name: "Bamboo",
-    image: "./bamboo.png",
-    slug: "bamboo",
-    description: "Bamboo is one of the fastest growing plants on Earth and can be harvested every few years. It is increasingly used in flooring, furniture, and structural systems.",
-    impact: "Compared to traditional hardwoods, bamboo regrows much faster and can be harvested far more frequently with less ecological impact."
-  }
+{
+name:"Cork",
+image:"./cork.png",
+slug:"cork",
+description:"Cork is harvested from cork oak trees without cutting the tree down.",
+impact:"Cork has dramatically lower embodied carbon than vinyl flooring."
+},
+{
+name:"Cob",
+image:"./cob.png",
+slug:"cob",
+description:"Cob is a natural building material made from earth, sand, straw and water.",
+impact:"Cob has almost zero industrial processing compared to concrete."
+},
+{
+name:"Timber",
+image:"./timber.png",
+slug:"timber",
+description:"Timber stores carbon absorbed during tree growth.",
+impact:"Timber structures reduce carbon compared to steel framing."
+},
+{
+name:"Kraft Paper",
+image:"./kraft-paper.png",
+slug:"kraft",
+description:"Kraft paper is recyclable, biodegradable and widely used for packaging.",
+impact:"Kraft paper decomposes naturally unlike plastic packaging."
+},
+{
+name:"Bamboo",
+image:"./bamboo.png",
+slug:"bamboo",
+description:"Bamboo is one of the fastest growing plants on Earth.",
+impact:"Bamboo regrows faster than hardwood trees."
+}
 ];
 
-const app = document.getElementById("app");
-let floatItems = [];
-let animationFrame = null;
-let lastTime = 0;
+const app=document.getElementById("app");
+let floatItems=[];
+let animationFrame;
 
-function random(min, max) {
-  return Math.random() * (max - min) + min;
+function random(min,max){
+return Math.random()*(max-min)+min;
 }
 
-function pathForMaterial(mat) {
-  return "/" + mat.slug;
+function overlaps(c,p){
+for(const x of p){
+const dx=c.cx-x.cx;
+const dy=c.cy-x.cy;
+const d=Math.sqrt(dx*dx+dy*dy);
+if(d<c.buffer+x.buffer)return true;
+}
+return false;
 }
 
-function fadeRender(callback) {
-  cancelFloating();
-  app.innerHTML = "<div class='fade-layer'></div>";
-  const layer = app.querySelector('.fade-layer');
-  callback(layer);
+function goHome(){
+history.pushState({},"","/");
+render();
 }
 
-function goHome() {
-  history.pushState({}, "", "/");
-  render();
+function openCreator(){
+history.pushState({},"","/creator");
+render();
 }
 
-function openCreator() {
-  history.pushState({}, "", "/creator");
-  render();
+function openMaterial(m){
+history.pushState({},"","/"+m.slug);
+render();
 }
 
-function openMaterial(mat) {
-  history.pushState({}, "", pathForMaterial(mat));
-  render();
+function cancelFloating(){
+if(animationFrame)cancelAnimationFrame(animationFrame);
+floatItems=[];
 }
 
-/* rest of your JS remains exactly the same */
+function setupFloating(items){
+floatItems=items;
+
+function tick(){
+const vw=window.innerWidth;
+const vh=window.innerHeight;
+
+for(const i of floatItems){
+
+i.x+=i.vx;
+i.y+=i.vy;
+
+if(i.x<0||i.x>vw-i.size)i.vx*=-1;
+if(i.y<120||i.y>vh-i.size-80)i.vy*=-1;
+
+i.el.style.transform=`translate3d(${i.x}px,${i.y}px,0) scale(${i.scale})`;
+}
+
+animationFrame=requestAnimationFrame(tick);
+}
+
+tick();
+}
+
+function fadeRender(cb){
+cancelFloating();
+app.innerHTML="<div class='fade-layer'></div>";
+cb(app.firstChild);
+}
+
+function renderHome(){
+
+fadeRender(layer=>{
+
+const header=document.createElement("div");
+header.className="header";
+header.textContent="Eco-Friendly Material Library";
+
+const sub=document.createElement("div");
+sub.className="subhead";
+sub.innerHTML="Click a material to explore<br>This is a prototype";
+
+const home=document.createElement("div");
+home.className="home";
+
+const creator=document.createElement("div");
+creator.className="creatorHome";
+creator.textContent="Meet the Creator!";
+creator.onclick=openCreator;
+
+const placed=[];
+const items=[];
+
+materials.forEach(m=>{
+
+const size=random(180,230);
+let x=0,y=0,tries=0;
+
+while(tries<300){
+x=random(40,window.innerWidth-size-40);
+y=random(140,window.innerHeight-size-100);
+
+const c={cx:x+size/2,cy:y+size/2,buffer:size*.7};
+
+if(!overlaps(c,placed)){
+placed.push(c);
+break;
+}
+
+tries++;
+}
+
+const btn=document.createElement("button");
+btn.className="material";
+btn.style.width=size+"px";
+btn.style.height=size+"px";
+
+const img=document.createElement("img");
+img.src=m.image;
+
+const label=document.createElement("div");
+label.className="label";
+label.textContent=m.name;
+
+btn.appendChild(img);
+btn.appendChild(label);
+
+btn.onclick=()=>openMaterial(m);
+
+home.appendChild(btn);
+
+items.push({
+el:btn,
+x,
+y,
+size,
+vx:random(-.2,.2),
+vy:random(-.2,.2),
+scale:1
+});
+
+btn.onmouseenter=()=>items.find(i=>i.el===btn).scale=1.25;
+btn.onmouseleave=()=>items.find(i=>i.el===btn).scale=1;
+
+});
+
+layer.appendChild(header);
+layer.appendChild(sub);
+layer.appendChild(home);
+layer.appendChild(creator);
+
+setupFloating(items);
+
+});
+}
+
+function renderMaterial(m){
+fadeRender(layer=>{
+layer.innerHTML=`
+<div class="page">
+<img src="${m.image}">
+<div class="title">${m.name}</div>
+<div class="description">${m.description}</div>
+<div class="impact"><strong>Climate Impact:</strong> ${m.impact}</div>
+<div class="creatorLink" onclick="goHome()">Back to Library</div>
+</div>
+`;
+});
+}
+
+function renderCreator(){
+fadeRender(layer=>{
+layer.innerHTML=`
+<div class="page creator">
+<img src="./Dillon.jpg">
+<p>
+Hey! I'm Dillon, a theatre design student exploring sustainable architecture and lighting.
+</p>
+<div class="creatorMeta">
+<div><a href="https://www.linkedin.com/in/dillonmthomas/" target="_blank">LinkedIn</a></div>
+<div><a href="https://www.instagram.com/bydillonthomas/" target="_blank">@bydillonthomas</a></div>
+</div>
+<div class="creatorLink" onclick="goHome()">Back to Library</div>
+</div>
+`;
+});
+}
+
+function render(){
+
+const path=location.pathname;
+
+if(path==="/creator"){
+renderCreator();
+return;
+}
+
+const mat=materials.find(m=>"/"+m.slug===path);
+
+if(mat)renderMaterial(mat);
+else renderHome();
+
+}
+
+window.onpopstate=render;
+render();
+
 </script>
 </body>
 </html>
