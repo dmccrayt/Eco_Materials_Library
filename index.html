@@ -65,6 +65,36 @@ body{
   line-height:1.8;
 }
 
+.searchWrap{
+  position:absolute;
+  top:122px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(420px, calc(100vw - 32px));
+  z-index:10;
+}
+
+.searchBar{
+  width:100%;
+  height:46px;
+  border:1px solid rgba(17,17,17,.12);
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  padding:0 18px;
+  font-size:15px;
+  color:var(--text);
+  outline:none;
+  appearance:none;
+}
+
+.searchBar::placeholder{
+  color:#8a8a8a;
+}
+
+.searchBar:focus{
+  border-color:rgba(17,17,17,.22);
+}
+
 .home{
   width:100%;
   height:100%;
@@ -73,58 +103,11 @@ body{
 
 .material,
 .categoryOrb{
-  position:absolute;
-  left:0;
-  top:0;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  padding:0;
-  transition:filter .25s ease, opacity .25s ease;
-  z-index:2;
-  will-change:transform;
-  transform:translate3d(0,0,0) scale(1);
-}
-
-.material:hover,
-.categoryOrb:hover{
-  filter:drop-shadow(0 20px 35px rgba(0,0,0,.15)) drop-shadow(0 0 12px rgba(0,0,0,.08));
-  z-index:5;
-}
-
-.material img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-.label{
-  position:absolute;
-  left:50%;
-  bottom:-32px;
-  transform:translateX(-50%) translateY(6px);
-  opacity:0;
-  font-size:13px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  transition:all .2s ease;
-  white-space:nowrap;
-}
-
-.material:hover .label{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-.categoryOrb{
   width:220px;
   height:220px;
   border-radius:999px;
-  border:1px solid rgba(17,17,17,.1);
-  background:rgba(255,255,255,.88);
+  border:1px solid rgba(17,17,17,.08);
+  background:var(--orb, rgba(239,244,255,.92));
   backdrop-filter:blur(3px);
   display:flex;
   align-items:center;
@@ -264,6 +247,17 @@ body{
     line-height:1.7;
   }
 
+  .searchWrap{
+    top:122px;
+    width:min(360px, calc(100vw - 28px));
+  }
+
+  .searchBar{
+    height:42px;
+    font-size:14px;
+    padding:0 16px;
+  }
+
   .categoryOrb{
     width:146px;
     height:146px;
@@ -358,16 +352,17 @@ const materials = [
 ];
 
 const categories = [
-  { name: "Structural", slug: "structural" },
-  { name: "Insulation", slug: "insulation" },
-  { name: "Finishes", slug: "finishes" },
-  { name: "Low Carbon", slug: "low-carbon" }
+  { name: "Structural", slug: "structural", color: "rgba(232, 240, 255, 0.95)" },
+  { name: "Insulation", slug: "insulation", color: "rgba(233, 247, 239, 0.95)" },
+  { name: "Finishes", slug: "finishes", color: "rgba(255, 243, 229, 0.95)" },
+  { name: "Low Carbon", slug: "low-carbon", color: "rgba(246, 235, 255, 0.95)" }
 ];
 
 const app = document.getElementById("app");
 let floatItems = [];
 let animationFrame = null;
 let lastTime = 0;
+let homeSearch = "";
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -544,6 +539,7 @@ function createFloatingItems(entries, type) {
       el.className = 'categoryOrb';
       el.style.width = size + 'px';
       el.style.height = size + 'px';
+      el.style.setProperty('--orb', entry.color || 'rgba(239,244,255,.92)');
       el.setAttribute('aria-label', entry.name);
       el.onclick = () => openCategory(entry);
       const text = document.createElement('div');
@@ -604,6 +600,29 @@ function renderHome() {
     subhead.className = 'subhead';
     subhead.innerHTML = 'Choose a category to explore<br>This is a prototype';
 
+    const searchWrap = document.createElement('div');
+    searchWrap.className = 'searchWrap';
+    const search = document.createElement('input');
+    search.className = 'searchBar';
+    search.type = 'text';
+    search.placeholder = 'Search a material to filter categories';
+    search.value = homeSearch;
+    search.setAttribute('aria-label', 'Search materials');
+
+    const normalized = homeSearch.trim().toLowerCase();
+    const matchingCategorySlugs = normalized
+      ? Array.from(new Set(materials
+          .filter(m => m.name.toLowerCase().includes(normalized))
+          .flatMap(m => m.categories)))
+      : categories.map(c => c.slug);
+
+    search.addEventListener('input', (e) => {
+      homeSearch = e.target.value;
+      renderHome();
+    });
+
+    searchWrap.appendChild(search);
+
     const creator = document.createElement('div');
     creator.className = 'creatorHome';
     creator.textContent = 'Meet the Creator!';
@@ -612,11 +631,13 @@ function renderHome() {
     const home = document.createElement('div');
     home.className = 'home';
 
-    const items = createFloatingItems(categories, 'category');
+    const visibleCategories = categories.filter(c => matchingCategorySlugs.includes(c.slug));
+    const items = createFloatingItems(visibleCategories, 'category');
     items.forEach(item => home.appendChild(item.el));
 
     layer.appendChild(header);
     layer.appendChild(subhead);
+    layer.appendChild(searchWrap);
     layer.appendChild(home);
     layer.appendChild(creator);
 
