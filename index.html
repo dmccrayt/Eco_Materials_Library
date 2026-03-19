@@ -39,39 +39,51 @@ button,input{font:inherit}
   position:sticky;
   top:0;
   z-index:60;
-  display:flex;
-  justify-content:space-between;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
   align-items:center;
   gap:16px;
-  padding:18px 22px 10px;
-  backdrop-filter:blur(18px);
-  background:rgba(245,245,247,.78);
+  padding:14px 22px 10px;
+  backdrop-filter:blur(24px);
+  background:rgba(245,245,247,.68);
+  border-bottom:1px solid rgba(29,29,31,.05);
 }
 .brandBtn{
   border:0;
   background:none;
-  padding:0;
+  padding:0 8px;
   cursor:pointer;
   font-size:14px;
   font-weight:600;
-  letter-spacing:.02em;
+  letter-spacing:.01em;
+  justify-self:center;
+  color:var(--text);
 }
-.navActions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.navActions{display:contents}
+.navSlotLeft{justify-self:start}
+.navSlotRight{justify-self:end}
 .navPill{
-  border:1px solid rgba(29,29,31,.06);
-  background:var(--pastel-blue);
-  border-radius:18px;
-  padding:12px 16px;
+  border:1px solid rgba(29,29,31,.05);
+  background:rgba(238,243,255,.82);
+  border-radius:999px;
+  padding:10px 16px;
   cursor:pointer;
   color:var(--text);
-  box-shadow:0 8px 20px rgba(0,0,0,.04);
+  box-shadow:0 4px 14px rgba(0,0,0,.025);
+  min-width:136px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
 }
-.navPill.active{background:#dfeaff}
-.navText{font-size:14px;font-weight:600}
-.navSub{font-size:11px;color:var(--muted);margin-top:2px}
+.navPill:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(0,0,0,.045);
+  border-color:rgba(29,29,31,.08);
+}
+.navPill.active{background:#dde8ff;border-color:rgba(29,29,31,.08)}
+.navText{font-size:14px;font-weight:600;letter-spacing:.01em}
+.navSub{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.01em}
 .pagePad{padding:0 24px 42px}
 .header{padding:24px 0 0;text-align:center}
-.header h1{margin:0;font-size:24px;font-weight:600;letter-spacing:.03em}
+.header h1{margin:0;font-size:24px;font-weight:600;letter-spacing:.01em}
 .header p{margin:12px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
 .searchWrap{width:min(760px, calc(100vw - 40px));margin:26px auto 0}
 .searchShell{
@@ -80,11 +92,11 @@ button,input{font:inherit}
   align-items:center;
   gap:12px;
   padding:10px;
-  border:1px solid rgba(29,29,31,.08);
-  border-radius:24px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(18px);
-  box-shadow:0 12px 30px rgba(0,0,0,.04);
+  border:1px solid rgba(29,29,31,.07);
+  border-radius:22px;
+  background:rgba(255,255,255,.68);
+  backdrop-filter:blur(20px);
+  box-shadow:0 10px 28px rgba(0,0,0,.035);
 }
 .searchAccent{
   width:42px;height:42px;border-radius:16px;
@@ -94,9 +106,9 @@ button,input{font:inherit}
   color:var(--muted);font-size:16px;
 }
 .searchBar{width:100%;height:52px;border:0;border-radius:18px;background:transparent;padding:0 10px 0 14px;outline:none;color:var(--text);font-size:15px}
-.searchShell:focus-within{border-color:rgba(29,29,31,.14);box-shadow:0 18px 38px rgba(0,0,0,.06)}
+.searchShell:focus-within{border-color:rgba(29,29,31,.12);box-shadow:0 16px 34px rgba(0,0,0,.05)}
 .searchResults{width:min(760px, calc(100vw - 40px));margin:14px auto 0;display:grid;gap:10px}
-.searchResultCard,.homeGalleryCard,.card,.detailImageWrap,.creatorCard,.creatorContentCard,.favoritesShell,.profileShell,.profilePanel{
+.searchResultCard,.homeGalleryCard,.card,.detailImageWrap,.profilePanel,.favoritesShell,.profileShell{
   border:1px solid var(--line);
   background:var(--surface);
   box-shadow:0 8px 24px rgba(0,0,0,.05);
@@ -108,14 +120,49 @@ button,input{font:inherit}
 .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .tag{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f7f7f7;border:1px solid #efefef;font-size:12px;color:#444}
 .homeCanvas{position:relative;height:clamp(560px,70vh,820px);margin:18px auto 0;overflow:hidden;width:min(1220px,calc(100vw - 32px))}
-.heroStatement{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(580px,calc(100vw - 80px));text-align:center;z-index:3;pointer-events:none}
-.heroStatement h2{margin:0;font-size:clamp(46px,7vw,82px);line-height:.95;font-weight:700;letter-spacing:-.04em}
-.heroStatement p{margin:14px 0 0;color:var(--muted);font-size:15px;line-height:1.6}
+.heroStatement{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(560px,calc(100vw - 100px));
+  text-align:center;
+  z-index:8;
+  pointer-events:none;
+  padding:28px 36px;
+  background:rgba(245,245,247,.88);
+  backdrop-filter:blur(14px);
+  border-radius:32px;
+}
+.heroStatement h2{
+  margin:0;
+  font-size:clamp(48px,7vw,86px);
+  line-height:.94;
+  font-weight:600;
+  letter-spacing:-.05em;
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-style:italic;
+}
+.heroStatement p{margin:16px 0 0;color:var(--muted);font-size:15px;line-height:1.65}
 .categoryBubble{position:absolute;left:0;top:0;width:220px;height:220px;border-radius:999px;border:1px solid rgba(29,29,31,.06);background:var(--bubble, var(--pastel-blue));box-shadow:0 10px 26px rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;will-change:transform}
 .categoryBubble:hover{box-shadow:0 18px 36px rgba(0,0,0,.09);filter:brightness(1.01)}
 .categoryTitle{font-size:18px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .categorySubtitle{margin-top:8px;font-size:13px;line-height:1.5;color:#555}
-.bottomCta{text-align:center;padding:18px 20px 20px}
+.bottomCta{
+  text-align:center;
+  padding:10px 20px 12px;
+}
+.homeCreatorLink{
+  display:inline-block;
+  margin-top:14px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:.01em;
+  padding:6px 10px;
+  border-radius:999px;
+}
+.homeCreatorLink:hover{color:var(--text);background:rgba(255,255,255,.55)}
 .scrollCue{display:inline-flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--muted)}
 .scrollArrow{width:38px;height:38px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.04)}
 .homeNavArrows{position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:12px;z-index:40}
@@ -129,7 +176,7 @@ button,input{font:inherit}
 .homeGalleryCard:hover,.card:hover,.socialCard:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.08)}
 .homeGalleryImageWrap{background:linear-gradient(180deg,#ffffff 0%,#f8f8fa 100%);display:flex;align-items:center;justify-content:center;padding:22px;min-height:180px}
 .homeGalleryImageWrap img{width:100%;max-height:200px;object-fit:contain}
-.homeGalleryBody{padding:16px 16px 18px}
+.homeGalleryBody{padding:16px 16px 18px;position:relative}
 .homeGalleryTitle,.cardTitle{font-size:17px;font-weight:600;line-height:1.35}
 .homeGalleryDesc,.cardDesc{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.55}
 .card{border-radius:22px;padding:18px;transition:transform .18s ease, box-shadow .18s ease;cursor:pointer;position:relative}
@@ -153,25 +200,97 @@ button,input{font:inherit}
 .impactBox{margin-top:22px;background:linear-gradient(180deg,#faf8ff 0%,#f5f7ff 100%);border:1px solid #ecebff;border-radius:24px;padding:20px}
 .impactBox h3{margin:0 0 10px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
 .impactBox p{margin:0;line-height:1.7}
-.creatorPage{padding:24px;background:radial-gradient(circle at top left,#ffffff 0%,#f5f5f7 45%,#f1f1f3 100%)}
-.creatorInner{width:min(1040px,100%);margin:0 auto}
-.creatorPanel{margin-top:26px;display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:start}
-.creatorSide{position:sticky;top:24px}
-.creatorCard,.creatorContentCard,.favoritesShell,.profileShell{border-radius:30px;padding:24px;background:rgba(255,255,255,.82);backdrop-filter:blur(20px)}
-.creatorPhoto{width:100%;aspect-ratio:1 / 1;margin:0;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.creatorPage{
+  padding:48px 24px 72px;
+  background:linear-gradient(180deg,#f7f7f8 0%,#f3f3f5 100%);
+}
+.creatorInner{width:min(820px,100%);margin:0 auto}
+.creatorPanel{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  align-items:start;
+}
+.creatorSide{position:static}
+.creatorCard,.creatorContentCard{
+  border-radius:30px;
+  padding:24px;
+  background:transparent;
+  backdrop-filter:none;
+  box-shadow:none;
+  border:0;
+}
+.creatorPhoto{
+  width:180px;
+  aspect-ratio:1 / 1;
+  margin:0 auto;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(29,29,31,.06);
+  background:var(--surface);
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
+}
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
-.creatorEyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.creatorHeading{margin-top:8px;font-size:42px;line-height:.96;font-weight:650}
-.creatorBody{margin-top:18px;line-height:1.9;font-size:17px;color:#2a2a2d}
-.creatorQuote{margin-top:18px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fbfbfd 0%,#f2f3f7 100%);border:1px solid rgba(29,29,31,.06);color:#3c3c43;line-height:1.7}
-.socialCard{display:block;text-align:left;text-decoration:none;border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:#fff;box-shadow:0 6px 18px rgba(17,17,17,.04);transition:transform .18s ease, box-shadow .18s ease}
+.creatorEyebrow{display:none}
+.creatorHeading{
+  margin-top:12px;
+  font-size:52px;
+  line-height:.98;
+  font-weight:650;
+  text-align:center;
+  letter-spacing:-.03em;
+}
+.creatorBody{
+  margin-top:18px;
+  line-height:1.9;
+  font-size:17px;
+  color:#2a2a2d;
+  text-align:center;
+  max-width:720px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.creatorQuote{
+  margin-top:18px;
+  padding:0;
+  border-radius:0;
+  background:transparent;
+  border:0;
+  color:#3c3c43;
+  line-height:1.8;
+  text-align:center;
+  font-size:17px;
+  max-width:720px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.socialCard{
+  display:block;
+  text-align:left;
+  text-decoration:none;
+  border:1px solid rgba(29,29,31,.06);
+  border-radius:18px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 4px 14px rgba(17,17,17,.03);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.socialCard:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(17,17,17,.06);border-color:rgba(29,29,31,.08)}
 .socialLabel{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .socialTitle{margin-top:4px;font-size:16px;font-weight:600;color:var(--text)}
 .socialSub{margin-top:6px;font-size:14px;color:var(--muted)}
-.creatorMeta{margin-top:18px;display:grid;gap:12px}
-.creatorMini{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.7}
+.creatorMeta{
+  margin-top:24px;
+  display:grid;
+  gap:12px;
+  width:min(520px,100%);
+  margin-left:auto;
+  margin-right:auto;
+}
+.creatorMini{display:none}
 .favoritesPage,.profilePage{padding:24px}
-.favoritesShell,.profileShell{width:min(1120px,100%);margin:18px auto 0}
+.favoritesShell,.profileShell{width:min(1120px,100%);margin:18px auto 0;border-radius:30px;padding:24px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px)}
 .profileLayout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
 .profilePanel{border-radius:24px;padding:20px}
 .formField{display:grid;gap:8px;margin-top:12px}
@@ -200,16 +319,16 @@ button,input{font:inherit}
 @keyframes pageFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media (max-width: 1000px){
   .homeGalleryGrid{column-count:3}
-  .creatorPanel,.profileLayout{grid-template-columns:1fr}
-  .creatorSide{position:static}
+  .profileLayout{grid-template-columns:1fr}
 }
 @media (max-width: 800px){
-  .siteNav{padding:14px 14px 8px}
+  .siteNav{grid-template-columns:1fr auto 1fr;padding:14px 14px 8px}
   .header h1{font-size:20px}
   .header p{font-size:12px}
   .searchWrap,.searchResults{width:min(760px, calc(100vw - 28px))}
   .searchShell{grid-template-columns:1fr auto;padding:8px}
   .homeCanvas{height:560px;width:min(1220px, calc(100vw - 20px))}
+  .heroStatement{width:min(420px,calc(100vw - 52px));padding:22px 24px}
   .categoryBubble{width:150px;height:150px;padding:16px}
   .categoryTitle{font-size:14px}
   .categorySubtitle{font-size:11px}
@@ -219,10 +338,12 @@ button,input{font:inherit}
   .gridHeader h2,.homeGalleryHeader h2,.favoritesTitle{font-size:24px}
   .homeGalleryGrid{column-count:2}
   .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
-  .creatorContentCard,.creatorCard,.favoritesShell,.profileShell{padding:20px}
-  .creatorHeading{font-size:34px}
+  .favoritesShell,.profileShell{padding:20px}
+  .creatorHeading{font-size:40px}
   .homeNavArrows{right:16px;bottom:16px}
   .navArrow{width:48px;height:48px}
+  .navPill{min-width:auto;padding:11px 14px}
+  .navSub{display:none}
 }
 @media (max-width: 560px){
   .homeGalleryGrid{column-count:1}
@@ -234,7 +355,7 @@ button,input{font:inherit}
 <body>
 <div id="app"></div>
 <script>
-const SUPABASE_URL = 'https://kfdbqfwzbmvktvoklpgb.supabase.coL';
+const SUPABASE_URL = 'https://kfdbqfwzbmvktvoklpgb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGJxZnd6Ym12a3R2b2tscGdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTEyMTYsImV4cCI6MjA4OTUyNzIxNn0.IJgC2BIswl_uk25PcR8pT6_N4RP79Pz6RXFWy5yScjI';
 const MATERIALS = [
   { name: "Cross-Laminated Timber (CLT)", slug: "cross-laminated-timber-clt", short: "Engineered timber panels for walls, floors, and roofs.", description: "Cross-Laminated Timber (CLT) is an engineered wood product composed of multiple layers of dimensional lumber stacked perpendicular to one another and bonded with structural adhesives. This cross-laminated configuration provides exceptional strength, rigidity, and dimensional stability, allowing CLT panels to be used for floors, walls, and roofs in mid- to high-rise construction. Panels are typically prefabricated off-site with CNC precision, reducing construction time, labor, and material waste. CLT can also be left exposed, creating a warm, natural interior aesthetic while eliminating additional finish layers.", climateImpact: "Acts as a carbon sink by storing carbon absorbed during tree growth and has significantly lower embodied carbon than steel and concrete when sustainably sourced.", tags: ["Structural", "Bio-Based", "Low Carbon"] },
@@ -376,14 +497,14 @@ function startBubbles(items){
 }
 function stopBubbles(){ if(rafId) cancelAnimationFrame(rafId); rafId = null; bubbleItems = []; }
 function buildBubbleElements(list, wrap){
-  const placed = [], items = [], w = wrap.clientWidth || window.innerWidth, h = wrap.clientHeight || 620, mobile = window.innerWidth < 800, centerX = w / 2, centerY = h / 2, heroRadius = mobile ? 120 : 220;
+  const placed = [], items = [], w = wrap.clientWidth || window.innerWidth, h = wrap.clientHeight || 620, mobile = window.innerWidth < 800, centerX = w / 2, centerY = h / 2, heroRadius = mobile ? 190 : 320;
   list.forEach(cat => {
     const size = mobile ? 150 : 220, buffer = size * .58;
     let x = 0, y = 0, ok = false, tries = 0;
     while(!ok && tries < 900){
       x = Math.random() * Math.max(1, w - size - 20) + 10; y = Math.random() * Math.max(1, h - size - 20) + 10;
       const bubbleCx = x + size / 2, bubbleCy = y + size / 2, distToHero = Math.sqrt((bubbleCx - centerX) ** 2 + (bubbleCy - centerY) ** 2);
-      ok = distToHero > heroRadius + size * .42 && !bubbleOverlap({cx:bubbleCx, cy:bubbleCy, buffer}, placed); tries++;
+      ok = distToHero > heroRadius + size * .58 && !bubbleOverlap({cx:bubbleCx, cy:bubbleCy, buffer}, placed); tries++;
     }
     placed.push({cx:x + size / 2, cy:y + size / 2, buffer});
     const el = document.createElement('button');
@@ -403,17 +524,15 @@ function renderNav(active = ''){
   const authLabel = user ? 'Profile' : 'Login / Sign Up';
   return `
     <nav class="siteNav">
+      <button class="navPill navSlotLeft ${active === 'favorites' ? 'active' : ''}" data-nav="favorites">
+        <div class="navText">Favorites</div>
+        <div class="navSub">Saved materials</div>
+      </button>
       <button class="brandBtn" data-nav="home">Eco-Friendly Material Library</button>
-      <div class="navActions">
-        <button class="navPill ${active === 'favorites' ? 'active' : ''}" data-nav="favorites">
-          <div class="navText">Favorites</div>
-          <div class="navSub">Saved materials</div>
-        </button>
-        <button class="navPill ${active === 'profile' || active === 'auth' ? 'active' : ''}" data-nav="auth">
-          <div class="navText">${authLabel}</div>
-          <div class="navSub">${user ? (profile?.full_name || 'Account settings') : 'Access your library'}</div>
-        </button>
-      </div>
+      <button class="navPill navSlotRight ${active === 'profile' || active === 'auth' ? 'active' : ''}" data-nav="auth">
+        <div class="navText">${authLabel}</div>
+        <div class="navSub">${user ? (profile?.full_name || 'Account settings') : 'Access your library'}</div>
+      </button>
     </nav>
   `;
 }
@@ -573,15 +692,10 @@ function renderHome(){
           </div>
         </div>
         <div class="searchResults"></div>
-        <div class="homeCanvas">
-          <div class="heroStatement">
-            <h2>Design should better the world</h2>
-            <p>A visual library of materials, systems, and ideas shaping more responsible design.</p>
-          </div>
-        </div>
+        <div class="homeCanvas"></div>
         <div class="bottomCta">
           <button class="scrollCue" type="button"><span>Scroll to materials</span><div class="scrollArrow">↓</div></button>
-          <div style="margin-top:14px"><button class="creatorLink">Meet the Creator!</button></div>
+          <a class="homeCreatorLink" href="/creator" id="homeCreatorLink">Meet the Creator</a>
         </div>
         <div class="homeNavArrows"><button class="navArrow navDown" type="button">↓</button><button class="navArrow navUp" type="button">↑</button></div>
         <section class="homeGallerySection" id="materials-gallery">
@@ -593,7 +707,7 @@ function renderHome(){
     `;
     attachNav(layer);
     bindAuthModal(layer);
-    layer.querySelector('.creatorLink').addEventListener('click', goCreator);
+    layer.querySelector('#homeCreatorLink').addEventListener('click', e => { e.preventDefault(); goCreator(); });
     layer.querySelector('.scrollCue').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
     layer.querySelector('.navDown').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
     layer.querySelector('.navUp').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
@@ -610,10 +724,15 @@ function renderHome(){
       results.querySelectorAll('.searchResultCard').forEach(card => card.addEventListener('click', () => { const mat = MATERIALS.find(m => m.slug === card.dataset.slug); if(mat) openMaterial(mat); }));
     };
     const paintBubbles = () => {
-      stopBubbles(); canvas.innerHTML = `<div class="heroStatement"><h2>Design should better the world</h2><p>A visual library of materials, systems, and ideas shaping more responsible design.</p></div>`;
-      const filtered = categories.filter(cat => categoryContainsSearch(cat, homeSearch));
-      if(!filtered.length){ canvas.innerHTML += '<div class="emptyState" style="margin-top:30px">No categories match the current search.</div>'; return; }
-      const items = buildBubbleElements(filtered, canvas); startBubbles(items);
+      stopBubbles();
+      const q = homeSearch.trim();
+      if(q){
+        canvas.innerHTML = '';
+        return;
+      }
+      canvas.innerHTML = `<div class="heroStatement"><h2>Design should better the world</h2><p>A visual library of materials, systems, and ideas shaping more responsible design.</p></div>`;
+      const items = buildBubbleElements(categories, canvas);
+      startBubbles(items);
     };
     const paintGallery = () => {
       const found = MATERIALS.filter(m => matchesSearch(m, homeSearch));
@@ -695,12 +814,11 @@ function renderCreator(){
               </div>
             </aside>
             <section class="creatorContentCard">
-              <div class="creatorEyebrow">Meet the Creator</div>
-              <div class="creatorHeading">Hi, I'm Dillon.</div>
-              <div class="creatorBody">I'm a designer interested in sustainability, materials, and the built environment.<br><br>My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.<br><br>This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.</div>
+              <div class="creatorHeading">Hi, I'm Dillon!</div>
+              <div class="creatorBody">My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.</div>
+              <div class="creatorBody">This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.</div>
               <div class="creatorQuote">I believe creativity should do more than shape experiences. It should help shape a better future.</div>
-              <div class="creatorBody">Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.</div>
-              <div class="creatorMini">This website is still evolving, but the goal is simple: build a visual, accessible library of materials that makes sustainable design feel easier to explore.</div>
+              <div class="creatorBody">Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on building performance and sustainability.</div>
             </section>
           </div>
         </div>
