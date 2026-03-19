@@ -129,10 +129,6 @@ button,input{font:inherit}
   text-align:center;
   z-index:8;
   pointer-events:none;
-  padding:28px 36px;
-  background:rgba(245,245,247,.88);
-  backdrop-filter:blur(14px);
-  border-radius:32px;
 }
 .heroStatement h2{
   margin:0;
@@ -153,14 +149,17 @@ button,input{font:inherit}
   padding:10px 20px 12px;
 }
 .homeCreatorLink{
-  display:inline-block;
-  margin-top:14px;
+  display:block;
+  margin-top:16px;
   color:var(--muted);
   text-decoration:none;
   font-size:13px;
   letter-spacing:.01em;
   padding:6px 10px;
   border-radius:999px;
+  width:fit-content;
+  margin-left:auto;
+  margin-right:auto;
 }
 .homeCreatorLink:hover{color:var(--text);background:rgba(255,255,255,.55)}
 .scrollCue{display:inline-flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--muted)}
@@ -189,7 +188,7 @@ button,input{font:inherit}
 .starBtn{
   position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:999px;border:1px solid rgba(29,29,31,.08);background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2
 }
-.starBtn.active{background:#fff7d6;border-color:#f2dc7e}
+.starBtn.active{background:#e9f7ee;border-color:#b9e4c8}
 .detail{padding:24px}
 .detailInner{width:min(940px,100%);margin:0 auto}
 .detailTop{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start;margin-top:20px}
@@ -201,16 +200,19 @@ button,input{font:inherit}
 .impactBox h3{margin:0 0 10px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
 .impactBox p{margin:0;line-height:1.7}
 .creatorPage{
-  padding:48px 24px 72px;
+  min-height:calc(100vh - 64px);
+  padding:18px 24px 24px;
   background:linear-gradient(180deg,#f7f7f8 0%,#f3f3f5 100%);
+  display:flex;
+  align-items:center;
 }
-.creatorInner{width:min(820px,100%);margin:0 auto}
+.creatorInner{width:min(1040px,100%);margin:0 auto}
 .creatorPanel{
-  margin-top:18px;
+  margin-top:0;
   display:grid;
-  grid-template-columns:1fr;
-  gap:24px;
-  align-items:start;
+  grid-template-columns:220px 1fr;
+  gap:28px;
+  align-items:center;
 }
 .creatorSide{position:static}
 .creatorCard,.creatorContentCard{
@@ -234,36 +236,37 @@ button,input{font:inherit}
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
 .creatorEyebrow{display:none}
 .creatorHeading{
-  margin-top:12px;
-  font-size:52px;
+  margin-top:0;
+  font-size:48px;
   line-height:.98;
   font-weight:650;
-  text-align:center;
+  text-align:left;
   letter-spacing:-.03em;
 }
 .creatorBody{
-  margin-top:18px;
-  line-height:1.9;
-  font-size:17px;
+  margin-top:14px;
+  line-height:1.8;
+  font-size:16px;
   color:#2a2a2d;
-  text-align:center;
-  max-width:720px;
-  margin-left:auto;
-  margin-right:auto;
+  text-align:left;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
 }
 .creatorQuote{
-  margin-top:18px;
+  margin-top:14px;
   padding:0;
   border-radius:0;
   background:transparent;
   border:0;
   color:#3c3c43;
   line-height:1.8;
-  text-align:center;
-  font-size:17px;
-  max-width:720px;
-  margin-left:auto;
-  margin-right:auto;
+  text-align:left;
+  font-size:16px;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
+  font-weight:500;
 }
 .socialCard{
   display:block;
@@ -281,12 +284,10 @@ button,input{font:inherit}
 .socialTitle{margin-top:4px;font-size:16px;font-weight:600;color:var(--text)}
 .socialSub{margin-top:6px;font-size:14px;color:var(--muted)}
 .creatorMeta{
-  margin-top:24px;
+  margin-top:16px;
   display:grid;
-  gap:12px;
-  width:min(520px,100%);
-  margin-left:auto;
-  margin-right:auto;
+  gap:10px;
+  width:100%;
 }
 .creatorMini{display:none}
 .favoritesPage,.profilePage{padding:24px}
@@ -320,6 +321,10 @@ button,input{font:inherit}
 @media (max-width: 1000px){
   .homeGalleryGrid{column-count:3}
   .profileLayout{grid-template-columns:1fr}
+  .creatorPanel{grid-template-columns:1fr;gap:22px;align-items:start}
+  .creatorHeading,.creatorBody,.creatorQuote{text-align:center}
+}
+  .profileLayout{grid-template-columns:1fr}
 }
 @media (max-width: 800px){
   .siteNav{grid-template-columns:1fr auto 1fr;padding:14px 14px 8px}
@@ -328,25 +333,7 @@ button,input{font:inherit}
   .searchWrap,.searchResults{width:min(760px, calc(100vw - 28px))}
   .searchShell{grid-template-columns:1fr auto;padding:8px}
   .homeCanvas{height:560px;width:min(1220px, calc(100vw - 20px))}
-  .heroStatement{width:min(420px,calc(100vw - 52px));padding:22px 24px}
-  .categoryBubble{width:150px;height:150px;padding:16px}
-  .categoryTitle{font-size:14px}
-  .categorySubtitle{font-size:11px}
-  .detailTop{grid-template-columns:1fr;gap:20px}
-  .detailTitle{font-size:28px}
-  .detailText{font-size:16px}
-  .gridHeader h2,.homeGalleryHeader h2,.favoritesTitle{font-size:24px}
-  .homeGalleryGrid{column-count:2}
-  .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
-  .favoritesShell,.profileShell{padding:20px}
-  .creatorHeading{font-size:40px}
-  .homeNavArrows{right:16px;bottom:16px}
-  .navArrow{width:48px;height:48px}
-  .navPill{min-width:auto;padding:11px 14px}
-  .navSub{display:none}
-}
-@media (max-width: 560px){
-  .homeGalleryGrid{column-count:1}
+  .heroStatement{w
   .homeGalleryHeader{display:block}
 }
 </style>
