@@ -258,6 +258,38 @@ button,input{font:inherit}
 }
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
 .creatorBody{margin-top:24px;line-height:1.85;font-size:17px}
+.socialCard{
+  display:block;
+  text-align:left;
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px 16px;
+  background:#fff;
+  box-shadow:0 6px 18px rgba(17,17,17,.04);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.socialCard:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(17,17,17,.08);
+}
+.socialLabel{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.socialTitle{
+  margin-top:4px;
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+}
+.socialSub{
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
+}
 .creatorMeta{margin-top:22px;display:grid;gap:8px}
 .emptyState{
   width:min(1120px,100%);
@@ -641,16 +673,30 @@ function renderCreator(){
         <div class="creatorInner">
           <div class="creatorPhoto"><img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'"></div>
           <div class="creatorBody">
-            Hey! I'm Dillon, a current undergrad in Theatre Design & Technology. I believe creativity should be used not only to shape experiences but to shape a better world.
+            Hi, I'm Dillon. I'm a designer interested in sustainability, materials, and the built environment.
             <br><br>
-            Rooted in theatrical design and evolving into architectural lighting, my work is driven by a passion for sustainability and the belief that energy-efficient buildings are key to addressing climate change.
+            My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.
             <br><br>
-            Looking ahead, I plan to bridge light and architecture to design spaces where sustainability and human well-being work hand in hand, but next fall I'll be headed to grad school for an MS in Architecture with a focus on sustainability. Stay tuned for the finished site in the coming weeks!
+            I believe creativity should do more than shape experiences. It should help shape a better future. This material library is a small project where I’m documenting and sharing what I’m learning about sustainable materials and systems.
+            <br><br>
+            Next fall, I’ll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.
           </div>
           <div class="creatorMeta">
-            <div><a href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/dillonmthomas/</a></div>
-            <div><a href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">@bydillonthomas</a></div>
-            <div><a href="mailto:dillonmthomas@outlook.com">dillonmthomas@outlook.com</a></div>
+            <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">
+              <div class="socialLabel">LinkedIn</div>
+              <div class="socialTitle">Dillon Thomas</div>
+              <div class="socialSub">View my professional profile</div>
+            </a>
+            <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">
+              <div class="socialLabel">Instagram</div>
+              <div class="socialTitle">@bydillonthomas</div>
+              <div class="socialSub">Design work and updates</div>
+            </a>
+            <a class="socialCard" href="mailto:dillonmthomas@outlook.com">
+              <div class="socialLabel">Email</div>
+              <div class="socialTitle">dillonmthomas@outlook.com</div>
+              <div class="socialSub">Get in touch</div>
+            </a>
           </div>
         </div>
       </div>
