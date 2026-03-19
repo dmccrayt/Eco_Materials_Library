@@ -30,64 +30,50 @@ html,body{
   color:var(--text);
   font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
-body{animation:fadeIn .7s ease}
+body{animation:fadeIn .45s ease}
 a{color:inherit}
 button,input{font:inherit}
 #app{min-height:100vh}
-.fade-layer{min-height:100vh;animation:pageFade .35s ease}
-.header{
-  padding:36px 24px 0;
-  text-align:center;
-}
-.header h1{
-  margin:0;
-  font-size:24px;
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:none;
-}
-.header p{
-  margin:12px 0 0;
-  color:var(--muted);
-  font-size:13px;
-  letter-spacing:.02em;
-  text-transform:none;
-  line-height:1.7;
-}
-.header h1{
-  margin:0;
-  font-size:22px;
-  font-weight:500;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-.header p{
-  margin:12px 0 0;
-  color:var(--muted);
-  font-size:12px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  line-height:1.7;
-}
-.topbar{
+.fade-layer{min-height:100vh;animation:pageFade .3s ease}
+.siteNav{
+  position:sticky;
+  top:0;
+  z-index:60;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:16px;
-  padding:20px 24px 0;
+  padding:18px 22px 10px;
+  backdrop-filter:blur(18px);
+  background:rgba(245,245,247,.78);
 }
-.backLink,.creatorLink,.ghostBtn{
-  background:none;
+.brandBtn{
   border:0;
+  background:none;
   padding:0;
-  text-decoration:underline;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+.navActions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.navPill{
+  border:1px solid rgba(29,29,31,.06);
+  background:var(--pastel-blue);
+  border-radius:18px;
+  padding:12px 16px;
   cursor:pointer;
   color:var(--text);
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
 }
-.searchWrap{
-  width:min(760px, calc(100vw - 40px));
-  margin:26px auto 0;
-}
+.navPill.active{background:#dfeaff}
+.navText{font-size:14px;font-weight:600}
+.navSub{font-size:11px;color:var(--muted);margin-top:2px}
+.pagePad{padding:0 24px 42px}
+.header{padding:24px 0 0;text-align:center}
+.header h1{margin:0;font-size:24px;font-weight:600;letter-spacing:.03em}
+.header p{margin:12px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
+.searchWrap{width:min(760px, calc(100vw - 40px));margin:26px auto 0}
 .searchShell{
   display:grid;
   grid-template-columns:1fr auto;
@@ -101,434 +87,156 @@ button,input{font:inherit}
   box-shadow:0 12px 30px rgba(0,0,0,.04);
 }
 .searchAccent{
-  width:42px;
-  height:42px;
-  border-radius:16px;
-  background:linear-gradient(180deg, #ffffff 0%, #f2f2f4 100%);
+  width:42px;height:42px;border-radius:16px;
+  background:linear-gradient(180deg,#ffffff 0%,#f2f2f4 100%);
   border:1px solid rgba(29,29,31,.06);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--muted);
-  font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:16px;
 }
-.searchBar{
-  width:100%;
-  height:52px;
-  border:0;
-  border-radius:18px;
-  background:transparent;
-  padding:0 10px 0 14px;
-  outline:none;
-  box-shadow:none;
-  color:var(--text);
-  font-size:15px;
-}
-.searchBar::placeholder{color:#8a8a8f}
-.searchShell:focus-within{
-  border-color:rgba(29,29,31,.14);
-  box-shadow:0 18px 38px rgba(0,0,0,.06);
-}
-.searchResults{
-  width:min(680px, calc(100vw - 40px));
-  margin:14px auto 0;
-  display:grid;
-  gap:10px;
-}
-.searchResultCard{
+.searchBar{width:100%;height:52px;border:0;border-radius:18px;background:transparent;padding:0 10px 0 14px;outline:none;color:var(--text);font-size:15px}
+.searchShell:focus-within{border-color:rgba(29,29,31,.14);box-shadow:0 18px 38px rgba(0,0,0,.06)}
+.searchResults{width:min(760px, calc(100vw - 40px));margin:14px auto 0;display:grid;gap:10px}
+.searchResultCard,.homeGalleryCard,.card,.detailImageWrap,.creatorCard,.creatorContentCard,.favoritesShell,.profileShell,.profilePanel{
   border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px 16px;
-  background:#fff;
-  box-shadow:0 6px 18px rgba(17,17,17,.04);
+  background:var(--surface);
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
 }
-.searchResultTop{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:14px;
-}
+.searchResultCard{border-radius:18px;padding:14px 16px}
+.searchResultTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
 .searchResultName{font-weight:600}
 .searchResultDesc{margin-top:6px;color:var(--muted);font-size:14px;line-height:1.5}
 .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.tag{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#f7f7f7;
-  border:1px solid #efefef;
-  font-size:12px;
-  color:#444;
-}
-.homeCanvas{
-  position:relative;
-  height:clamp(520px, 62vh, 760px);
-  margin:18px auto 0;
-  overflow:hidden;
-  width:min(1180px, calc(100vw - 32px));
-}
-.categoryBubble{
-  position:absolute;
-  left:0;
-  top:0;
-  width:220px;
-  height:220px;
-  border-radius:999px;
-  border:1px solid rgba(29,29,31,.06);
-  background:var(--bubble, var(--pastel-blue));
-  box-shadow:var(--shadow);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  cursor:pointer;
-  transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
-  will-change:transform;
-}
-.categoryBubble:hover{
-  box-shadow:var(--shadow-hover);
-  filter:brightness(1.01);
-}
-.categoryTitle{
-  font-size:18px;
-  font-weight:600;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
-.categorySubtitle{
-  margin-top:8px;
-  font-size:13px;
-  line-height:1.5;
-  color:#555;
-}
-.bottomCta{
-  text-align:center;
-  padding:18px 20px 20px;
-}
-.scrollCue{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  background:none;
-  border:0;
-  cursor:pointer;
-  color:var(--muted);
-}
-.scrollCue span{
-  font-size:12px;
-  letter-spacing:.04em;
-}
-.scrollArrow{
-  width:38px;
-  height:38px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.8);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 6px 16px rgba(0,0,0,.04);
-}
-.homeGallerySection{
-  width:min(1240px, calc(100vw - 32px));
-  margin:10px auto 40px;
-}
-.homeGalleryHeader{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:18px;
-}
-.homeGalleryHeader h2{
-  margin:0;
-  font-size:28px;
-  font-weight:600;
-}
-.homeGalleryHeader p{
-  margin:6px 0 0;
-  color:var(--muted);
-}
-.homeGalleryGrid{
-  column-count:4;
-  column-gap:18px;
-}
-.homeGalleryCard{
-  break-inside:avoid;
-  margin-bottom:18px;
-  border:1px solid var(--line);
-  border-radius:24px;
-  background:var(--surface);
-  overflow:hidden;
-  box-shadow:0 8px 24px rgba(0,0,0,.05);
-  cursor:pointer;
-  transition:transform .18s ease, box-shadow .18s ease;
-}
-.homeGalleryCard:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 28px rgba(0,0,0,.08);
-}
-.homeGalleryImageWrap{
-  background:linear-gradient(180deg, #ffffff 0%, #f8f8fa 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-}
-.homeGalleryImageWrap img{
-  width:100%;
-  max-height:200px;
-  object-fit:contain;
-}
-.homeGalleryBody{
-  padding:16px 16px 18px;
-}
-.homeGalleryTitle{
-  font-size:17px;
-  font-weight:600;
-  line-height:1.35;
-}
-.homeGalleryDesc{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-}
-.pageShell{min-height:100vh;padding:24px 24px 44px;background:var(--bg)}
-.gridHeader{
-  margin:12px auto 0;
-  width:min(1120px, 100%);
-}
-.gridHeader h2{margin:0;font-size:30px;font-weight:600}
-.gridHeader p{margin:10px 0 0;color:var(--muted);line-height:1.6;max-width:760px}
-.filterBar{
-  width:min(1120px,100%);
-  margin:18px auto 0;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.filterChip{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:999px;
-  padding:10px 14px;
-  cursor:pointer;
-}
+.tag{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f7f7f7;border:1px solid #efefef;font-size:12px;color:#444}
+.homeCanvas{position:relative;height:clamp(560px,70vh,820px);margin:18px auto 0;overflow:hidden;width:min(1220px,calc(100vw - 32px))}
+.heroStatement{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(580px,calc(100vw - 80px));text-align:center;z-index:3;pointer-events:none}
+.heroStatement h2{margin:0;font-size:clamp(46px,7vw,82px);line-height:.95;font-weight:700;letter-spacing:-.04em}
+.heroStatement p{margin:14px 0 0;color:var(--muted);font-size:15px;line-height:1.6}
+.categoryBubble{position:absolute;left:0;top:0;width:220px;height:220px;border-radius:999px;border:1px solid rgba(29,29,31,.06);background:var(--bubble, var(--pastel-blue));box-shadow:0 10px 26px rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;will-change:transform}
+.categoryBubble:hover{box-shadow:0 18px 36px rgba(0,0,0,.09);filter:brightness(1.01)}
+.categoryTitle{font-size:18px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.categorySubtitle{margin-top:8px;font-size:13px;line-height:1.5;color:#555}
+.bottomCta{text-align:center;padding:18px 20px 20px}
+.scrollCue{display:inline-flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--muted)}
+.scrollArrow{width:38px;height:38px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.04)}
+.homeNavArrows{position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:12px;z-index:40}
+.navArrow{width:54px;height:54px;border-radius:999px;border:1px solid rgba(29,29,31,.08);background:rgba(255,255,255,.82);backdrop-filter:blur(18px);box-shadow:0 10px 26px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:22px}
+.homeGallerySection{width:min(1240px,calc(100vw - 32px));margin:10px auto 40px}
+.homeGalleryHeader{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.homeGalleryHeader h2,.gridHeader h2,.favoritesTitle{margin:0;font-size:28px;font-weight:600}
+.homeGalleryHeader p,.gridHeader p,.favoritesSub{margin:6px 0 0;color:var(--muted)}
+.homeGalleryGrid{column-count:4;column-gap:18px}
+.homeGalleryCard{break-inside:avoid;margin-bottom:18px;border-radius:24px;overflow:hidden;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+.homeGalleryCard:hover,.card:hover,.socialCard:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.08)}
+.homeGalleryImageWrap{background:linear-gradient(180deg,#ffffff 0%,#f8f8fa 100%);display:flex;align-items:center;justify-content:center;padding:22px;min-height:180px}
+.homeGalleryImageWrap img{width:100%;max-height:200px;object-fit:contain}
+.homeGalleryBody{padding:16px 16px 18px}
+.homeGalleryTitle,.cardTitle{font-size:17px;font-weight:600;line-height:1.35}
+.homeGalleryDesc,.cardDesc{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.55}
+.card{border-radius:22px;padding:18px;transition:transform .18s ease, box-shadow .18s ease;cursor:pointer;position:relative}
+.pageShell,.detail,.creatorPage,.favoritesPage,.profilePage{min-height:100vh;background:var(--bg)}
+.gridHeader{margin:18px auto 0;width:min(1120px,100%)}
+.filterBar{width:min(1120px,100%);margin:18px auto 0;display:flex;flex-wrap:wrap;gap:10px}
+.filterChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;cursor:pointer}
 .filterChip.active{background:#111;color:#fff;border-color:#111}
-.materialGrid{
-  width:min(1120px,100%);
-  margin:18px auto 0;
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-  gap:18px;
+.materialGrid,.favoritesGrid{width:min(1120px,100%);margin:18px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.starBtn{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:999px;border:1px solid rgba(29,29,31,.08);background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2
 }
-.card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:#fff;
-  padding:18px;
-  box-shadow:0 8px 22px rgba(17,17,17,.04);
-  transition:transform .18s ease, box-shadow .18s ease;
-  cursor:pointer;
-}
-.card:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(17,17,17,.08)}
-.cardTitle{font-size:18px;font-weight:600;line-height:1.35}
-.cardDesc{margin-top:10px;color:var(--muted);line-height:1.55;font-size:14px}
-.detail{
-  min-height:100vh;
-  padding:24px;
-  background:var(--bg);
-}
-.detailInner{
-  width:min(940px,100%);
-  margin:0 auto;
-}
-.detailTop{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:28px;
-  align-items:start;
-  margin-top:20px;
-}
-.detailImageWrap{
-  border:1px solid var(--line);
-  border-radius:28px;
-  background:var(--surface);
-  min-height:220px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-}
+.starBtn.active{background:#fff7d6;border-color:#f2dc7e}
+.detail{padding:24px}
+.detailInner{width:min(940px,100%);margin:0 auto}
+.detailTop{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start;margin-top:20px}
+.detailImageWrap{border-radius:28px;min-height:220px;display:flex;align-items:center;justify-content:center;padding:22px;position:relative}
 .detailImageWrap img{max-width:100%;max-height:180px;object-fit:contain}
 .detailTitle{font-size:34px;font-weight:650;line-height:1.15}
 .detailText{margin-top:18px;line-height:1.8;font-size:17px;color:#202020}
-.impactBox{
-  margin-top:22px;
-  background:linear-gradient(180deg, #faf8ff 0%, #f5f7ff 100%);
-  border:1px solid #ecebff;
-  border-radius:24px;
-  padding:20px;
-}
+.impactBox{margin-top:22px;background:linear-gradient(180deg,#faf8ff 0%,#f5f7ff 100%);border:1px solid #ecebff;border-radius:24px;padding:20px}
 .impactBox h3{margin:0 0 10px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
 .impactBox p{margin:0;line-height:1.7}
-.creatorPage{
-  min-height:100vh;
-  padding:24px;
-  background:radial-gradient(circle at top left, #ffffff 0%, #f5f5f7 45%, #f1f1f3 100%);
-}
-.creatorInner{
-  width:min(1040px,100%);
-  margin:0 auto;
-}
-.creatorPanel{
-  margin-top:26px;
-  display:grid;
-  grid-template-columns:280px 1fr;
-  gap:28px;
-  align-items:start;
-}
-.creatorSide{
-  position:sticky;
-  top:24px;
-}
-.creatorCard{
-  border:1px solid rgba(29,29,31,.08);
-  border-radius:30px;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(20px);
-  box-shadow:0 14px 34px rgba(0,0,0,.06);
-  padding:18px;
-}
-.creatorContentCard{
-  border:1px solid rgba(29,29,31,.08);
-  border-radius:30px;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(20px);
-  box-shadow:0 14px 34px rgba(0,0,0,.06);
-  padding:28px;
-}
-.creatorPhoto{
-  width:100%;
-  aspect-ratio:1 / 1;
-  margin:0;
-  border-radius:24px;
-  overflow:hidden;
-  border:1px solid var(--line);
-  background:var(--surface);
-}
+.creatorPage{padding:24px;background:radial-gradient(circle at top left,#ffffff 0%,#f5f5f7 45%,#f1f1f3 100%)}
+.creatorInner{width:min(1040px,100%);margin:0 auto}
+.creatorPanel{margin-top:26px;display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:start}
+.creatorSide{position:sticky;top:24px}
+.creatorCard,.creatorContentCard,.favoritesShell,.profileShell{border-radius:30px;padding:24px;background:rgba(255,255,255,.82);backdrop-filter:blur(20px)}
+.creatorPhoto{width:100%;aspect-ratio:1 / 1;margin:0;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
-.creatorEyebrow{
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-.creatorHeading{
-  margin-top:8px;
-  font-size:34px;
-  line-height:1.15;
-  font-weight:650;
-}
+.creatorEyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.creatorHeading{margin-top:8px;font-size:42px;line-height:.96;font-weight:650}
 .creatorBody{margin-top:18px;line-height:1.9;font-size:17px;color:#2a2a2d}
-.creatorQuote{
-  margin-top:18px;
-  padding:16px 18px;
-  border-radius:20px;
-  background:linear-gradient(180deg, #fbfbfd 0%, #f2f3f7 100%);
-  border:1px solid rgba(29,29,31,.06);
-  color:#3c3c43;
-  line-height:1.7;
+.creatorQuote{margin-top:18px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fbfbfd 0%,#f2f3f7 100%);border:1px solid rgba(29,29,31,.06);color:#3c3c43;line-height:1.7}
+.socialCard{display:block;text-align:left;text-decoration:none;border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:#fff;box-shadow:0 6px 18px rgba(17,17,17,.04);transition:transform .18s ease, box-shadow .18s ease}
+.socialLabel{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.socialTitle{margin-top:4px;font-size:16px;font-weight:600;color:var(--text)}
+.socialSub{margin-top:6px;font-size:14px;color:var(--muted)}
+.creatorMeta{margin-top:18px;display:grid;gap:12px}
+.creatorMini{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.7}
+.favoritesPage,.profilePage{padding:24px}
+.favoritesShell,.profileShell{width:min(1120px,100%);margin:18px auto 0}
+.profileLayout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.profilePanel{border-radius:24px;padding:20px}
+.formField{display:grid;gap:8px;margin-top:12px}
+.formField label{font-size:13px;color:var(--muted)}
+.textInput{height:48px;border:1px solid var(--line);border-radius:16px;padding:0 14px;background:#fff;outline:none}
+.primaryBtn,.dangerBtn,.secondaryBtn{
+  border:0;border-radius:16px;padding:12px 16px;cursor:pointer;font-weight:600
 }
-.socialCard{
-  display:block;
-  text-align:left;
-  text-decoration:none;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px 16px;
-  background:#fff;
-  box-shadow:0 6px 18px rgba(17,17,17,.04);
-  transition:transform .18s ease, box-shadow .18s ease;
+.primaryBtn{background:#1d1d1f;color:#fff}
+.secondaryBtn{background:var(--pastel-blue);color:var(--text)}
+.dangerBtn{background:#ffebeb;color:#9b1c1c}
+.inlineActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.emptyState{width:min(1120px,100%);margin:20px auto 0;border:1px dashed #ddd;border-radius:22px;padding:24px;text-align:center;color:var(--muted)}
+.authOverlay{
+  position:fixed;inset:0;background:rgba(20,20,24,.22);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:120
 }
-.socialCard:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px rgba(17,17,17,.08);
+.authModal{
+  width:min(520px,100%);border:1px solid rgba(29,29,31,.08);border-radius:30px;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);box-shadow:0 24px 60px rgba(0,0,0,.14);padding:24px
 }
-.socialLabel{
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-.socialTitle{
-  margin-top:4px;
-  font-size:16px;
-  font-weight:600;
-  color:var(--text);
-}
-.socialSub{
-  margin-top:6px;
-  font-size:14px;
-  color:var(--muted);
-}
-.creatorMeta{margin-top:18px;display:grid;gap:10px}
-.creatorMini{
-  margin-top:14px;
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.7;
-}
-.emptyState{
-  width:min(1120px,100%);
-  margin:20px auto 0;
-  border:1px dashed #ddd;
-  border-radius:22px;
-  padding:24px;
-  text-align:center;
-  color:var(--muted);
-}
+.authTabs{display:flex;gap:10px;margin-top:16px}
+.authTab{flex:1;border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;cursor:pointer}
+.authTab.active{background:var(--pastel-blue)}
+.authMessage{margin-top:14px;font-size:14px;color:var(--muted);min-height:20px}
+.hidden{display:none !important}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pageFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media (max-width: 1000px){
   .homeGalleryGrid{column-count:3}
-  .creatorPanel{grid-template-columns:1fr}
+  .creatorPanel,.profileLayout{grid-template-columns:1fr}
   .creatorSide{position:static}
 }
-}
 @media (max-width: 800px){
-  .header h1{font-size:20px;letter-spacing:.03em}
+  .siteNav{padding:14px 14px 8px}
+  .header h1{font-size:20px}
   .header p{font-size:12px}
-  .searchWrap,.searchResults{width:min(680px, calc(100vw - 28px))}
+  .searchWrap,.searchResults{width:min(760px, calc(100vw - 28px))}
   .searchShell{grid-template-columns:1fr auto;padding:8px}
-  .homeCanvas{height:500px;width:min(1180px, calc(100vw - 20px))}
+  .homeCanvas{height:560px;width:min(1220px, calc(100vw - 20px))}
   .categoryBubble{width:150px;height:150px;padding:16px}
   .categoryTitle{font-size:14px}
   .categorySubtitle{font-size:11px}
   .detailTop{grid-template-columns:1fr;gap:20px}
   .detailTitle{font-size:28px}
   .detailText{font-size:16px}
-  .gridHeader h2{font-size:24px}
+  .gridHeader h2,.homeGalleryHeader h2,.favoritesTitle{font-size:24px}
   .homeGalleryGrid{column-count:2}
   .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
-  .creatorContentCard{padding:22px}
-  .creatorHeading{font-size:28px}
+  .creatorContentCard,.creatorCard,.favoritesShell,.profileShell{padding:20px}
+  .creatorHeading{font-size:34px}
+  .homeNavArrows{right:16px;bottom:16px}
+  .navArrow{width:48px;height:48px}
 }
 @media (max-width: 560px){
   .homeGalleryGrid{column-count:1}
   .homeGalleryHeader{display:block}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div id="app"></div>
 <script>
-const materials = [
+const SUPABASE_URL = 'https://kfdbqfwzbmvktvoklpgb.supabase.coL';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGJxZnd6Ym12a3R2b2tscGdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTEyMTYsImV4cCI6MjA4OTUyNzIxNn0.IJgC2BIswl_uk25PcR8pT6_N4RP79Pz6RXFWy5yScjI';
+const MATERIALS = [
   { name: "Cross-Laminated Timber (CLT)", slug: "cross-laminated-timber-clt", short: "Engineered timber panels for walls, floors, and roofs.", description: "Cross-Laminated Timber (CLT) is an engineered wood product composed of multiple layers of dimensional lumber stacked perpendicular to one another and bonded with structural adhesives. This cross-laminated configuration provides exceptional strength, rigidity, and dimensional stability, allowing CLT panels to be used for floors, walls, and roofs in mid- to high-rise construction. Panels are typically prefabricated off-site with CNC precision, reducing construction time, labor, and material waste. CLT can also be left exposed, creating a warm, natural interior aesthetic while eliminating additional finish layers.", climateImpact: "Acts as a carbon sink by storing carbon absorbed during tree growth and has significantly lower embodied carbon than steel and concrete when sustainably sourced.", tags: ["Structural", "Bio-Based", "Low Carbon"] },
   { name: "Hempcrete", slug: "hempcrete", short: "Bio-composite wall infill with thermal and acoustic performance.", description: "Hempcrete is a bio-composite material made from the woody core of the hemp plant combined with a lime-based binder and water. It is typically used as a non-load-bearing wall infill within a structural frame. Hempcrete is lightweight, breathable, and highly effective at regulating moisture, which helps prevent mold and improves indoor air quality. It also provides strong thermal and acoustic insulation, contributing to passive environmental control in buildings.", climateImpact: "Hemp absorbs significant CO₂ during growth, and the lime binder continues to sequester carbon over time, making hempcrete a carbon-negative material.", tags: ["Insulation", "Bio-Based", "Low Carbon"] },
   { name: "Rammed Earth", slug: "rammed-earth", short: "Compacted earth walls with strong thermal mass.", description: "Rammed earth is a traditional construction method that involves compacting layers of soil, sand, and aggregate into formwork to create dense, monolithic walls. These walls offer high thermal mass, absorbing heat during the day and releasing it slowly at night to regulate indoor temperatures. Rammed earth structures are durable, fire-resistant, and often left exposed, serving as both structure and finish with a distinctive layered texture.", climateImpact: "Extremely low embodied energy due to minimal processing and potential for local sourcing. Reduces operational energy through thermal mass.", tags: ["Structural", "Envelope", "Low Carbon"] },
@@ -580,436 +288,494 @@ const materials = [
   { name: "Glass Block", slug: "glass-block", short: "Glass units that transmit light while preserving privacy.", description: "Thick glass units that allow light while maintaining privacy.", climateImpact: "Improves daylighting and reduces lighting energy.", tags: ["Envelope", "Low Carbon"] },
   { name: "Linseed Oil Finishes", slug: "linseed-oil-finishes", short: "Natural plant-based finishes for wood protection.", description: "Natural plant-based finishes used to protect and seal wood surfaces.", climateImpact: "Non-toxic and renewable.", tags: ["Finishes", "Bio-Based"] }
 ];
-
 const categories = [
-  { name: "Structural", slug: "structural", subtitle: "Load-bearing systems and framing materials.", color: "var(--pastel-blue)" },
-  { name: "Envelope", slug: "envelope", subtitle: "Exterior skins, façades, and weather barriers.", color: "var(--pastel-peach)" },
-  { name: "Insulation", slug: "insulation", subtitle: "Materials for thermal and acoustic performance.", color: "var(--pastel-green)" },
-  { name: "Finishes", slug: "finishes", subtitle: "Surface materials, coatings, and interior applications.", color: "var(--pastel-lavender)" },
-  { name: "Bio-Based", slug: "bio-based", subtitle: "Materials derived from renewable biological sources.", color: "var(--pastel-yellow)" },
-  { name: "Reclaimed/Recycled", slug: "reclaimed-recycled", subtitle: "Materials reused or made with recycled content.", color: "var(--pastel-pink)" }
+  { name: 'Structural', slug: 'structural', subtitle: 'Load-bearing systems and framing materials.', color: 'var(--pastel-blue)' },
+  { name: 'Envelope', slug: 'envelope', subtitle: 'Exterior skins, façades, and weather barriers.', color: 'var(--pastel-peach)' },
+  { name: 'Insulation', slug: 'insulation', subtitle: 'Materials for thermal and acoustic performance.', color: 'var(--pastel-green)' },
+  { name: 'Finishes', slug: 'finishes', subtitle: 'Surface materials, coatings, and interior applications.', color: 'var(--pastel-lavender)' },
+  { name: 'Bio-Based', slug: 'bio-based', subtitle: 'Materials derived from renewable biological sources.', color: 'var(--pastel-yellow)' },
+  { name: 'Reclaimed/Recycled', slug: 'reclaimed-recycled', subtitle: 'Materials reused or made with recycled content.', color: 'var(--pastel-pink)' },
+  { name: 'Low Carbon', slug: 'low-carbon', subtitle: 'Materials and systems with reduced climate impact.', color: 'var(--pastel-blue)' }
 ];
-
-const tagFilters = ["Bio-Based", "Reclaimed/Recycled", "Low Carbon"];
+const tagFilters = ['Bio-Based','Reclaimed/Recycled','Low Carbon'];
 const app = document.getElementById('app');
+const supabaseClient = SUPABASE_URL.startsWith('http') ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 let bubbleItems = [];
 let rafId = null;
 let lastTime = 0;
 let homeSearch = '';
 let activeCategoryFilter = 'All';
+let authMode = 'login';
+let authOpen = false;
+let authMessage = '';
+let user = null;
+let profile = null;
+let favorites = new Set();
 
-function fadeRender(cb){
-  stopBubbles();
-  app.innerHTML = '<div class="fade-layer"></div>';
-  cb(app.firstElementChild);
-}
-function slugifyValue(v){return v.toLowerCase()}
+function fadeRender(cb){ stopBubbles(); app.innerHTML = '<div class="fade-layer"></div>'; cb(app.firstElementChild); }
 function imageCandidates(mat){
   const safeName = mat.name.replaceAll('/', '-');
-  return [
-    `./${mat.name}.jpeg`,
-    `./${mat.name}.jpg`,
-    `./${safeName}.jpeg`,
-    `./${safeName}.jpg`,
-    `./${mat.slug}.jpeg`,
-    `./${mat.slug}.jpg`,
-    `./${mat.slug}.png`
-  ];
+  return [`./${mat.name}.jpeg`,`./${mat.name}.jpg`,`./${safeName}.jpeg`,`./${safeName}.jpg`,`./${mat.slug}.jpeg`,`./${mat.slug}.jpg`,`./${mat.slug}.png`];
 }
 function renderMaterialImage(mat, extraClass = ''){
   const classAttr = extraClass ? ` class="${extraClass}"` : '';
   const candidates = JSON.stringify(imageCandidates(mat)).replace(/"/g, '&quot;');
   return `<img${classAttr} src="${imageCandidates(mat)[0]}" alt="${mat.name}" data-candidates="${candidates}" onerror="(function(img){const list=JSON.parse(img.dataset.candidates||'[]');const current=img.getAttribute('src');const next=list.find(path=>path!==current);if(next){img.dataset.candidates=JSON.stringify(list.filter(path=>path!==next));img.src=next;}else{img.style.display='none';}})(this)">`;
 }
-function categoryPath(cat){return '/category/' + cat.slug}
-function materialPath(mat){return '/material/' + mat.slug}
-function goHome(){history.pushState({},'', '/'); render()}
-function goCreator(){history.pushState({},'', '/creator'); render()}
-function openCategory(cat){history.pushState({},'', categoryPath(cat)); activeCategoryFilter='All'; render()}
-function openMaterial(mat){history.pushState({},'', materialPath(mat)); render()}
-function findCategoryByPath(path){return categories.find(c => categoryPath(c) === path)}
-function findMaterialByPath(path){return materials.find(m => materialPath(m) === path)}
+function categoryPath(cat){ return '/category/' + cat.slug; }
+function materialPath(mat){ return '/material/' + mat.slug; }
+function goHome(){ history.pushState({}, '', '/'); render(); }
+function goCreator(){ history.pushState({}, '', '/creator'); render(); }
+function goFavorites(){ history.pushState({}, '', '/favorites'); render(); }
+function goProfile(){ history.pushState({}, '', '/profile'); render(); }
+function openCategory(cat){ history.pushState({}, '', categoryPath(cat)); activeCategoryFilter = 'All'; render(); }
+function openMaterial(mat){ history.pushState({}, '', materialPath(mat)); render(); }
+function findCategoryByPath(path){ return categories.find(c => categoryPath(c) === path); }
+function findMaterialByPath(path){ return MATERIALS.find(m => materialPath(m) === path); }
 function matchesSearch(material, query){
   const q = query.trim().toLowerCase();
   if(!q) return true;
-  return material.name.toLowerCase().includes(q)
-    || material.description.toLowerCase().includes(q)
-    || material.climateImpact.toLowerCase().includes(q)
-    || material.tags.some(t => t.toLowerCase().includes(q));
+  return material.name.toLowerCase().includes(q) || material.description.toLowerCase().includes(q) || material.climateImpact.toLowerCase().includes(q) || material.tags.some(t => t.toLowerCase().includes(q));
 }
-function categoryContainsSearch(cat, query){
-  const label = cat.name;
-  return materials.some(m => m.tags.includes(label) && matchesSearch(m, query));
-}
-function shortLine(text){
-  return text.length > 78 ? text.slice(0, 78).trim() + '…' : text;
-}
-function bubbleOverlap(candidate, arr){
-  return arr.some(p => {
-    const dx = candidate.cx - p.cx;
-    const dy = candidate.cy - p.cy;
-    return Math.sqrt(dx*dx + dy*dy) < candidate.buffer + p.buffer;
-  });
-}
+function categoryContainsSearch(cat, query){ return MATERIALS.some(m => m.tags.includes(cat.name) && matchesSearch(m, query)); }
+function shortLine(text){ return text.length > 78 ? text.slice(0, 78).trim() + '…' : text; }
+function bubbleOverlap(candidate, arr){ return arr.some(p => Math.sqrt((candidate.cx - p.cx) ** 2 + (candidate.cy - p.cy) ** 2) < candidate.buffer + p.buffer); }
 function startBubbles(items){
   bubbleItems = items;
   cancelAnimationFrame(rafId);
   lastTime = performance.now();
-  const tick = (now) => {
-    const dt = Math.min((now - lastTime) / 16.67, 1.3);
-    lastTime = now;
+  const tick = now => {
+    const dt = Math.min((now - lastTime) / 16.67, 1.3); lastTime = now;
     const wrap = document.querySelector('.homeCanvas');
     if(!wrap){ rafId = requestAnimationFrame(tick); return; }
-    const w = wrap.clientWidth;
-    const h = wrap.clientHeight;
-
+    const w = wrap.clientWidth; const h = wrap.clientHeight;
     for(const item of bubbleItems){
-      item.x += item.vx * dt;
-      item.y += item.vy * dt;
-      const minX = 10;
-      const minY = 10;
-      const maxX = w - item.size - 10;
-      const maxY = h - item.size - 10;
+      item.x += item.vx * dt; item.y += item.vy * dt;
+      const minX = 10, minY = 10, maxX = w - item.size - 10, maxY = h - item.size - 10;
       if(item.x <= minX){ item.x = minX; item.vx = Math.abs(item.vx); }
       if(item.x >= maxX){ item.x = maxX; item.vx = -Math.abs(item.vx); }
       if(item.y <= minY){ item.y = minY; item.vy = Math.abs(item.vy); }
       if(item.y >= maxY){ item.y = maxY; item.vy = -Math.abs(item.vy); }
     }
-
-    for(let i=0;i<bubbleItems.length;i++){
-      for(let j=i+1;j<bubbleItems.length;j++){
+    for(let i = 0; i < bubbleItems.length; i++){
+      for(let j = i + 1; j < bubbleItems.length; j++){
         const a = bubbleItems[i], b = bubbleItems[j];
-        const ax = a.x + a.size/2, ay = a.y + a.size/2;
-        const bx = b.x + b.size/2, by = b.y + b.size/2;
-        const dx = bx - ax, dy = by - ay;
-        const d = Math.sqrt(dx*dx + dy*dy) || .001;
-        const minDist = (a.size + b.size) * .53;
+        const ax = a.x + a.size / 2, ay = a.y + a.size / 2, bx = b.x + b.size / 2, by = b.y + b.size / 2;
+        const dx = bx - ax, dy = by - ay, d = Math.sqrt(dx * dx + dy * dy) || .001, minDist = (a.size + b.size) * .53;
         if(d < minDist){
-          const overlap = (minDist - d)/2;
-          const nx = dx/d, ny = dy/d;
-          a.x -= nx * overlap; a.y -= ny * overlap;
-          b.x += nx * overlap; b.y += ny * overlap;
-          const avx=a.vx, avy=a.vy; a.vx=b.vx; a.vy=b.vy; b.vx=avx; b.vy=avy;
+          const overlap = (minDist - d) / 2, nx = dx / d, ny = dy / d;
+          a.x -= nx * overlap; a.y -= ny * overlap; b.x += nx * overlap; b.y += ny * overlap;
+          const avx = a.vx, avy = a.vy; a.vx = b.vx; a.vy = b.vy; b.vx = avx; b.vy = avy;
         }
       }
     }
-
-    for(const item of bubbleItems){
-      item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${item.scale})`;
-    }
+    for(const item of bubbleItems){ item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${item.scale})`; }
     rafId = requestAnimationFrame(tick);
   };
   rafId = requestAnimationFrame(tick);
 }
 function stopBubbles(){ if(rafId) cancelAnimationFrame(rafId); rafId = null; bubbleItems = []; }
 function buildBubbleElements(list, wrap){
-  const placed = [];
-  const items = [];
-  const w = wrap.clientWidth || window.innerWidth;
-  const h = wrap.clientHeight || 620;
-  const mobile = window.innerWidth < 800;
+  const placed = [], items = [], w = wrap.clientWidth || window.innerWidth, h = wrap.clientHeight || 620, mobile = window.innerWidth < 800, centerX = w / 2, centerY = h / 2, heroRadius = mobile ? 120 : 220;
   list.forEach(cat => {
-    const size = mobile ? 150 : 220;
-    const buffer = size * .58;
+    const size = mobile ? 150 : 220, buffer = size * .58;
     let x = 0, y = 0, ok = false, tries = 0;
-    while(!ok && tries < 500){
-      x = Math.random() * Math.max(1, w - size - 20) + 10;
-      y = Math.random() * Math.max(1, h - size - 20) + 10;
-      ok = !bubbleOverlap({cx:x+size/2, cy:y+size/2, buffer}, placed);
-      tries++;
+    while(!ok && tries < 900){
+      x = Math.random() * Math.max(1, w - size - 20) + 10; y = Math.random() * Math.max(1, h - size - 20) + 10;
+      const bubbleCx = x + size / 2, bubbleCy = y + size / 2, distToHero = Math.sqrt((bubbleCx - centerX) ** 2 + (bubbleCy - centerY) ** 2);
+      ok = distToHero > heroRadius + size * .42 && !bubbleOverlap({cx:bubbleCx, cy:bubbleCy, buffer}, placed); tries++;
     }
-    placed.push({cx:x+size/2, cy:y+size/2, buffer});
+    placed.push({cx:x + size / 2, cy:y + size / 2, buffer});
     const el = document.createElement('button');
-    el.className = 'categoryBubble';
-    el.style.setProperty('--bubble', cat.color);
+    el.className = 'categoryBubble'; el.style.setProperty('--bubble', cat.color);
     el.innerHTML = `<div><div class="categoryTitle">${cat.name}</div><div class="categorySubtitle">${cat.subtitle}</div></div>`;
     el.addEventListener('click', () => openCategory(cat));
-    el.addEventListener('mouseenter', () => {
-      const found = items.find(i => i.el === el);
-      if(found) found.scale = 1.05;
-    });
-    el.addEventListener('mouseleave', () => {
-      const found = items.find(i => i.el === el);
-      if(found) found.scale = 1;
-    });
+    el.addEventListener('mouseenter', () => { const found = items.find(i => i.el === el); if(found) found.scale = 1.05; });
+    el.addEventListener('mouseleave', () => { const found = items.find(i => i.el === el); if(found) found.scale = 1; });
     wrap.appendChild(el);
-    items.push({ el, size, x, y, vx:(Math.random()*.04)+.01, vy:(Math.random()*.03)+.008, scale:1 });
-    if(Math.random() > .5) items[items.length-1].vx *= -1;
-    if(Math.random() > .5) items[items.length-1].vy *= -1;
+    items.push({ el, size, x, y, vx:(Math.random() * .04) + .01, vy:(Math.random() * .03) + .008, scale:1 });
+    if(Math.random() > .5) items[items.length - 1].vx *= -1;
+    if(Math.random() > .5) items[items.length - 1].vy *= -1;
   });
   return items;
 }
-
+function renderNav(active = ''){
+  const authLabel = user ? 'Profile' : 'Login / Sign Up';
+  return `
+    <nav class="siteNav">
+      <button class="brandBtn" data-nav="home">Eco-Friendly Material Library</button>
+      <div class="navActions">
+        <button class="navPill ${active === 'favorites' ? 'active' : ''}" data-nav="favorites">
+          <div class="navText">Favorites</div>
+          <div class="navSub">Saved materials</div>
+        </button>
+        <button class="navPill ${active === 'profile' || active === 'auth' ? 'active' : ''}" data-nav="auth">
+          <div class="navText">${authLabel}</div>
+          <div class="navSub">${user ? (profile?.full_name || 'Account settings') : 'Access your library'}</div>
+        </button>
+      </div>
+    </nav>
+  `;
+}
+function attachNav(root){
+  root.querySelector('[data-nav="home"]')?.addEventListener('click', goHome);
+  root.querySelector('[data-nav="favorites"]')?.addEventListener('click', () => user ? goFavorites() : openAuth('login'));
+  root.querySelector('[data-nav="auth"]')?.addEventListener('click', () => user ? goProfile() : openAuth('login'));
+}
+function starButton(mat){
+  const active = favorites.has(mat.name) ? 'active' : '';
+  return `<button class="starBtn ${active}" type="button" data-favorite="${mat.slug}" aria-label="Favorite ${mat.name}">${favorites.has(mat.name) ? '★' : '☆'}</button>`;
+}
+function wireStars(root){
+  root.querySelectorAll('[data-favorite]').forEach(btn => {
+    btn.addEventListener('click', async e => {
+      e.stopPropagation();
+      const mat = MATERIALS.find(m => m.slug === btn.dataset.favorite);
+      if(!mat) return;
+      if(!user){ openAuth('login'); return; }
+      await toggleFavorite(mat.name);
+      render();
+    });
+  });
+}
+function openAuth(mode = 'login'){ authMode = mode; authOpen = true; authMessage = ''; render(); }
+function closeAuth(){ authOpen = false; authMessage = ''; render(); }
+function authModal(){
+  if(!authOpen) return '';
+  return `
+    <div class="authOverlay" id="authOverlay">
+      <div class="authModal" role="dialog" aria-modal="true">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+          <div>
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em">Account</div>
+            <div style="font-size:28px;font-weight:650;margin-top:6px">${authMode === 'login' ? 'Welcome back' : 'Create an account'}</div>
+          </div>
+          <button class="ghostBtn" id="authClose">Close</button>
+        </div>
+        <div class="authTabs">
+          <button class="authTab ${authMode === 'login' ? 'active' : ''}" id="tabLogin">Log in</button>
+          <button class="authTab ${authMode === 'signup' ? 'active' : ''}" id="tabSignup">Sign up</button>
+        </div>
+        <div class="formField ${authMode === 'signup' ? '' : 'hidden'}" id="nameField"><label>Full name</label><input class="textInput" id="authName" placeholder="Your name"></div>
+        <div class="formField"><label>Email</label><input class="textInput" id="authEmail" type="email" placeholder="name@example.com"></div>
+        <div class="formField"><label>Password</label><input class="textInput" id="authPassword" type="password" placeholder="Password"></div>
+        <div class="authMessage" id="authMessage">${authMessage}</div>
+        <div class="inlineActions">
+          <button class="primaryBtn" id="authSubmit">${authMode === 'login' ? 'Log in' : 'Sign up'}</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+async function ensureProfile(){
+  if(!supabaseClient || !user) return;
+  const { data } = await supabaseClient.from('profiles').select('full_name').eq('id', user.id).maybeSingle();
+  profile = data || null;
+}
+async function loadFavorites(){
+  favorites = new Set();
+  if(!supabaseClient || !user) return;
+  const { data } = await supabaseClient.from('favorites').select('material_name').eq('user_id', user.id);
+  (data || []).forEach(row => favorites.add(row.material_name));
+}
+async function initAuth(){
+  if(!supabaseClient) return;
+  const { data } = await supabaseClient.auth.getSession();
+  user = data.session?.user || null;
+  if(user){ await ensureProfile(); await loadFavorites(); }
+  supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+    user = session?.user || null;
+    profile = null;
+    favorites = new Set();
+    if(user){ await ensureProfile(); await loadFavorites(); }
+    render();
+  });
+}
+async function submitAuth(){
+  if(!supabaseClient){ authMessage = 'Please add your real Supabase project URL first.'; render(); return; }
+  const email = document.getElementById('authEmail')?.value.trim();
+  const password = document.getElementById('authPassword')?.value;
+  const fullName = document.getElementById('authName')?.value.trim();
+  if(!email || !password || (authMode === 'signup' && !fullName)){ authMessage = 'Please complete all required fields.'; render(); return; }
+  if(authMode === 'signup'){
+    const { data, error } = await supabaseClient.auth.signUp({ email, password });
+    if(error){ authMessage = error.message; render(); return; }
+    const newUser = data.user || data.session?.user;
+    if(newUser){
+      const { error: profileError } = await supabaseClient.from('profiles').upsert({ id: newUser.id, full_name: fullName });
+      if(profileError){ authMessage = profileError.message; render(); return; }
+    }
+    authMessage = 'Account created. You can now use your library.';
+    closeAuth();
+    return;
+  }
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if(error){ authMessage = error.message; render(); return; }
+  closeAuth();
+}
+async function signOut(){
+  if(!supabaseClient) return;
+  await supabaseClient.auth.signOut();
+  goHome();
+}
+async function toggleFavorite(materialName){
+  if(!supabaseClient || !user) return;
+  if(favorites.has(materialName)){
+    await supabaseClient.from('favorites').delete().eq('user_id', user.id).eq('material_name', materialName);
+    favorites.delete(materialName);
+  } else {
+    await supabaseClient.from('favorites').insert({ user_id: user.id, material_name: materialName });
+    favorites.add(materialName);
+  }
+}
+async function updateProfileName(){
+  const input = document.getElementById('profileName');
+  const full_name = input?.value.trim();
+  if(!supabaseClient || !user || !full_name) return;
+  const { error } = await supabaseClient.from('profiles').upsert({ id: user.id, full_name });
+  if(!error){ profile = { full_name }; render(); }
+}
+async function deleteAccountRequest(){
+  if(!supabaseClient || !user) return;
+  const confirmed = window.confirm('Delete your account? This will remove your profile and favorites.');
+  if(!confirmed) return;
+  await supabaseClient.from('favorites').delete().eq('user_id', user.id);
+  await supabaseClient.from('profiles').delete().eq('id', user.id);
+  const { error } = await supabaseClient.functions.invoke('delete-account');
+  if(error){
+    alert('Profile and favorites were removed, but deleting the auth account requires a secure Supabase Edge Function named delete-account.');
+  }
+  await supabaseClient.auth.signOut();
+  goHome();
+}
+function bindAuthModal(root){
+  const overlay = root.querySelector('#authOverlay');
+  if(!overlay) return;
+  overlay.querySelector('#authClose').addEventListener('click', closeAuth);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeAuth(); });
+  overlay.querySelector('#tabLogin').addEventListener('click', () => { authMode = 'login'; render(); });
+  overlay.querySelector('#tabSignup').addEventListener('click', () => { authMode = 'signup'; render(); });
+  overlay.querySelector('#authSubmit').addEventListener('click', submitAuth);
+}
 function renderHome(){
   fadeRender(layer => {
     layer.innerHTML = `
-      <div class="header">
-        <h1>Eco-Friendly Material Library</h1>
-        <p>Choose a category to explore. Scroll down to browse materials.</p>
-      </div>
-      <div class="searchWrap">
-        <div class="searchShell">
-          <input class="searchBar" placeholder="Search materials, descriptions, or tags" value="${homeSearch.replace(/"/g,'&quot;')}" />
-          <div class="searchAccent">⌘</div>
+      ${renderNav('home')}
+      <div class="pagePad">
+        <div class="header">
+          <h1>Eco-Friendly Material Library</h1>
+          <p>Choose a category to explore. Scroll down to browse materials.</p>
         </div>
-      </div>
-      <div class="searchResults"></div>
-      <div class="homeCanvas"></div>
-      <div class="bottomCta">
-        <button class="scrollCue" type="button">
-          <span>Scroll to materials</span>
-          <div class="scrollArrow">↓</div>
-        </button>
-        <div style="margin-top:14px"><button class="creatorLink">Meet the Creator!</button></div>
-      </div>
-      <section class="homeGallerySection" id="materials-gallery">
-        <div class="homeGalleryHeader">
-          <div>
-            <h2>Browse Materials</h2>
-            <p>A growing visual archive of sustainable materials and systems.</p>
+        <div class="searchWrap">
+          <div class="searchShell">
+            <input class="searchBar" placeholder="Search materials, descriptions, or tags" value="${homeSearch.replace(/"/g,'&quot;')}" />
+            <div class="searchAccent">⌘</div>
           </div>
         </div>
-        <div class="homeGalleryGrid"></div>
-      </section>
+        <div class="searchResults"></div>
+        <div class="homeCanvas">
+          <div class="heroStatement">
+            <h2>Design should better the world</h2>
+            <p>A visual library of materials, systems, and ideas shaping more responsible design.</p>
+          </div>
+        </div>
+        <div class="bottomCta">
+          <button class="scrollCue" type="button"><span>Scroll to materials</span><div class="scrollArrow">↓</div></button>
+          <div style="margin-top:14px"><button class="creatorLink">Meet the Creator!</button></div>
+        </div>
+        <div class="homeNavArrows"><button class="navArrow navDown" type="button">↓</button><button class="navArrow navUp" type="button">↑</button></div>
+        <section class="homeGallerySection" id="materials-gallery">
+          <div class="homeGalleryHeader"><div><h2>Browse Materials</h2><p>A growing visual archive of sustainable materials and systems.</p></div></div>
+          <div class="homeGalleryGrid"></div>
+        </section>
+      </div>
+      ${authModal()}
     `;
+    attachNav(layer);
+    bindAuthModal(layer);
     layer.querySelector('.creatorLink').addEventListener('click', goCreator);
-    layer.querySelector('.scrollCue').addEventListener('click', () => {
-      const gallery = layer.querySelector('#materials-gallery');
-      if(gallery) gallery.scrollIntoView({behavior:'smooth', block:'start'});
-    });
+    layer.querySelector('.scrollCue').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
+    layer.querySelector('.navDown').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
+    layer.querySelector('.navUp').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
     const input = layer.querySelector('.searchBar');
     const results = layer.querySelector('.searchResults');
     const canvas = layer.querySelector('.homeCanvas');
     const galleryGrid = layer.querySelector('.homeGalleryGrid');
-
     const paintSearchResults = () => {
       const q = homeSearch.trim();
       if(!q){ results.innerHTML = ''; return; }
-      const found = materials.filter(m => matchesSearch(m, q)).slice(0, 8);
-      if(!found.length){
-        results.innerHTML = `<div class="searchResultCard">No materials found for “${q}”.</div>`;
-        return;
-      }
-      results.innerHTML = found.map(m => `
-        <div class="searchResultCard" data-slug="${m.slug}">
-          <div class="searchResultTop"><div class="searchResultName">${m.name}</div><button class="ghostBtn">Open</button></div>
-          <div class="searchResultDesc">${shortLine(m.short || m.description)}</div>
-          <div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-        </div>
-      `).join('');
-      results.querySelectorAll('.searchResultCard').forEach(card => {
-        card.addEventListener('click', () => {
-          const mat = materials.find(m => m.slug === card.dataset.slug);
-          if(mat) openMaterial(mat);
-        });
-      });
+      const found = MATERIALS.filter(m => matchesSearch(m, q)).slice(0, 8);
+      if(!found.length){ results.innerHTML = `<div class="searchResultCard">No materials found for “${q}”.</div>`; return; }
+      results.innerHTML = found.map(m => `<div class="searchResultCard" data-slug="${m.slug}"><div class="searchResultTop"><div class="searchResultName">${m.name}</div><button class="ghostBtn">Open</button></div><div class="searchResultDesc">${shortLine(m.short || m.description)}</div><div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></div>`).join('');
+      results.querySelectorAll('.searchResultCard').forEach(card => card.addEventListener('click', () => { const mat = MATERIALS.find(m => m.slug === card.dataset.slug); if(mat) openMaterial(mat); }));
     };
-
     const paintBubbles = () => {
-      stopBubbles();
-      canvas.innerHTML = '';
+      stopBubbles(); canvas.innerHTML = `<div class="heroStatement"><h2>Design should better the world</h2><p>A visual library of materials, systems, and ideas shaping more responsible design.</p></div>`;
       const filtered = categories.filter(cat => categoryContainsSearch(cat, homeSearch));
-      if(!filtered.length){
-        canvas.innerHTML = '<div class="emptyState" style="margin-top:30px">No categories match the current search.</div>';
-        return;
-      }
-      const items = buildBubbleElements(filtered, canvas);
-      startBubbles(items);
+      if(!filtered.length){ canvas.innerHTML += '<div class="emptyState" style="margin-top:30px">No categories match the current search.</div>'; return; }
+      const items = buildBubbleElements(filtered, canvas); startBubbles(items);
     };
-
     const paintGallery = () => {
-      const found = materials.filter(m => matchesSearch(m, homeSearch));
-      if(!found.length){
-        galleryGrid.innerHTML = `<div class="emptyState">No materials match the current search.</div>`;
-        return;
-      }
-      galleryGrid.innerHTML = found.map(m => `
-        <article class="homeGalleryCard" data-slug="${m.slug}">
-          <div class="homeGalleryImageWrap">${renderMaterialImage(m, 'galleryImage')}</div>
-          <div class="homeGalleryBody">
-            <div class="homeGalleryTitle">${m.name}</div>
-            <div class="homeGalleryDesc">${shortLine(m.short || m.description)}</div>
-            <div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-          </div>
-        </article>
-      `).join('');
-      galleryGrid.querySelectorAll('.homeGalleryCard').forEach(card => {
-        card.addEventListener('click', () => {
-          const mat = materials.find(m => m.slug === card.dataset.slug);
-          if(mat) openMaterial(mat);
-        });
-      });
+      const found = MATERIALS.filter(m => matchesSearch(m, homeSearch));
+      if(!found.length){ galleryGrid.innerHTML = `<div class="emptyState">No materials match the current search.</div>`; return; }
+      galleryGrid.innerHTML = found.map(m => `<article class="homeGalleryCard" data-slug="${m.slug}"><div class="homeGalleryImageWrap">${renderMaterialImage(m)}</div><div class="homeGalleryBody">${starButton(m)}<div class="homeGalleryTitle">${m.name}</div><div class="homeGalleryDesc">${shortLine(m.short || m.description)}</div><div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></div></article>`).join('');
+      galleryGrid.querySelectorAll('.homeGalleryCard').forEach(card => card.addEventListener('click', e => { if(e.target.closest('.starBtn')) return; const mat = MATERIALS.find(m => m.slug === card.dataset.slug); if(mat) openMaterial(mat); }));
+      wireStars(galleryGrid);
     };
-
-    input.addEventListener('input', (e) => {
-      homeSearch = e.target.value;
-      paintSearchResults();
-      paintBubbles();
-      paintGallery();
-    });
-
-    paintSearchResults();
-    paintGallery();
-    requestAnimationFrame(() => paintBubbles());
+    input.addEventListener('input', e => { homeSearch = e.target.value; paintSearchResults(); paintBubbles(); paintGallery(); });
+    paintSearchResults(); paintGallery(); requestAnimationFrame(() => paintBubbles());
   });
 }
-
-function materialMatchesCategory(material, categoryName){
-  return material.tags.includes(categoryName);
-}
-function materialMatchesFilter(material, filter){
-  return filter === 'All' ? true : material.tags.includes(filter);
-}
+function materialMatchesCategory(material, categoryName){ return material.tags.includes(categoryName); }
+function materialMatchesFilter(material, filter){ return filter === 'All' ? true : material.tags.includes(filter); }
 function renderCategory(cat){
   fadeRender(layer => {
-    const base = materials.filter(m => materialMatchesCategory(m, cat.name));
-    const filtered = base.filter(m => materialMatchesFilter(m, activeCategoryFilter));
+    const base = MATERIALS.filter(m => materialMatchesCategory(m, cat.name));
     layer.innerHTML = `
+      ${renderNav()}
       <div class="pageShell">
-        <div class="topbar"><button class="backLink">Back to Library</button><button class="creatorLink">Meet the Creator!</button></div>
-        <div class="gridHeader">
-          <h2>${cat.name}</h2>
-          <p>${cat.subtitle}</p>
-        </div>
-        <div class="filterBar">
-          <button class="filterChip ${activeCategoryFilter === 'All' ? 'active' : ''}" data-filter="All">All</button>
-          ${tagFilters.map(t => `<button class="filterChip ${activeCategoryFilter === t ? 'active' : ''}" data-filter="${t}">${t}</button>`).join('')}
-        </div>
+        <div class="gridHeader"><h2>${cat.name}</h2><p>${cat.subtitle}</p></div>
+        <div class="filterBar"><button class="filterChip ${activeCategoryFilter === 'All' ? 'active' : ''}" data-filter="All">All</button>${tagFilters.map(t => `<button class="filterChip ${activeCategoryFilter === t ? 'active' : ''}" data-filter="${t}">${t}</button>`).join('')}</div>
         <div class="materialGrid"></div>
       </div>
+      ${authModal()}
     `;
-    layer.querySelector('.backLink').addEventListener('click', goHome);
-    layer.querySelector('.creatorLink').addEventListener('click', goCreator);
+    attachNav(layer); bindAuthModal(layer);
     const grid = layer.querySelector('.materialGrid');
     const paintGrid = () => {
       const now = base.filter(m => materialMatchesFilter(m, activeCategoryFilter));
-      if(!now.length){
-        grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">No materials match this filter in ${cat.name}.</div>`;
-        return;
-      }
-      grid.innerHTML = now.map(m => `
-        <article class="card" data-slug="${m.slug}">
-          <div class="cardTitle">${m.name}</div>
-          <div class="cardDesc">${shortLine(m.short || m.description)}</div>
-          <div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-        </article>
-      `).join('');
-      grid.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', () => {
-          const mat = materials.find(m => m.slug === card.dataset.slug);
-          if(mat) openMaterial(mat);
-        });
-      });
+      if(!now.length){ grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">No materials match this filter in ${cat.name}.</div>`; return; }
+      grid.innerHTML = now.map(m => `<article class="card" data-slug="${m.slug}">${starButton(m)}<div class="cardTitle">${m.name}</div><div class="cardDesc">${shortLine(m.short || m.description)}</div><div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></article>`).join('');
+      grid.querySelectorAll('.card').forEach(card => card.addEventListener('click', e => { if(e.target.closest('.starBtn')) return; const mat = MATERIALS.find(m => m.slug === card.dataset.slug); if(mat) openMaterial(mat); }));
+      wireStars(grid);
     };
-    layer.querySelectorAll('.filterChip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCategoryFilter = btn.dataset.filter;
-        layer.querySelectorAll('.filterChip').forEach(b => b.classList.toggle('active', b.dataset.filter === activeCategoryFilter));
-        paintGrid();
-      });
-    });
+    layer.querySelectorAll('.filterChip').forEach(btn => btn.addEventListener('click', () => { activeCategoryFilter = btn.dataset.filter; layer.querySelectorAll('.filterChip').forEach(b => b.classList.toggle('active', b.dataset.filter === activeCategoryFilter)); paintGrid(); }));
     paintGrid();
   });
 }
-
 function renderMaterial(mat){
   fadeRender(layer => {
     layer.innerHTML = `
+      ${renderNav()}
       <div class="detail">
-        <div class="topbar"><button class="backLink">Back</button><button class="creatorLink">Meet the Creator!</button></div>
         <div class="detailInner">
           <div class="detailTop">
-            <div class="detailImageWrap">${renderMaterialImage(mat)}</div>
+            <div class="detailImageWrap">${starButton(mat)}${renderMaterialImage(mat)}</div>
             <div>
               <div class="detailTitle">${mat.name}</div>
               <div class="tagRow">${mat.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
               <div class="detailText">${mat.description}</div>
-              <div class="impactBox">
-                <h3>Climate Impact</h3>
-                <p>${mat.climateImpact}</p>
-              </div>
+              <div class="impactBox"><h3>Climate Impact</h3><p>${mat.climateImpact}</p></div>
+              <div class="inlineActions"><button class="secondaryBtn" id="detailBack">Back</button></div>
             </div>
           </div>
         </div>
       </div>
+      ${authModal()}
     `;
-    layer.querySelector('.backLink').addEventListener('click', () => history.back());
-    layer.querySelector('.creatorLink').addEventListener('click', goCreator);
+    attachNav(layer); bindAuthModal(layer); wireStars(layer);
+    layer.querySelector('#detailBack').addEventListener('click', () => history.back());
   });
 }
-
 function renderCreator(){
   fadeRender(layer => {
     layer.innerHTML = `
+      ${renderNav()}
       <div class="creatorPage">
-        <div class="topbar"><button class="backLink">Back to Library</button></div>
         <div class="creatorInner">
           <div class="creatorPanel">
             <aside class="creatorSide">
               <div class="creatorCard">
                 <div class="creatorPhoto"><img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'"></div>
                 <div class="creatorMeta">
-                  <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">
-                    <div class="socialLabel">LinkedIn</div>
-                    <div class="socialTitle">Dillon Thomas</div>
-                    <div class="socialSub">View my professional profile</div>
-                  </a>
-                  <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">
-                    <div class="socialLabel">Instagram</div>
-                    <div class="socialTitle">@bydillonthomas</div>
-                    <div class="socialSub">Design work and updates</div>
-                  </a>
-                  <a class="socialCard" href="mailto:dillonmthomas@outlook.com">
-                    <div class="socialLabel">Email</div>
-                    <div class="socialTitle">dillonmthomas@outlook.com</div>
-                    <div class="socialSub">Get in touch</div>
-                  </a>
+                  <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer"><div class="socialLabel">LinkedIn</div><div class="socialTitle">Dillon Thomas</div><div class="socialSub">View my professional profile</div></a>
+                  <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer"><div class="socialLabel">Instagram</div><div class="socialTitle">@bydillonthomas</div><div class="socialSub">Design work and updates</div></a>
+                  <a class="socialCard" href="mailto:dillonmthomas@outlook.com"><div class="socialLabel">Email</div><div class="socialTitle">dillonmthomas@outlook.com</div><div class="socialSub">Get in touch</div></a>
                 </div>
               </div>
             </aside>
             <section class="creatorContentCard">
               <div class="creatorEyebrow">Meet the Creator</div>
               <div class="creatorHeading">Hi, I'm Dillon.</div>
-              <div class="creatorBody">
-                I'm a designer interested in sustainability, materials, and the built environment.
-                <br><br>
-                My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.
-                <br><br>
-                This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.
-              </div>
-              <div class="creatorQuote">
-                I believe creativity should do more than shape experiences. It should help shape a better future.
-              </div>
-              <div class="creatorBody">
-                Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.
-              </div>
-              <div class="creatorMini">
-                This website is still evolving, but the goal is simple: build a visual, accessible library of materials that makes sustainable design feel easier to explore.
-              </div>
+              <div class="creatorBody">I'm a designer interested in sustainability, materials, and the built environment.<br><br>My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.<br><br>This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.</div>
+              <div class="creatorQuote">I believe creativity should do more than shape experiences. It should help shape a better future.</div>
+              <div class="creatorBody">Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.</div>
+              <div class="creatorMini">This website is still evolving, but the goal is simple: build a visual, accessible library of materials that makes sustainable design feel easier to explore.</div>
             </section>
           </div>
         </div>
       </div>
+      ${authModal()}
     `;
-    layer.querySelector('.backLink').addEventListener('click', goHome);
+    attachNav(layer); bindAuthModal(layer);
   });
 }
-
+function renderFavorites(){
+  fadeRender(layer => {
+    const found = MATERIALS.filter(m => favorites.has(m.name));
+    layer.innerHTML = `
+      ${renderNav('favorites')}
+      <div class="favoritesPage">
+        <div class="favoritesShell">
+          <div class="favoritesTitle">Favorites</div>
+          <div class="favoritesSub">Your saved materials, all in one place.</div>
+          <div class="favoritesGrid"></div>
+        </div>
+      </div>
+      ${authModal()}
+    `;
+    attachNav(layer); bindAuthModal(layer);
+    const grid = layer.querySelector('.favoritesGrid');
+    if(!user){ grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">Log in to save and view favorites.</div>`; return; }
+    if(!found.length){ grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">You have not saved any favorites yet.</div>`; return; }
+    grid.innerHTML = found.map(m => `<article class="card" data-slug="${m.slug}">${starButton(m)}<div class="cardTitle">${m.name}</div><div class="cardDesc">${shortLine(m.short || m.description)}</div><div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div></article>`).join('');
+    grid.querySelectorAll('.card').forEach(card => card.addEventListener('click', e => { if(e.target.closest('.starBtn')) return; const mat = MATERIALS.find(m => m.slug === card.dataset.slug); if(mat) openMaterial(mat); }));
+    wireStars(grid);
+  });
+}
+function renderProfile(){
+  fadeRender(layer => {
+    layer.innerHTML = `
+      ${renderNav('profile')}
+      <div class="profilePage">
+        <div class="profileShell">
+          <div class="favoritesTitle">Profile</div>
+          <div class="favoritesSub">Manage your account and personalize your library.</div>
+          <div class="profileLayout">
+            <div class="profilePanel">
+              <div style="font-size:18px;font-weight:600">Your details</div>
+              <div class="formField"><label>Name</label><input id="profileName" class="textInput" value="${profile?.full_name || ''}" placeholder="Your name"></div>
+              <div class="inlineActions"><button class="primaryBtn" id="saveProfile">Save changes</button>${user ? '<button class="secondaryBtn" id="signOutBtn">Log out</button>' : ''}</div>
+            </div>
+            <div class="profilePanel">
+              <div style="font-size:18px;font-weight:600">Account</div>
+              <div class="creatorMini">You can update your name anytime. To fully delete your auth account, add a secure Supabase Edge Function named <strong>delete-account</strong>. This UI already calls it.</div>
+              <div class="inlineActions">${user ? '<button class="dangerBtn" id="deleteAccountBtn">Delete account</button>' : '<button class="secondaryBtn" id="openAuthBtn">Log in</button>'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      ${authModal()}
+    `;
+    attachNav(layer); bindAuthModal(layer);
+    if(!user){ layer.querySelector('#openAuthBtn')?.addEventListener('click', () => openAuth('login')); return; }
+    layer.querySelector('#saveProfile').addEventListener('click', updateProfileName);
+    layer.querySelector('#signOutBtn').addEventListener('click', signOut);
+    layer.querySelector('#deleteAccountBtn').addEventListener('click', deleteAccountRequest);
+  });
+}
 function render(){
   const path = window.location.pathname;
   if(path === '/creator') return renderCreator();
-  const cat = findCategoryByPath(path);
-  if(cat) return renderCategory(cat);
-  const mat = findMaterialByPath(path);
-  if(mat) return renderMaterial(mat);
+  if(path === '/favorites') return renderFavorites();
+  if(path === '/profile') return renderProfile();
+  const cat = findCategoryByPath(path); if(cat) return renderCategory(cat);
+  const mat = findMaterialByPath(path); if(mat) return renderMaterial(mat);
   return renderHome();
 }
 window.addEventListener('popstate', render);
-window.addEventListener('resize', () => {
-  if(window.location.pathname === '/') renderHome();
-});
-window.goHome = goHome;
-render();
+window.addEventListener('resize', () => { if(window.location.pathname === '/') renderHome(); });
+initAuth().then(render);
 </script>
 </body>
 </html>
