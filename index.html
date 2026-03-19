@@ -85,20 +85,50 @@ button,input{font:inherit}
   color:var(--text);
 }
 .searchWrap{
-  width:min(680px, calc(100vw - 40px));
-  margin:22px auto 0;
+  width:min(760px, calc(100vw - 40px));
+  margin:26px auto 0;
+}
+.searchShell{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border:1px solid rgba(29,29,31,.08);
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(18px);
+  box-shadow:0 12px 30px rgba(0,0,0,.04);
+}
+.searchAccent{
+  width:42px;
+  height:42px;
+  border-radius:16px;
+  background:linear-gradient(180deg, #ffffff 0%, #f2f2f4 100%);
+  border:1px solid rgba(29,29,31,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  font-size:16px;
 }
 .searchBar{
   width:100%;
-  height:50px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:#fff;
-  padding:0 18px;
+  height:52px;
+  border:0;
+  border-radius:18px;
+  background:transparent;
+  padding:0 10px 0 14px;
   outline:none;
-  box-shadow:0 4px 18px rgba(17,17,17,.04);
+  box-shadow:none;
+  color:var(--text);
+  font-size:15px;
 }
-.searchBar:focus{border-color:#d7d7d7}
+.searchBar::placeholder{color:#8a8a8f}
+.searchShell:focus-within{
+  border-color:rgba(29,29,31,.14);
+  box-shadow:0 18px 38px rgba(0,0,0,.06);
+}
 .searchResults{
   width:min(680px, calc(100vw - 40px));
   margin:14px auto 0;
@@ -137,10 +167,6 @@ button,input{font:inherit}
   margin:18px auto 0;
   overflow:hidden;
   width:min(1180px, calc(100vw - 32px));
-  border-radius:36px;
-  background:linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.95) 100%);
-  border:1px solid rgba(255,255,255,.75);
-  box-shadow:var(--shadow);
 }
 .categoryBubble{
   position:absolute;
@@ -271,7 +297,7 @@ button,input{font:inherit}
   font-size:14px;
   line-height:1.55;
 }
-.pageShell{min-height:100vh;padding:20px 24px 40px}
+.pageShell{min-height:100vh;padding:24px 24px 44px;background:var(--bg)}
 .gridHeader{
   margin:12px auto 0;
   width:min(1120px, 100%);
@@ -316,6 +342,7 @@ button,input{font:inherit}
 .detail{
   min-height:100vh;
   padding:24px;
+  background:var(--bg);
 }
 .detailInner{
   width:min(940px,100%);
@@ -353,23 +380,71 @@ button,input{font:inherit}
 .creatorPage{
   min-height:100vh;
   padding:24px;
+  background:radial-gradient(circle at top left, #ffffff 0%, #f5f5f7 45%, #f1f1f3 100%);
 }
 .creatorInner{
-  width:min(820px,100%);
+  width:min(1040px,100%);
   margin:0 auto;
-  text-align:center;
+}
+.creatorPanel{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:28px;
+  align-items:start;
+}
+.creatorSide{
+  position:sticky;
+  top:24px;
+}
+.creatorCard{
+  border:1px solid rgba(29,29,31,.08);
+  border-radius:30px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(20px);
+  box-shadow:0 14px 34px rgba(0,0,0,.06);
+  padding:18px;
+}
+.creatorContentCard{
+  border:1px solid rgba(29,29,31,.08);
+  border-radius:30px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(20px);
+  box-shadow:0 14px 34px rgba(0,0,0,.06);
+  padding:28px;
 }
 .creatorPhoto{
-  width:220px;
-  height:220px;
-  margin:24px auto 0;
+  width:100%;
+  aspect-ratio:1 / 1;
+  margin:0;
   border-radius:24px;
   overflow:hidden;
   border:1px solid var(--line);
   background:var(--surface);
 }
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
-.creatorBody{margin-top:24px;line-height:1.85;font-size:17px}
+.creatorEyebrow{
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.creatorHeading{
+  margin-top:8px;
+  font-size:34px;
+  line-height:1.15;
+  font-weight:650;
+}
+.creatorBody{margin-top:18px;line-height:1.9;font-size:17px;color:#2a2a2d}
+.creatorQuote{
+  margin-top:18px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:linear-gradient(180deg, #fbfbfd 0%, #f2f3f7 100%);
+  border:1px solid rgba(29,29,31,.06);
+  color:#3c3c43;
+  line-height:1.7;
+}
 .socialCard{
   display:block;
   text-align:left;
@@ -402,7 +477,13 @@ button,input{font:inherit}
   font-size:14px;
   color:var(--muted);
 }
-.creatorMeta{margin-top:22px;display:grid;gap:8px}
+.creatorMeta{margin-top:18px;display:grid;gap:10px}
+.creatorMini{
+  margin-top:14px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
 .emptyState{
   width:min(1120px,100%);
   margin:20px auto 0;
@@ -416,12 +497,16 @@ button,input{font:inherit}
 @keyframes pageFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media (max-width: 1000px){
   .homeGalleryGrid{column-count:3}
+  .creatorPanel{grid-template-columns:1fr}
+  .creatorSide{position:static}
+}
 }
 @media (max-width: 800px){
   .header h1{font-size:20px;letter-spacing:.03em}
   .header p{font-size:12px}
   .searchWrap,.searchResults{width:min(680px, calc(100vw - 28px))}
-  .homeCanvas{height:500px;width:min(1180px, calc(100vw - 20px));border-radius:28px}
+  .searchShell{grid-template-columns:1fr auto;padding:8px}
+  .homeCanvas{height:500px;width:min(1180px, calc(100vw - 20px))}
   .categoryBubble{width:150px;height:150px;padding:16px}
   .categoryTitle{font-size:14px}
   .categorySubtitle{font-size:11px}
@@ -431,6 +516,8 @@ button,input{font:inherit}
   .gridHeader h2{font-size:24px}
   .homeGalleryGrid{column-count:2}
   .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
+  .creatorContentCard{padding:22px}
+  .creatorHeading{font-size:28px}
 }
 @media (max-width: 560px){
   .homeGalleryGrid{column-count:1}
@@ -661,7 +748,10 @@ function renderHome(){
         <p>Choose a category to explore. Scroll down to browse materials.</p>
       </div>
       <div class="searchWrap">
-        <input class="searchBar" placeholder="Search materials, descriptions, or tags" value="${homeSearch.replace(/"/g,'&quot;')}" />
+        <div class="searchShell">
+          <input class="searchBar" placeholder="Search materials, descriptions, or tags" value="${homeSearch.replace(/"/g,'&quot;')}" />
+          <div class="searchAccent">⌘</div>
+        </div>
       </div>
       <div class="searchResults"></div>
       <div class="homeCanvas"></div>
@@ -854,32 +944,49 @@ function renderCreator(){
       <div class="creatorPage">
         <div class="topbar"><button class="backLink">Back to Library</button></div>
         <div class="creatorInner">
-          <div class="creatorPhoto"><img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'"></div>
-          <div class="creatorBody">
-            Hi, I'm Dillon. I'm a designer interested in sustainability, materials, and the built environment.
-            <br><br>
-            My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.
-            <br><br>
-            I believe creativity should do more than shape experiences. It should help shape a better future. This material library is a small project where I’m documenting and sharing what I’m learning about sustainable materials and systems.
-            <br><br>
-            Next fall, I’ll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.
-          </div>
-          <div class="creatorMeta">
-            <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">
-              <div class="socialLabel">LinkedIn</div>
-              <div class="socialTitle">Dillon Thomas</div>
-              <div class="socialSub">View my professional profile</div>
-            </a>
-            <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">
-              <div class="socialLabel">Instagram</div>
-              <div class="socialTitle">@bydillonthomas</div>
-              <div class="socialSub">Design work and updates</div>
-            </a>
-            <a class="socialCard" href="mailto:dillonmthomas@outlook.com">
-              <div class="socialLabel">Email</div>
-              <div class="socialTitle">dillonmthomas@outlook.com</div>
-              <div class="socialSub">Get in touch</div>
-            </a>
+          <div class="creatorPanel">
+            <aside class="creatorSide">
+              <div class="creatorCard">
+                <div class="creatorPhoto"><img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'"></div>
+                <div class="creatorMeta">
+                  <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">
+                    <div class="socialLabel">LinkedIn</div>
+                    <div class="socialTitle">Dillon Thomas</div>
+                    <div class="socialSub">View my professional profile</div>
+                  </a>
+                  <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">
+                    <div class="socialLabel">Instagram</div>
+                    <div class="socialTitle">@bydillonthomas</div>
+                    <div class="socialSub">Design work and updates</div>
+                  </a>
+                  <a class="socialCard" href="mailto:dillonmthomas@outlook.com">
+                    <div class="socialLabel">Email</div>
+                    <div class="socialTitle">dillonmthomas@outlook.com</div>
+                    <div class="socialSub">Get in touch</div>
+                  </a>
+                </div>
+              </div>
+            </aside>
+            <section class="creatorContentCard">
+              <div class="creatorEyebrow">Meet the Creator</div>
+              <div class="creatorHeading">Hi, I'm Dillon.</div>
+              <div class="creatorBody">
+                I'm a designer interested in sustainability, materials, and the built environment.
+                <br><br>
+                My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.
+                <br><br>
+                This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.
+              </div>
+              <div class="creatorQuote">
+                I believe creativity should do more than shape experiences. It should help shape a better future.
+              </div>
+              <div class="creatorBody">
+                Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on sustainability.
+              </div>
+              <div class="creatorMini">
+                This website is still evolving, but the goal is simple: build a visual, accessible library of materials that makes sustainable design feel easier to explore.
+              </div>
+            </section>
           </div>
         </div>
       </div>
