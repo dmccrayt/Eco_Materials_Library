@@ -6,18 +6,19 @@
 <title>Eco-Friendly Material Library</title>
 <style>
 :root{
-  --bg:#ffffff;
-  --text:#111111;
-  --muted:#6f6f6f;
-  --line:#e9e9e9;
-  --shadow:0 12px 30px rgba(17,17,17,.08);
-  --shadow-hover:0 20px 40px rgba(17,17,17,.12);
-  --pastel-blue:#edf4ff;
-  --pastel-green:#eef8f0;
-  --pastel-peach:#fff2e8;
-  --pastel-lavender:#f4eeff;
-  --pastel-yellow:#fff9e8;
-  --pastel-pink:#fff0f5;
+  --bg:#f5f5f7;
+  --surface:#ffffff;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --line:#e5e5e7;
+  --shadow:0 14px 34px rgba(0,0,0,.06);
+  --shadow-hover:0 22px 44px rgba(0,0,0,.10);
+  --pastel-blue:#eef3ff;
+  --pastel-green:#eef8f1;
+  --pastel-peach:#fff4ec;
+  --pastel-lavender:#f5efff;
+  --pastel-yellow:#fff9eb;
+  --pastel-pink:#fff1f6;
 }
 *{box-sizing:border-box}
 html,body{
@@ -27,7 +28,7 @@ html,body{
   min-height:100%;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
 body{animation:fadeIn .7s ease}
 a{color:inherit}
@@ -35,8 +36,23 @@ button,input{font:inherit}
 #app{min-height:100vh}
 .fade-layer{min-height:100vh;animation:pageFade .35s ease}
 .header{
-  padding:28px 24px 0;
+  padding:36px 24px 0;
   text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:none;
+}
+.header p{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  letter-spacing:.02em;
+  text-transform:none;
+  line-height:1.7;
 }
 .header h1{
   margin:0;
@@ -118,8 +134,13 @@ button,input{font:inherit}
 .homeCanvas{
   position:relative;
   height:clamp(520px, 62vh, 760px);
-  margin:12px 0 0;
+  margin:18px auto 0;
   overflow:hidden;
+  width:min(1180px, calc(100vw - 32px));
+  border-radius:36px;
+  background:linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.95) 100%);
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:var(--shadow);
 }
 .categoryBubble{
   position:absolute;
@@ -128,7 +149,7 @@ button,input{font:inherit}
   width:220px;
   height:220px;
   border-radius:999px;
-  border:1px solid rgba(17,17,17,.08);
+  border:1px solid rgba(29,29,31,.06);
   background:var(--bubble, var(--pastel-blue));
   box-shadow:var(--shadow);
   display:flex;
@@ -158,7 +179,97 @@ button,input{font:inherit}
 }
 .bottomCta{
   text-align:center;
-  padding:10px 20px 28px;
+  padding:18px 20px 20px;
+}
+.scrollCue{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  background:none;
+  border:0;
+  cursor:pointer;
+  color:var(--muted);
+}
+.scrollCue span{
+  font-size:12px;
+  letter-spacing:.04em;
+}
+.scrollArrow{
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+.homeGallerySection{
+  width:min(1240px, calc(100vw - 32px));
+  margin:10px auto 40px;
+}
+.homeGalleryHeader{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+.homeGalleryHeader h2{
+  margin:0;
+  font-size:28px;
+  font-weight:600;
+}
+.homeGalleryHeader p{
+  margin:6px 0 0;
+  color:var(--muted);
+}
+.homeGalleryGrid{
+  column-count:4;
+  column-gap:18px;
+}
+.homeGalleryCard{
+  break-inside:avoid;
+  margin-bottom:18px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:var(--surface);
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.homeGalleryCard:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 28px rgba(0,0,0,.08);
+}
+.homeGalleryImageWrap{
+  background:linear-gradient(180deg, #ffffff 0%, #f8f8fa 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+}
+.homeGalleryImageWrap img{
+  width:100%;
+  max-height:200px;
+  object-fit:contain;
+}
+.homeGalleryBody{
+  padding:16px 16px 18px;
+}
+.homeGalleryTitle{
+  font-size:17px;
+  font-weight:600;
+  line-height:1.35;
+}
+.homeGalleryDesc{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
 }
 .pageShell{min-height:100vh;padding:20px 24px 40px}
 .gridHeader{
@@ -190,6 +301,7 @@ button,input{font:inherit}
   gap:18px;
 }
 .card{
+  background:var(--surface);
   border:1px solid var(--line);
   border-radius:22px;
   background:#fff;
@@ -219,7 +331,7 @@ button,input{font:inherit}
 .detailImageWrap{
   border:1px solid var(--line);
   border-radius:28px;
-  background:#fff;
+  background:var(--surface);
   min-height:220px;
   display:flex;
   align-items:center;
@@ -254,7 +366,7 @@ button,input{font:inherit}
   border-radius:24px;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#fafafa;
+  background:var(--surface);
 }
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
 .creatorBody{margin-top:24px;line-height:1.85;font-size:17px}
@@ -302,11 +414,14 @@ button,input{font:inherit}
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pageFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width: 1000px){
+  .homeGalleryGrid{column-count:3}
+}
 @media (max-width: 800px){
-  .header h1{font-size:18px;letter-spacing:.12em}
-  .header p{font-size:11px}
+  .header h1{font-size:20px;letter-spacing:.03em}
+  .header p{font-size:12px}
   .searchWrap,.searchResults{width:min(680px, calc(100vw - 28px))}
-  .homeCanvas{height:520px}
+  .homeCanvas{height:500px;width:min(1180px, calc(100vw - 20px));border-radius:28px}
   .categoryBubble{width:150px;height:150px;padding:16px}
   .categoryTitle{font-size:14px}
   .categorySubtitle{font-size:11px}
@@ -314,6 +429,12 @@ button,input{font:inherit}
   .detailTitle{font-size:28px}
   .detailText{font-size:16px}
   .gridHeader h2{font-size:24px}
+  .homeGalleryGrid{column-count:2}
+  .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
+}
+@media (max-width: 560px){
+  .homeGalleryGrid{column-count:1}
+  .homeGalleryHeader{display:block}
 }
 </style>
 </head>
@@ -534,23 +655,42 @@ function buildBubbleElements(list, wrap){
 
 function renderHome(){
   fadeRender(layer => {
-    const visibleCategories = categories.filter(cat => categoryContainsSearch(cat, homeSearch));
     layer.innerHTML = `
       <div class="header">
         <h1>Eco-Friendly Material Library</h1>
-        <p>Choose a category to explore • This is a prototype</p>
+        <p>Choose a category to explore. Scroll down to browse materials.</p>
       </div>
       <div class="searchWrap">
         <input class="searchBar" placeholder="Search materials, descriptions, or tags" value="${homeSearch.replace(/"/g,'&quot;')}" />
       </div>
       <div class="searchResults"></div>
       <div class="homeCanvas"></div>
-      <div class="bottomCta"><button class="creatorLink">Meet the Creator!</button></div>
+      <div class="bottomCta">
+        <button class="scrollCue" type="button">
+          <span>Scroll to materials</span>
+          <div class="scrollArrow">↓</div>
+        </button>
+        <div style="margin-top:14px"><button class="creatorLink">Meet the Creator!</button></div>
+      </div>
+      <section class="homeGallerySection" id="materials-gallery">
+        <div class="homeGalleryHeader">
+          <div>
+            <h2>Browse Materials</h2>
+            <p>A growing visual archive of sustainable materials and systems.</p>
+          </div>
+        </div>
+        <div class="homeGalleryGrid"></div>
+      </section>
     `;
     layer.querySelector('.creatorLink').addEventListener('click', goCreator);
+    layer.querySelector('.scrollCue').addEventListener('click', () => {
+      const gallery = layer.querySelector('#materials-gallery');
+      if(gallery) gallery.scrollIntoView({behavior:'smooth', block:'start'});
+    });
     const input = layer.querySelector('.searchBar');
     const results = layer.querySelector('.searchResults');
     const canvas = layer.querySelector('.homeCanvas');
+    const galleryGrid = layer.querySelector('.homeGalleryGrid');
 
     const paintSearchResults = () => {
       const q = homeSearch.trim();
@@ -587,13 +727,39 @@ function renderHome(){
       startBubbles(items);
     };
 
+    const paintGallery = () => {
+      const found = materials.filter(m => matchesSearch(m, homeSearch));
+      if(!found.length){
+        galleryGrid.innerHTML = `<div class="emptyState">No materials match the current search.</div>`;
+        return;
+      }
+      galleryGrid.innerHTML = found.map(m => `
+        <article class="homeGalleryCard" data-slug="${m.slug}">
+          <div class="homeGalleryImageWrap">${renderMaterialImage(m, 'galleryImage')}</div>
+          <div class="homeGalleryBody">
+            <div class="homeGalleryTitle">${m.name}</div>
+            <div class="homeGalleryDesc">${shortLine(m.short || m.description)}</div>
+            <div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </article>
+      `).join('');
+      galleryGrid.querySelectorAll('.homeGalleryCard').forEach(card => {
+        card.addEventListener('click', () => {
+          const mat = materials.find(m => m.slug === card.dataset.slug);
+          if(mat) openMaterial(mat);
+        });
+      });
+    };
+
     input.addEventListener('input', (e) => {
       homeSearch = e.target.value;
       paintSearchResults();
       paintBubbles();
+      paintGallery();
     });
 
     paintSearchResults();
+    paintGallery();
     requestAnimationFrame(() => paintBubbles());
   });
 }
