@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Eco-Friendly Materials</title>
+<title>Eco-Friendly Material Library</title>
 <style>
 :root{
   --bg:#f5f5f7;
@@ -18,10 +18,10 @@
   --pastel-lavender:#f5efff;
   --pastel-yellow:#fff9eb;
   --pastel-pink:#fff1f6;
-  --pastel-mint:#e8f7ec;
-
-  --green-dark:#1f5c3f;
+  --pastel-mint:#ecfaf1;
+  --dark-green:#1f5c3f;
 }
+
 *{box-sizing:border-box}
 html,body{
   margin:0;
@@ -32,23 +32,23 @@ html,body{
   color:var(--text);
   font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
-body{animation:fadeIn .45s ease}
+body{animation:fadeIn .35s ease}
 a{color:inherit}
 button,input,textarea{font:inherit}
 #app{min-height:100vh}
-.fade-layer{min-height:100vh;animation:pageFade .3s ease}
+.fade-layer{min-height:100vh;animation:pageFade .25s ease}
 
 .siteNav{
   position:sticky;
   top:0;
-  z-index:90;
+  z-index:100;
   display:grid;
   grid-template-columns:1fr auto 1fr;
   align-items:center;
   gap:16px;
   padding:14px 22px 10px;
   backdrop-filter:blur(24px);
-  background:rgba(245,245,247,.72);
+  background:rgba(245,245,247,.78);
   border-bottom:1px solid rgba(29,29,31,.05);
 }
 .brandBtn{
@@ -132,23 +132,16 @@ button,input,textarea{font:inherit}
 .searchResultTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
 .searchResultName{font-weight:600}
 .searchResultDesc{margin-top:6px;color:var(--muted);font-size:14px;line-height:1.5}
-
 .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .tag{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#f7f7f7;
-  border:1px solid #efefef;
-  font-size:12px;
-  color:#444
+  display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;
+  background:#f7f7f7;border:1px solid #efefef;font-size:12px;color:#444
 }
 
 .homeCanvas{
   position:relative;
   height:clamp(520px,64vh,720px);
-  margin:18px auto 0;
+  margin:22px auto 0;
   overflow:hidden;
   width:min(1220px,calc(100vw - 32px));
 }
@@ -171,88 +164,38 @@ button,input,textarea{font:inherit}
   transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
   will-change:transform;
 }
-.categoryBubble:hover{
-  box-shadow:0 18px 36px rgba(0,0,0,.09);
-  filter:brightness(1.01)
-}
-.categoryTitle{
-  font-size:18px;
-  font-weight:600;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
-.categoryBubble.is-long .categoryTitle{
-  font-size:15px;
-  line-height:1.2;
-  letter-spacing:.02em;
-}
-.categorySubtitle{
-  margin-top:8px;
-  font-size:13px;
-  line-height:1.5;
-  color:#555;
-}
+.categoryBubble:hover{box-shadow:0 18px 36px rgba(0,0,0,.09);filter:brightness(1.01)}
+.categoryTitle{font-size:18px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.categorySubtitle{margin-top:8px;font-size:13px;line-height:1.5;color:#555}
+.categoryBubble.compact .categoryTitle{font-size:16px}
+.categoryBubble.compact .categorySubtitle{font-size:12px}
 
 .bottomCta{text-align:center;padding:10px 20px 12px}
 .homeCreatorLink{
   display:block;
   margin-top:18px;
-  color:var(--green-dark);
+  color:var(--dark-green);
   text-decoration:none;
-  font-size:13px;
+  font-size:14px;
   font-weight:700;
   letter-spacing:.01em;
-  padding:6px 10px;
-  border-radius:999px;
   width:fit-content;
   margin-left:auto;
   margin-right:auto;
 }
-.homeCreatorLink:hover{background:rgba(255,255,255,.55)}
-.scrollCue{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  background:none;
-  border:0;
-  cursor:pointer;
-  color:var(--muted)
-}
+.homeCreatorLink:hover{text-decoration:underline}
+
+.scrollCue{display:inline-flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--muted)}
 .scrollArrow{
-  width:38px;
-  height:38px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.8);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;
   box-shadow:0 6px 16px rgba(0,0,0,.04)
 }
-.homeNavArrows{
-  position:fixed;
-  right:24px;
-  bottom:24px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  z-index:40
-}
+.homeNavArrows{position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:12px;z-index:40}
 .navArrow{
-  width:54px;
-  height:54px;
-  border-radius:999px;
-  border:1px solid rgba(29,29,31,.08);
-  background:rgba(255,255,255,.82);
-  backdrop-filter:blur(18px);
-  box-shadow:0 10px 26px rgba(0,0,0,.07);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  color:var(--text);
-  font-size:22px
+  width:54px;height:54px;border-radius:999px;border:1px solid rgba(29,29,31,.08);
+  background:rgba(255,255,255,.82);backdrop-filter:blur(18px);box-shadow:0 10px 26px rgba(0,0,0,.07);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:22px
 }
 
 .homeGallerySection{width:min(1240px,calc(100vw - 32px));margin:10px auto 40px}
@@ -260,39 +203,15 @@ button,input,textarea{font:inherit}
 .homeGalleryHeader h2,.gridHeader h2,.favoritesTitle{margin:0;font-size:28px;font-weight:600}
 .homeGalleryHeader p,.gridHeader p,.favoritesSub{margin:6px 0 0;color:var(--muted)}
 .homeGalleryGrid{column-count:4;column-gap:18px}
-.homeGalleryCard{
-  break-inside:avoid;
-  margin-bottom:18px;
-  border-radius:24px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:transform .18s ease, box-shadow .18s ease
-}
-.homeGalleryCard:hover,.card:hover,.socialCard:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 28px rgba(0,0,0,.08)
-}
-.homeGalleryImageWrap{
-  background:linear-gradient(180deg,#ffffff 0%,#f8f8fa 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-  min-height:180px
-}
+.homeGalleryCard{break-inside:avoid;margin-bottom:18px;border-radius:24px;overflow:hidden;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+.homeGalleryCard:hover,.card:hover,.socialCard:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.08)}
+.homeGalleryImageWrap{background:linear-gradient(180deg,#ffffff 0%,#f8f8fa 100%);display:flex;align-items:center;justify-content:center;padding:22px;min-height:180px}
 .homeGalleryImageWrap img{width:100%;max-height:200px;object-fit:contain}
 .homeGalleryBody{padding:16px 16px 18px;position:relative}
 .homeGalleryTitle,.cardTitle{font-size:17px;font-weight:600;line-height:1.35}
 .homeGalleryDesc,.cardDesc{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.55}
 
-.card{
-  border-radius:22px;
-  padding:18px;
-  transition:transform .18s ease, box-shadow .18s ease;
-  cursor:pointer;
-  position:relative
-}
-
+.card{border-radius:22px;padding:18px;transition:transform .18s ease, box-shadow .18s ease;cursor:pointer;position:relative}
 .pageShell,.detail,.creatorPage,.favoritesPage,.profilePage{min-height:100vh;background:var(--bg)}
 .pageShell,.favoritesPage,.profilePage{padding:88px 24px 24px}
 .gridHeader{margin:18px auto 0;width:min(1120px,100%)}
@@ -300,46 +219,21 @@ button,input,textarea{font:inherit}
 .filterChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;cursor:pointer}
 .filterChip.active{background:#111;color:#fff;border-color:#111}
 .materialGrid,.favoritesGrid{width:min(1120px,100%);margin:18px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-
 .starBtn{
-  position:absolute;
-  top:14px;
-  right:14px;
-  width:38px;
-  height:38px;
-  border-radius:999px;
-  border:1px solid rgba(29,29,31,.08);
-  background:rgba(255,255,255,.9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  z-index:2
+  position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:999px;
+  border:1px solid rgba(29,29,31,.08);background:rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2
 }
 .starBtn.active{background:#e9f7ee;border-color:#b9e4c8}
 
 .detail{padding:96px 24px 24px}
 .detailInner{width:min(940px,100%);margin:0 auto}
 .detailTop{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start;margin-top:0}
-.detailImageWrap{
-  border-radius:28px;
-  min-height:220px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-  position:relative
-}
+.detailImageWrap{border-radius:28px;min-height:220px;display:flex;align-items:center;justify-content:center;padding:22px;position:relative}
 .detailImageWrap img{max-width:100%;max-height:180px;object-fit:contain}
 .detailTitle{font-size:34px;font-weight:650;line-height:1.15}
 .detailText{margin-top:18px;line-height:1.8;font-size:17px;color:#202020}
-.impactBox{
-  margin-top:22px;
-  background:linear-gradient(180deg,#faf8ff 0%,#f5f7ff 100%);
-  border:1px solid #ecebff;
-  border-radius:24px;
-  padding:20px
-}
+.impactBox{margin-top:22px;background:linear-gradient(180deg,#faf8ff 0%,#f5f7ff 100%);border:1px solid #ecebff;border-radius:24px;padding:20px}
 .impactBox h3{margin:0 0 10px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
 .impactBox p{margin:0;line-height:1.7}
 
@@ -348,21 +242,12 @@ button,input,textarea{font:inherit}
   padding:96px 24px 32px;
   background:linear-gradient(180deg,#f7f7f8 0%,#f3f3f5 100%);
 }
-.creatorInner{width:min(980px,100%);margin:0 auto}
+.creatorInner{width:min(900px,100%);margin:0 auto}
 .creatorPanel{
   display:grid;
-  grid-template-columns:200px 1fr;
+  grid-template-columns:180px 1fr;
   gap:36px;
   align-items:start;
-}
-.creatorSide{position:static}
-.creatorCard,.creatorContentCard{
-  border-radius:30px;
-  padding:0;
-  background:transparent;
-  backdrop-filter:none;
-  box-shadow:none;
-  border:0;
 }
 .creatorPhoto{
   width:180px;
@@ -375,30 +260,10 @@ button,input,textarea{font:inherit}
   box-shadow:0 10px 24px rgba(0,0,0,.05);
 }
 .creatorPhoto img{width:100%;height:100%;object-fit:cover}
-.creatorHeading{
-  margin-top:0;
-  font-size:48px;
-  line-height:.98;
-  font-weight:800;
-  text-align:left;
-  letter-spacing:-.03em;
-  color:var(--green-dark);
-}
-.creatorBody{
-  margin-top:14px;
-  line-height:1.8;
-  font-size:16px;
-  color:#2a2a2d;
-  text-align:left
-}
-.creatorQuote{
-  margin-top:14px;
-  color:#3c3c43;
-  line-height:1.8;
-  text-align:left;
-  font-size:16px;
-  font-weight:500
-}
+.creatorHeading{margin-top:0;font-size:48px;line-height:.98;font-weight:650;text-align:left;letter-spacing:-.03em}
+.creatorBody{margin-top:14px;line-height:1.8;font-size:16px;color:#2a2a2d;text-align:left}
+.creatorQuote{margin-top:14px;color:#3c3c43;line-height:1.8;text-align:left;font-size:16px;font-weight:500}
+.creatorLinksBlock{margin-top:22px;display:grid;gap:10px;max-width:420px}
 .socialCard{
   display:block;
   text-align:left;
@@ -409,134 +274,65 @@ button,input,textarea{font:inherit}
   background:rgba(255,255,255,.72);
   box-shadow:0 4px 14px rgba(17,17,17,.03);
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  width:100%;
 }
-.socialCard:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 24px rgba(17,17,17,.06);
-  border-color:rgba(29,29,31,.08)
-}
+.socialCard:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(17,17,17,.06);border-color:rgba(29,29,31,.08)}
 .socialLabel{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .socialTitle{margin-top:4px;font-size:16px;font-weight:600;color:var(--text)}
 .socialSub{margin-top:6px;font-size:14px;color:var(--muted)}
-.creatorMeta{
-  margin-top:24px;
-  display:grid;
-  gap:10px;
-  width:100%;
-}
 
-.favoritesShell,.profileShell{
-  width:min(1120px,100%);
-  margin:18px auto 0;
-  border-radius:30px;
-  padding:24px;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(16px)
-}
+.favoritesShell,.profileShell{width:min(1120px,100%);margin:18px auto 0;border-radius:30px;padding:24px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px)}
 .profileLayout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
 .profilePanel{border-radius:24px;padding:20px}
 .formField{display:grid;gap:8px;margin-top:12px}
 .formField label{font-size:13px;color:var(--muted)}
 .textInput{
-  height:48px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:0 14px;
-  background:#fff;
-  outline:none
+  height:48px;border:1px solid var(--line);border-radius:16px;padding:0 14px;background:#fff;outline:none
+}
+.textArea{
+  min-height:120px;border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;outline:none;resize:vertical
 }
 .primaryBtn,.dangerBtn,.secondaryBtn{
-  border:0;
-  border-radius:16px;
-  padding:12px 16px;
-  cursor:pointer;
-  font-weight:600
+  border:0;border-radius:16px;padding:12px 16px;cursor:pointer;font-weight:600
 }
 .primaryBtn{background:#1d1d1f;color:#fff}
 .secondaryBtn{background:var(--pastel-blue);color:var(--text)}
 .dangerBtn{background:#ffebeb;color:#9b1c1c}
 .inlineActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.emptyState{
-  width:min(1120px,100%);
-  margin:20px auto 0;
-  border:1px dashed #ddd;
-  border-radius:22px;
-  padding:24px;
-  text-align:center;
-  color:var(--muted)
-}
+.emptyState{width:min(1120px,100%);margin:20px auto 0;border:1px dashed #ddd;border-radius:22px;padding:24px;text-align:center;color:var(--muted)}
 
 .authOverlay,.feedbackOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(20,20,24,.22);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:120
+  position:fixed;inset:0;background:rgba(20,20,24,.22);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:120
 }
 .authModal,.feedbackModal{
-  width:min(520px,100%);
-  border:1px solid rgba(29,29,31,.08);
-  border-radius:30px;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(20px);
-  box-shadow:0 24px 60px rgba(0,0,0,.14);
-  padding:24px
+  width:min(520px,100%);border:1px solid rgba(29,29,31,.08);border-radius:30px;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);box-shadow:0 24px 60px rgba(0,0,0,.14);padding:24px
 }
 .authTabs{display:flex;gap:10px;margin-top:16px}
 .authTab{flex:1;border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;cursor:pointer}
 .authTab.active{background:var(--pastel-blue)}
-.authMessage{margin-top:14px;font-size:14px;color:var(--muted);min-height:20px}
+.authMessage,.feedbackMessage{margin-top:14px;font-size:14px;color:var(--muted);min-height:20px}
+.linkBtn{
+  border:0;background:none;padding:0;color:var(--muted);cursor:pointer;text-decoration:underline
+}
 .hidden{display:none !important}
 
 .feedbackFab{
   position:fixed;
   right:24px;
-  bottom:24px;
-  z-index:110;
-  border:1px solid rgba(31,92,63,.08);
-  background:var(--pastel-mint);
-  color:var(--green-dark);
+  bottom:96px;
+  z-index:95;
+  border:0;
+  background:var(--pastel-green);
+  color:var(--text);
   border-radius:999px;
   padding:14px 18px;
-  font-weight:700;
-  box-shadow:0 12px 24px rgba(31,92,63,.12);
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
   cursor:pointer;
-  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  font-weight:600;
+  transition:transform .18s ease, box-shadow .18s ease;
 }
 .feedbackFab:hover{
   transform:translateY(-2px);
-  box-shadow:0 18px 32px rgba(31,92,63,.16);
-  filter:brightness(1.01);
-}
-.feedbackTextarea{
-  width:100%;
-  min-height:140px;
-  resize:vertical;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px 16px;
-  background:#fff;
-  outline:none;
-  color:var(--text);
-  margin-top:16px;
-}
-.feedbackActions{
-  display:flex;
-  gap:10px;
-  justify-content:flex-end;
-  margin-top:16px;
-  flex-wrap:wrap;
-}
-.feedbackNote{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:14px;
-  min-height:20px;
+  box-shadow:0 16px 30px rgba(0,0,0,.12);
 }
 
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -545,9 +341,9 @@ button,input,textarea{font:inherit}
 @media (max-width: 1000px){
   .homeGalleryGrid{column-count:3}
   .profileLayout{grid-template-columns:1fr}
-  .creatorPanel{grid-template-columns:1fr;gap:22px}
+  .creatorPanel{grid-template-columns:1fr;gap:24px}
   .creatorHeading,.creatorBody,.creatorQuote{text-align:center}
-  .creatorMeta{max-width:420px;margin-left:auto;margin-right:auto}
+  .creatorLinksBlock{margin-left:auto;margin-right:auto}
 }
 @media (max-width: 800px){
   .siteNav{grid-template-columns:1fr auto 1fr;padding:14px 14px 8px}
@@ -558,7 +354,6 @@ button,input,textarea{font:inherit}
   .homeCanvas{height:520px;width:min(1220px, calc(100vw - 20px))}
   .categoryBubble{width:150px;height:150px;padding:16px}
   .categoryTitle{font-size:14px}
-  .categoryBubble.is-long .categoryTitle{font-size:12px}
   .categorySubtitle{font-size:11px}
   .detail{padding:88px 18px 24px}
   .detailTop{grid-template-columns:1fr;gap:20px}
@@ -571,11 +366,11 @@ button,input,textarea{font:inherit}
   .creatorPage{padding:88px 18px 24px}
   .creatorHeading{font-size:38px}
   .creatorBody,.creatorQuote{font-size:15px}
-  .homeNavArrows{right:16px;bottom:84px}
+  .homeNavArrows{right:16px;bottom:16px}
   .navArrow{width:48px;height:48px}
   .navPill{min-width:auto;padding:11px 14px}
   .navSub{display:none}
-  .feedbackFab{right:16px;bottom:16px}
+  .feedbackFab{right:16px;bottom:88px}
 }
 @media (max-width: 560px){
   .homeGalleryGrid{column-count:1}
@@ -590,7 +385,7 @@ button,input,textarea{font:inherit}
 
 <script>
 const SUPABASE_URL = 'https://kfdbqfwzbmvktvoklpgb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGJxZnd6Ym12a3R2b2tscGdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTEyMTYsImV4cCI6MjA4OTUyNzIxNn0.IJgC2BIswl_uk25PcR8pT6_N4RP79Pz6RXFWy5yScjI';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY_HERE';
 
 const MATERIALS = [
   { name: "Cross-Laminated Timber (CLT)", slug: "cross-laminated-timber-clt", short: "Engineered timber panels for walls, floors, and roofs.", description: "Cross-Laminated Timber (CLT) is an engineered wood product composed of multiple layers of dimensional lumber stacked perpendicular to one another and bonded with structural adhesives. This cross-laminated configuration provides exceptional strength, rigidity, and dimensional stability, allowing CLT panels to be used for floors, walls, and roofs in mid- to high-rise construction. Panels are typically prefabricated off-site with CNC precision, reducing construction time, labor, and material waste. CLT can also be left exposed, creating a warm, natural interior aesthetic while eliminating additional finish layers.", climateImpact: "Acts as a carbon sink by storing carbon absorbed during tree growth and has significantly lower embodied carbon than steel and concrete when sustainably sourced.", tags: ["Structural", "Bio-Based", "Low Carbon"] },
@@ -651,7 +446,7 @@ const categories = [
   { name: 'Insulation', slug: 'insulation', subtitle: 'Materials for thermal and acoustic performance.', color: 'var(--pastel-green)' },
   { name: 'Finishes', slug: 'finishes', subtitle: 'Surface materials, coatings, and interior applications.', color: 'var(--pastel-lavender)' },
   { name: 'Bio-Based', slug: 'bio-based', subtitle: 'Materials derived from renewable biological sources.', color: 'var(--pastel-yellow)' },
-  { name: 'Reclaimed/Recycled', slug: 'reclaimed-recycled', subtitle: 'Materials reused or made with recycled content.', color: 'var(--pastel-pink)' },
+  { name: 'Reclaimed/Recycled', slug: 'reclaimed-recycled', subtitle: 'Materials reused or made with recycled content.', color: 'var(--pastel-pink)', compact: true },
   { name: 'Low Carbon', slug: 'low-carbon', subtitle: 'Materials and systems with reduced climate impact.', color: 'var(--pastel-mint)' }
 ];
 
@@ -664,11 +459,14 @@ let rafId = null;
 let lastTime = 0;
 let homeSearch = '';
 let activeCategoryFilter = 'All';
+
 let authMode = 'login';
 let authOpen = false;
 let authMessage = '';
+
 let feedbackOpen = false;
 let feedbackMessage = '';
+
 let user = null;
 let profile = null;
 let favorites = new Set();
@@ -678,23 +476,28 @@ function fadeRender(cb){
   app.innerHTML = '<div class="fade-layer"></div>';
   cb(app.firstElementChild);
 }
+
 function imageCandidates(mat){
   const safeName = mat.name.replaceAll('/', '-');
   return [`./${mat.name}.jpeg`,`./${mat.name}.jpg`,`./${safeName}.jpeg`,`./${safeName}.jpg`,`./${mat.slug}.jpeg`,`./${mat.slug}.jpg`,`./${mat.slug}.png`];
 }
+
 function renderMaterialImage(mat, extraClass = ''){
   const classAttr = extraClass ? ` class="${extraClass}"` : '';
   const candidates = JSON.stringify(imageCandidates(mat)).replace(/"/g, '&quot;');
   return `<img${classAttr} src="${imageCandidates(mat)[0]}" alt="${mat.name}" data-candidates="${candidates}" onerror="(function(img){const list=JSON.parse(img.dataset.candidates||'[]');const current=img.getAttribute('src');const next=list.find(path=>path!==current);if(next){img.dataset.candidates=JSON.stringify(list.filter(path=>path!==next));img.src=next;}else{img.style.display='none';}})(this)">`;
 }
+
 function categoryPath(cat){ return '/category/' + cat.slug; }
 function materialPath(mat){ return '/material/' + mat.slug; }
+
 function goHome(){ history.pushState({}, '', '/'); render(); }
 function goCreator(){ history.pushState({}, '', '/creator'); render(); }
 function goFavorites(){ history.pushState({}, '', '/favorites'); render(); }
 function goProfile(){ history.pushState({}, '', '/profile'); render(); }
 function openCategory(cat){ history.pushState({}, '', categoryPath(cat)); activeCategoryFilter = 'All'; render(); }
 function openMaterial(mat){ history.pushState({}, '', materialPath(mat)); render(); }
+
 function findCategoryByPath(path){ return categories.find(c => categoryPath(c) === path); }
 function findMaterialByPath(path){ return MATERIALS.find(m => materialPath(m) === path); }
 
@@ -706,7 +509,9 @@ function matchesSearch(material, query){
     || material.climateImpact.toLowerCase().includes(q)
     || material.tags.some(t => t.toLowerCase().includes(q));
 }
+
 function shortLine(text){ return text.length > 78 ? text.slice(0, 78).trim() + '…' : text; }
+
 function bubbleOverlap(candidate, arr){
   return arr.some(p => Math.sqrt((candidate.cx - p.cx) ** 2 + (candidate.cy - p.cy) ** 2) < candidate.buffer + p.buffer);
 }
@@ -721,12 +526,14 @@ function startBubbles(items){
     lastTime = now;
     const wrap = document.querySelector('.homeCanvas');
     if(!wrap){ rafId = requestAnimationFrame(tick); return; }
+
     const w = wrap.clientWidth;
     const h = wrap.clientHeight;
 
     for(const item of bubbleItems){
       item.x += item.vx * dt;
       item.y += item.vy * dt;
+
       const minX = 10, minY = 10, maxX = w - item.size - 10, maxY = h - item.size - 10;
       if(item.x <= minX){ item.x = minX; item.vx = Math.abs(item.vx); }
       if(item.x >= maxX){ item.x = maxX; item.vx = -Math.abs(item.vx); }
@@ -737,8 +544,11 @@ function startBubbles(items){
     for(let i = 0; i < bubbleItems.length; i++){
       for(let j = i + 1; j < bubbleItems.length; j++){
         const a = bubbleItems[i], b = bubbleItems[j];
-        const ax = a.x + a.size / 2, ay = a.y + a.size / 2, bx = b.x + b.size / 2, by = b.y + b.size / 2;
-        const dx = bx - ax, dy = by - ay, d = Math.sqrt(dx * dx + dy * dy) || .001, minDist = (a.size + b.size) * .56;
+        const ax = a.x + a.size / 2, ay = a.y + a.size / 2;
+        const bx = b.x + b.size / 2, by = b.y + b.size / 2;
+        const dx = bx - ax, dy = by - ay;
+        const d = Math.sqrt(dx * dx + dy * dy) || .001;
+        const minDist = (a.size + b.size) * .62;
         if(d < minDist){
           const overlap = (minDist - d) / 2, nx = dx / d, ny = dy / d;
           a.x -= nx * overlap; a.y -= ny * overlap;
@@ -753,10 +563,13 @@ function startBubbles(items){
     for(const item of bubbleItems){
       item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, 0) scale(${item.scale})`;
     }
+
     rafId = requestAnimationFrame(tick);
   };
+
   rafId = requestAnimationFrame(tick);
 }
+
 function stopBubbles(){
   if(rafId) cancelAnimationFrame(rafId);
   rafId = null;
@@ -771,12 +584,12 @@ function buildBubbleElements(list, wrap){
   const mobile = window.innerWidth < 800;
   const centerX = w / 2;
   const centerY = h / 2;
-  const ringRadiusX = mobile ? Math.min(250, w * 0.42) : Math.min(480, w * 0.4);
-  const ringRadiusY = mobile ? Math.min(220, h * 0.36) : Math.min(340, h * 0.34);
+  const ringRadiusX = mobile ? Math.min(215, w * .36) : Math.min(430, w * .37);
+  const ringRadiusY = mobile ? Math.min(230, h * .34) : Math.min(295, h * .30);
 
   list.forEach((cat, index) => {
     const size = mobile ? 150 : 220;
-    const buffer = size * 0.95;
+    const buffer = size * .84;
     const angle = (Math.PI * 2 * index) / list.length - Math.PI / 2;
 
     let x = centerX + Math.cos(angle) * ringRadiusX - size / 2;
@@ -786,17 +599,16 @@ function buildBubbleElements(list, wrap){
     y = Math.max(10, Math.min(h - size - 10, y));
 
     let tries = 0;
-    while (bubbleOverlap({cx:x + size / 2, cy:y + size / 2, buffer}, placed) && tries < 120) {
-      x = Math.max(10, Math.min(w - size - 10, x + (Math.random() * 70 - 35)));
-      y = Math.max(10, Math.min(h - size - 10, y + (Math.random() * 70 - 35)));
+    while(bubbleOverlap({cx:x + size / 2, cy:y + size / 2, buffer}, placed) && tries < 120){
+      x = Math.max(10, Math.min(w - size - 10, x + (Math.random() * 56 - 28)));
+      y = Math.max(10, Math.min(h - size - 10, y + (Math.random() * 56 - 28)));
       tries++;
     }
 
     placed.push({cx:x + size / 2, cy:y + size / 2, buffer});
 
     const el = document.createElement('button');
-    el.className = 'categoryBubble';
-    if (cat.name.length > 16) el.classList.add('is-long');
+    el.className = 'categoryBubble' + (cat.compact ? ' compact' : '');
     el.style.setProperty('--bubble', cat.color);
     el.innerHTML = `<div><div class="categoryTitle">${cat.name}</div><div class="categorySubtitle">${cat.subtitle}</div></div>`;
     el.addEventListener('click', () => openCategory(cat));
@@ -811,14 +623,12 @@ function buildBubbleElements(list, wrap){
 
     wrap.appendChild(el);
     items.push({
-      el,
-      size,
-      x,
-      y,
+      el, size, x, y,
       vx:(Math.random() * .012) + .002,
-      vy:(Math.random() * .01) + .002,
+      vy:(Math.random() * .010) + .002,
       scale:1
     });
+
     if(Math.random() > .5) items[items.length - 1].vx *= -1;
     if(Math.random() > .5) items[items.length - 1].vy *= -1;
   });
@@ -842,32 +652,44 @@ function renderNav(active = ''){
     </nav>
   `;
 }
-function renderFeedbackFab(){
+
+function feedbackFab(){
   return `<button class="feedbackFab" id="feedbackFab">Help us improve 🌱</button>`;
 }
+
 function feedbackModal(){
   if(!feedbackOpen) return '';
   return `
     <div class="feedbackOverlay" id="feedbackOverlay">
       <div class="feedbackModal" role="dialog" aria-modal="true">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
-          <div style="font-size:28px;font-weight:700">Help us improve 🌱</div>
-          <button class="secondaryBtn" id="feedbackClose">Close</button>
+          <div style="font-size:28px;font-weight:650">Help us improve 🌱</div>
+          <button class="linkBtn" id="feedbackClose">Close</button>
         </div>
-        <textarea class="feedbackTextarea" id="feedbackInput" placeholder="Share ideas, report issues, or suggest materials…"></textarea>
-        <div class="feedbackNote" id="feedbackNote">${feedbackMessage}</div>
-        <div class="feedbackActions">
+        <div class="formField">
+          <textarea class="textArea" id="feedbackInput" placeholder="Share ideas, report issues, or suggest materials…"></textarea>
+        </div>
+        <div class="feedbackMessage" id="feedbackMessage">${feedbackMessage}</div>
+        <div class="inlineActions">
           <button class="primaryBtn" id="feedbackSubmit">Send Feedback 🌱</button>
         </div>
       </div>
     </div>
   `;
 }
+
 function attachNav(root){
   root.querySelector('[data-nav="home"]')?.addEventListener('click', goHome);
-  root.querySelector('[data-nav="favorites"]')?.addEventListener('click', () => user ? goFavorites() : openAuth('login'));
-  root.querySelector('[data-nav="auth"]')?.addEventListener('click', () => user ? goProfile() : openAuth('login'));
+  root.querySelector('[data-nav="favorites"]')?.addEventListener('click', () => {
+    if(user) goFavorites();
+    else openAuth('login');
+  });
+  root.querySelector('[data-nav="auth"]')?.addEventListener('click', () => {
+    if(user) goProfile();
+    else openAuth('login');
+  });
 }
+
 function attachFeedback(root){
   root.querySelector('#feedbackFab')?.addEventListener('click', () => {
     feedbackOpen = true;
@@ -878,7 +700,7 @@ function attachFeedback(root){
   const overlay = root.querySelector('#feedbackOverlay');
   if(!overlay) return;
 
-  overlay.querySelector('#feedbackClose')?.addEventListener('click', () => {
+  overlay.querySelector('#feedbackClose').addEventListener('click', () => {
     feedbackOpen = false;
     feedbackMessage = '';
     render();
@@ -892,35 +714,49 @@ function attachFeedback(root){
     }
   });
 
-  overlay.querySelector('#feedbackSubmit')?.addEventListener('click', submitFeedback);
+  overlay.querySelector('#feedbackSubmit').addEventListener('click', submitFeedback);
 }
+
 function starButton(mat){
   const active = favorites.has(mat.name) ? 'active' : '';
   return `<button class="starBtn ${active}" type="button" data-favorite="${mat.slug}" aria-label="Favorite ${mat.name}">${favorites.has(mat.name) ? '★' : '☆'}</button>`;
 }
+
 function wireStars(root){
   root.querySelectorAll('[data-favorite]').forEach(btn => {
     btn.addEventListener('click', async e => {
       e.stopPropagation();
       const mat = MATERIALS.find(m => m.slug === btn.dataset.favorite);
       if(!mat) return;
-      if(!user){ openAuth('login'); return; }
+
+      if(!user){
+        openAuth('login');
+        return;
+      }
+
+      if(!user.email_confirmed_at){
+        authMessage = 'Please confirm your email before saving favorites.';
+        openAuth('login');
+        return;
+      }
+
       await toggleFavorite(mat.name);
       render();
     });
   });
 }
+
 function openAuth(mode = 'login'){
   authMode = mode;
   authOpen = true;
-  authMessage = '';
   render();
 }
+
 function closeAuth(){
   authOpen = false;
-  authMessage = '';
   render();
 }
+
 function authModal(){
   if(!authOpen) return '';
   return `
@@ -931,43 +767,53 @@ function authModal(){
             <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em">Account</div>
             <div style="font-size:28px;font-weight:650;margin-top:6px">${authMode === 'login' ? 'Welcome back' : 'Create an account'}</div>
           </div>
-          <button class="secondaryBtn" id="authClose">Close</button>
+          <button class="linkBtn" id="authClose">Close</button>
         </div>
+
         <div class="authTabs">
           <button class="authTab ${authMode === 'login' ? 'active' : ''}" id="tabLogin">Log in</button>
           <button class="authTab ${authMode === 'signup' ? 'active' : ''}" id="tabSignup">Sign up</button>
         </div>
+
         <div class="formField ${authMode === 'signup' ? '' : 'hidden'}" id="nameField">
           <label>Full name</label>
           <input class="textInput" id="authName" placeholder="Your name">
         </div>
+
         <div class="formField">
           <label>Email</label>
           <input class="textInput" id="authEmail" type="email" placeholder="name@example.com">
         </div>
+
         <div class="formField">
           <label>Password</label>
           <input class="textInput" id="authPassword" type="password" placeholder="Password">
         </div>
+
         <div class="authMessage" id="authMessage">${authMessage}</div>
+
         <div class="inlineActions">
           <button class="primaryBtn" id="authSubmit">${authMode === 'login' ? 'Log in' : 'Sign up'}</button>
+          ${authMode === 'login' ? '<button class="linkBtn" id="forgotPasswordBtn">Forgot Password?</button>' : ''}
         </div>
       </div>
     </div>
   `;
 }
+
 async function ensureProfile(){
   if(!supabaseClient || !user) return;
   const { data } = await supabaseClient.from('profiles').select('full_name').eq('id', user.id).maybeSingle();
   profile = data || null;
 }
+
 async function loadFavorites(){
   favorites = new Set();
-  if(!supabaseClient || !user) return;
+  if(!supabaseClient || !user || !user.email_confirmed_at) return;
   const { data } = await supabaseClient.from('favorites').select('material_name').eq('user_id', user.id);
   (data || []).forEach(row => favorites.add(row.material_name));
 }
+
 async function initAuth(){
   if(!supabaseClient) return;
   const { data } = await supabaseClient.auth.getSession();
@@ -976,6 +822,7 @@ async function initAuth(){
     await ensureProfile();
     await loadFavorites();
   }
+
   supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     user = session?.user || null;
     profile = null;
@@ -987,8 +834,14 @@ async function initAuth(){
     render();
   });
 }
+
 async function submitAuth(){
-  if(!supabaseClient){ authMessage = 'Please add your real Supabase project URL first.'; render(); return; }
+  if(!supabaseClient){
+    authMessage = 'Please add your real Supabase anon key first.';
+    render();
+    return;
+  }
+
   const email = document.getElementById('authEmail')?.value.trim();
   const password = document.getElementById('authPassword')?.value;
   const fullName = document.getElementById('authName')?.value.trim();
@@ -1000,28 +853,73 @@ async function submitAuth(){
   }
 
   if(authMode === 'signup'){
-    const { data, error } = await supabaseClient.auth.signUp({ email, password });
-    if(error){ authMessage = error.message; render(); return; }
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: window.location.origin }
+    });
+
+    if(error){
+      authMessage = error.message;
+      render();
+      return;
+    }
+
     const newUser = data.user || data.session?.user;
     if(newUser){
       const { error: profileError } = await supabaseClient.from('profiles').upsert({ id: newUser.id, full_name: fullName });
-      if(profileError){ authMessage = profileError.message; render(); return; }
+      if(profileError){
+        authMessage = profileError.message;
+        render();
+        return;
+      }
     }
-    closeAuth();
+
+    authMessage = 'Welcome! Check your email to confirm your account and get started — Dillon';
+    render();
     return;
   }
 
-  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  if(error){ authMessage = error.message; render(); return; }
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if(error){
+    authMessage = error.message;
+    render();
+    return;
+  }
+
+  if(data.user && !data.user.email_confirmed_at){
+    authMessage = 'Please confirm your email before using favorites or profile features.';
+    render();
+    return;
+  }
+
   closeAuth();
 }
+
+async function sendPasswordReset(){
+  const email = document.getElementById('authEmail')?.value.trim();
+  if(!email){
+    authMessage = 'Enter your email first, then click Forgot Password.';
+    render();
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin
+  });
+
+  authMessage = error ? error.message : 'Password reset email sent. Check your inbox.';
+  render();
+}
+
 async function signOut(){
   if(!supabaseClient) return;
   await supabaseClient.auth.signOut();
   goHome();
 }
+
 async function toggleFavorite(materialName){
-  if(!supabaseClient || !user) return;
+  if(!supabaseClient || !user || !user.email_confirmed_at) return;
   if(favorites.has(materialName)){
     await supabaseClient.from('favorites').delete().eq('user_id', user.id).eq('material_name', materialName);
     favorites.delete(materialName);
@@ -1030,34 +928,43 @@ async function toggleFavorite(materialName){
     favorites.add(materialName);
   }
 }
+
 async function updateProfileName(){
   const input = document.getElementById('profileName');
   const full_name = input?.value.trim();
   if(!supabaseClient || !user || !full_name) return;
   const { error } = await supabaseClient.from('profiles').upsert({ id: user.id, full_name });
-  if(!error){ profile = { full_name }; render(); }
-}
-async function deleteAccountRequest(){
-  if(!supabaseClient || !user) return;
-  const confirmed = window.confirm('Delete your account? This will remove your profile and favorites.');
-  if(!confirmed) return;
-  await supabaseClient.from('favorites').delete().eq('user_id', user.id);
-  await supabaseClient.from('profiles').delete().eq('id', user.id);
-  const { error } = await supabaseClient.functions.invoke('delete-account');
-  if(error){
-    alert('Profile and favorites were removed, but deleting the auth account requires a secure Supabase Edge Function named delete-account.');
+  if(!error){
+    profile = { full_name };
+    render();
   }
+}
+
+async function deleteAccountRequest(){
+  if(!user) return;
+  const confirmed = window.confirm('Delete your account? This will fully remove your auth account and all related data.');
+  if(!confirmed) return;
+
+  const token = (await supabaseClient.auth.getSession()).data.session?.access_token;
+  const response = await fetch('/api/delete-account', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if(!response.ok){
+    alert('Account deletion failed. Check your Vercel function setup.');
+    return;
+  }
+
   await supabaseClient.auth.signOut();
   goHome();
 }
+
 async function submitFeedback(){
-  if(!supabaseClient){
-    feedbackMessage = 'Supabase is not connected.';
-    render();
-    return;
-  }
-  const input = document.getElementById('feedbackInput');
-  const message = input?.value.trim();
+  const message = document.getElementById('feedbackInput')?.value.trim();
   if(!message){
     feedbackMessage = 'Please add a message first.';
     render();
@@ -1065,29 +972,33 @@ async function submitFeedback(){
   }
 
   const { error } = await supabaseClient.from('feedback').insert({ message });
+
   if(error){
-    feedbackMessage = error.message || 'Could not send feedback.';
+    feedbackMessage = error.message;
     render();
     return;
   }
 
   feedbackMessage = 'Thanks for helping us improve 🌱';
-  if(input) input.value = '';
+  render();
 
   setTimeout(() => {
     feedbackOpen = false;
     feedbackMessage = '';
     render();
-  }, 900);
+  }, 1200);
 }
+
 function bindAuthModal(root){
   const overlay = root.querySelector('#authOverlay');
   if(!overlay) return;
+
   overlay.querySelector('#authClose').addEventListener('click', closeAuth);
   overlay.addEventListener('click', e => { if(e.target === overlay) closeAuth(); });
-  overlay.querySelector('#tabLogin').addEventListener('click', () => { authMode = 'login'; render(); });
-  overlay.querySelector('#tabSignup').addEventListener('click', () => { authMode = 'signup'; render(); });
+  overlay.querySelector('#tabLogin').addEventListener('click', () => { authMode = 'login'; authMessage = ''; render(); });
+  overlay.querySelector('#tabSignup').addEventListener('click', () => { authMode = 'signup'; authMessage = ''; render(); });
   overlay.querySelector('#authSubmit').addEventListener('click', submitAuth);
+  overlay.querySelector('#forgotPasswordBtn')?.addEventListener('click', sendPasswordReset);
 }
 
 function renderHome(){
@@ -1096,8 +1007,8 @@ function renderHome(){
       ${renderNav('home')}
       <div class="pagePad">
         <div class="header">
-          <h1>Eco-Friendly Materials</h1>
-          <p>Prototype (Beta)</p>
+          <h1>Eco-Friendly Material Library</h1>
+          <p>This is Prototype 02</p>
         </div>
 
         <div class="searchWrap">
@@ -1111,11 +1022,8 @@ function renderHome(){
         <div class="homeCanvas"></div>
 
         <div class="bottomCta">
-          <button class="scrollCue" type="button">
-            <span>Scroll to materials</span>
-            <div class="scrollArrow">↓</div>
-          </button>
-          <a class="homeCreatorLink" href="/creator" id="homeCreatorLink">Meet the Creator!</a>
+          <button class="scrollCue" type="button"><span>Scroll to materials</span><div class="scrollArrow">↓</div></button>
+          <a class="homeCreatorLink" href="/creator" id="homeCreatorLink">Meet the Creator</a>
         </div>
 
         <div class="homeNavArrows">
@@ -1133,29 +1041,24 @@ function renderHome(){
           <div class="homeGalleryGrid"></div>
         </section>
       </div>
-      ${renderFeedbackFab()}
+
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
 
     layer.querySelector('#homeCreatorLink').addEventListener('click', e => {
       e.preventDefault();
       goCreator();
     });
 
-    layer.querySelector('.scrollCue').addEventListener('click', () => {
-      layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-    layer.querySelector('.navDown').addEventListener('click', () => {
-      layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-    layer.querySelector('.navUp').addEventListener('click', () => {
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    layer.querySelector('.scrollCue').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
+    layer.querySelector('.navDown').addEventListener('click', () => layer.querySelector('#materials-gallery')?.scrollIntoView({behavior:'smooth', block:'start'}));
+    layer.querySelector('.navUp').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
     const input = layer.querySelector('.searchBar');
     const results = layer.querySelector('.searchResults');
@@ -1165,24 +1068,21 @@ function renderHome(){
     const paintSearchResults = () => {
       const q = homeSearch.trim();
       if(!q){ results.innerHTML = ''; return; }
-
       const found = MATERIALS.filter(m => matchesSearch(m, q)).slice(0, 8);
       if(!found.length){
         results.innerHTML = `<div class="searchResultCard">No materials found for “${q}”.</div>`;
         return;
       }
-
       results.innerHTML = found.map(m => `
         <div class="searchResultCard" data-slug="${m.slug}">
           <div class="searchResultTop">
             <div class="searchResultName">${m.name}</div>
-            <button class="secondaryBtn" style="padding:8px 12px;border-radius:12px">Open</button>
+            <button class="linkBtn">Open</button>
           </div>
           <div class="searchResultDesc">${shortLine(m.short || m.description)}</div>
           <div class="tagRow">${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
         </div>
       `).join('');
-
       results.querySelectorAll('.searchResultCard').forEach(card => {
         card.addEventListener('click', () => {
           const mat = MATERIALS.find(m => m.slug === card.dataset.slug);
@@ -1197,7 +1097,6 @@ function renderHome(){
         canvas.innerHTML = '';
         return;
       }
-      canvas.innerHTML = '';
       const items = buildBubbleElements(categories, canvas);
       startBubbles(items);
     };
@@ -1251,27 +1150,25 @@ function materialMatchesFilter(material, filter){ return filter === 'All' ? true
 function renderCategory(cat){
   fadeRender(layer => {
     const base = MATERIALS.filter(m => materialMatchesCategory(m, cat.name));
+
     layer.innerHTML = `
       ${renderNav()}
       <div class="pageShell">
-        <div class="gridHeader">
-          <h2>${cat.name}</h2>
-          <p>${cat.subtitle}</p>
-        </div>
+        <div class="gridHeader"><h2>${cat.name}</h2><p>${cat.subtitle}</p></div>
         <div class="filterBar">
           <button class="filterChip ${activeCategoryFilter === 'All' ? 'active' : ''}" data-filter="All">All</button>
           ${tagFilters.map(t => `<button class="filterChip ${activeCategoryFilter === t ? 'active' : ''}" data-filter="${t}">${t}</button>`).join('')}
         </div>
         <div class="materialGrid"></div>
       </div>
-      ${renderFeedbackFab()}
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
 
     const grid = layer.querySelector('.materialGrid');
 
@@ -1321,33 +1218,25 @@ function renderMaterial(mat){
       <div class="detail">
         <div class="detailInner">
           <div class="detailTop">
-            <div class="detailImageWrap">
-              ${starButton(mat)}
-              ${renderMaterialImage(mat)}
-            </div>
+            <div class="detailImageWrap">${starButton(mat)}${renderMaterialImage(mat)}</div>
             <div>
               <div class="detailTitle">${mat.name}</div>
               <div class="tagRow">${mat.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
               <div class="detailText">${mat.description}</div>
-              <div class="impactBox">
-                <h3>Climate Impact</h3>
-                <p>${mat.climateImpact}</p>
-              </div>
-              <div class="inlineActions">
-                <button class="secondaryBtn" id="detailBack">Back</button>
-              </div>
+              <div class="impactBox"><h3>Climate Impact</h3><p>${mat.climateImpact}</p></div>
+              <div class="inlineActions"><button class="secondaryBtn" id="detailBack">Back</button></div>
             </div>
           </div>
         </div>
       </div>
-      ${renderFeedbackFab()}
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
     wireStars(layer);
 
     layer.querySelector('#detailBack').addEventListener('click', () => history.back());
@@ -1361,46 +1250,30 @@ function renderCreator(){
       <div class="creatorPage">
         <div class="creatorInner">
           <div class="creatorPanel">
-            <aside class="creatorSide">
-              <div class="creatorCard">
-                <div class="creatorPhoto">
-                  <img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'">
-                </div>
+            <aside>
+              <div class="creatorPhoto">
+                <img src="./Dillon.jpg" alt="Dillon" onerror="this.style.display='none'">
               </div>
             </aside>
 
-            <section class="creatorContentCard">
+            <section>
               <div class="creatorHeading">Hi, I'm Dillon!</div>
+              <div class="creatorBody">My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.</div>
+              <div class="creatorBody">This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.</div>
+              <div class="creatorQuote">I believe creativity should do more than shape experiences. It should help shape a better future.</div>
+              <div class="creatorBody">Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on building performance and sustainability.</div>
 
-              <div class="creatorBody">
-                My background is in Theatre Design & Technology, where I first became interested in lighting and the way space shapes human experience. Over time, that interest grew into architectural lighting and a larger curiosity about sustainable building design.
-              </div>
-
-              <div class="creatorBody">
-                This material library is one way I'm documenting what I learn as I move deeper into architecture and sustainable systems.
-              </div>
-
-              <div class="creatorQuote">
-                I believe creativity should do more than shape experiences. It should help shape a better future.
-              </div>
-
-              <div class="creatorBody">
-                Next fall, I'll be heading to graduate school to pursue a Master of Architecture with a focus on building performance and sustainability.
-              </div>
-
-              <div class="creatorMeta">
+              <div class="creatorLinksBlock">
                 <a class="socialCard" href="https://www.linkedin.com/in/dillonmthomas/" target="_blank" rel="noopener noreferrer">
                   <div class="socialLabel">LinkedIn</div>
                   <div class="socialTitle">Dillon Thomas</div>
                   <div class="socialSub">View my professional profile</div>
                 </a>
-
                 <a class="socialCard" href="https://www.instagram.com/bydillonthomas/" target="_blank" rel="noopener noreferrer">
                   <div class="socialLabel">Instagram</div>
                   <div class="socialTitle">@bydillonthomas</div>
                   <div class="socialSub">Design work and updates</div>
                 </a>
-
                 <a class="socialCard" href="mailto:dillonmthomas@outlook.com">
                   <div class="socialLabel">Email</div>
                   <div class="socialTitle">dillonmthomas@outlook.com</div>
@@ -1411,20 +1284,21 @@ function renderCreator(){
           </div>
         </div>
       </div>
-      ${renderFeedbackFab()}
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
   });
 }
 
 function renderFavorites(){
   fadeRender(layer => {
     const found = MATERIALS.filter(m => favorites.has(m.name));
+
     layer.innerHTML = `
       ${renderNav('favorites')}
       <div class="favoritesPage">
@@ -1434,14 +1308,14 @@ function renderFavorites(){
           <div class="favoritesGrid"></div>
         </div>
       </div>
-      ${renderFeedbackFab()}
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
 
     const grid = layer.querySelector('.favoritesGrid');
 
@@ -1449,6 +1323,12 @@ function renderFavorites(){
       grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">Log in to save and view favorites.</div>`;
       return;
     }
+
+    if(!user.email_confirmed_at){
+      grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">Please confirm your email before using favorites.</div>`;
+      return;
+    }
+
     if(!found.length){
       grid.innerHTML = `<div class="emptyState" style="grid-column:1/-1">You have not saved any favorites yet.</div>`;
       return;
@@ -1497,9 +1377,7 @@ function renderProfile(){
             </div>
             <div class="profilePanel">
               <div style="font-size:18px;font-weight:600">Account</div>
-              <div style="margin-top:14px;color:var(--muted);line-height:1.7">
-                You can update your name anytime. To fully delete your auth account, add a secure Supabase Edge Function named <strong>delete-account</strong>. This UI already calls it.
-              </div>
+              <div style="margin-top:14px;color:var(--muted);line-height:1.7">You can update your name anytime. Account deletion runs through a secure server function so your auth user is removed and your related data cascades automatically.</div>
               <div class="inlineActions">
                 ${user ? '<button class="dangerBtn" id="deleteAccountBtn">Delete account</button>' : '<button class="secondaryBtn" id="openAuthBtn">Log in</button>'}
               </div>
@@ -1507,17 +1385,22 @@ function renderProfile(){
           </div>
         </div>
       </div>
-      ${renderFeedbackFab()}
+      ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
 
     attachNav(layer);
-    attachFeedback(layer);
     bindAuthModal(layer);
+    attachFeedback(layer);
 
     if(!user){
       layer.querySelector('#openAuthBtn')?.addEventListener('click', () => openAuth('login'));
+      return;
+    }
+
+    if(!user.email_confirmed_at){
+      layer.querySelector('.profileShell').insertAdjacentHTML('beforeend', `<div class="emptyState">Please confirm your email before using profile features.</div>`);
       return;
     }
 
@@ -1532,17 +1415,13 @@ function render(){
   if(path === '/creator') return renderCreator();
   if(path === '/favorites') return renderFavorites();
   if(path === '/profile') return renderProfile();
-  const cat = findCategoryByPath(path);
-  if(cat) return renderCategory(cat);
-  const mat = findMaterialByPath(path);
-  if(mat) return renderMaterial(mat);
+  const cat = findCategoryByPath(path); if(cat) return renderCategory(cat);
+  const mat = findMaterialByPath(path); if(mat) return renderMaterial(mat);
   return renderHome();
 }
 
 window.addEventListener('popstate', render);
-window.addEventListener('resize', () => {
-  if(window.location.pathname === '/') renderHome();
-});
+window.addEventListener('resize', () => { if(window.location.pathname === '/') renderHome(); });
 
 initAuth().then(render);
 </script>
