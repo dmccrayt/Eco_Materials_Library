@@ -1196,7 +1196,7 @@ function renderHome(){
 
       galleryGrid.innerHTML = found.map(m => `
         <article class="homeGalleryCard" data-slug="${m.slug}">
-          <div class="homeGalleryImageWrap">${Image(m)}</div>
+          <div class="homeGalleryImageWrap">${renderMaterialImage(m)}</div>
           <div class="homeGalleryBody">
             ${starButton(m)}
             <div class="homeGalleryTitle">${m.name}</div>
@@ -1297,7 +1297,7 @@ function renderCategory(cat){
   });
 }
 
-function (mat){
+function renderMaterial(mat){
   fadeRender(layer => {
 
     layer.innerHTML = `
