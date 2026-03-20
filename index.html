@@ -135,7 +135,7 @@ button,input,textarea{font:inherit}
 .navText{font-size:14px;font-weight:600;letter-spacing:.01em}
 .navSub{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.01em}
 
-.pagePad{padding:0 24px 42px}
+.pagePad{   padding:0 24px 42px; }  @media (max-width: 800px){   .pagePad{     padding:0 16px 32px;   } }
 .header{padding:24px 0 0;text-align:center}
 .header h1{margin:0;font-size:24px;font-weight:600;letter-spacing:.01em}
 .header p{margin:12px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
@@ -242,7 +242,7 @@ button,input,textarea{font:inherit}
   background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;
   box-shadow:0 6px 16px rgba(0,0,0,.04)
 }
-.homeNavArrows{position:fixed;right:24px;bottom:24px;display:flex;flex-direction:column;gap:12px;z-index:40}
+.homeNavArrows{position:fixed;left:24px;bottom:24px;display:flex;flex-direction:column;gap:12px;z-index:40}
 .navArrow{
   width:54px;height:54px;border-radius:999px;border:1px solid rgba(29,29,31,.08);
   background:rgba(255,255,255,.82);backdrop-filter:blur(18px);box-shadow:0 10px 26px rgba(0,0,0,.07);
@@ -427,6 +427,78 @@ button,input,textarea{font:inherit}
   .homeGalleryGrid{column-count:1}
   .homeGalleryHeader{display:block}
   .creatorPhoto{width:160px}
+}
+@media (max-width: 800px){
+
+  .pagePad{
+    padding:0 16px 32px;
+  }
+
+  .header h1{
+    font-size:22px;
+  }
+
+  .header p{
+    font-size:12px;
+  }
+
+  .searchBar{
+    height:56px;
+    font-size:16px;
+  }
+
+  .homeGalleryCard{
+    border-radius:20px;
+  }
+
+  .homeGalleryBody{
+    padding:14px;
+  }
+
+  .homeGalleryTitle{
+    font-size:16px;
+  }
+
+  .homeGalleryDesc{
+    font-size:13px;
+  }
+
+  .homeGalleryImageWrap{
+    padding:16px;
+    min-height:140px;
+  }
+
+  .homeGalleryImageWrap img{
+    max-height:140px;
+  }
+
+  .navArrow{
+    width:56px;
+    height:56px;
+    font-size:20px;
+  }
+
+  .scrollArrow{
+    width:44px;
+    height:44px;
+  }
+
+  .navPill{
+    padding:12px 14px;
+  }
+
+  .homeNavArrows{
+    left:16px;
+    right:auto;
+    bottom:16px;
+  }
+}
+  button{
+  -webkit-tap-highlight-color: transparent;
+}
+
+body{
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
