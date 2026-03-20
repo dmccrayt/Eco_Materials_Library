@@ -430,6 +430,27 @@ button,input,textarea{font:inherit}
 }
 @media (max-width: 800px){
 
+  /* CATEGORY CARDS (MOBILE) */
+.categoryCard{
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:12px;
+  border:1px solid rgba(0,0,0,0.05);
+  background:var(--pastel-blue);
+  box-shadow:0 6px 16px rgba(0,0,0,0.04);
+  cursor:pointer;
+}
+
+.categoryCard .categoryTitle{
+  font-size:14px;
+  font-weight:600;
+}
+
+.categoryCard .categorySubtitle{
+  font-size:12px;
+  margin-top:6px;
+  color:#555;
+}
   /* 🔹 PAGE PADDING */
   .pagePad{
     padding:0 12px 24px;
@@ -464,10 +485,11 @@ button,input,textarea{font:inherit}
   }
 
   /* 🔹 REMOVE BUBBLE SPACE */
-  .homeCanvas{
-    height:0;
-    margin:0;
-  }
+ .homeCanvas{
+  height:auto;
+  display:block;
+  margin-top:16px;
+}
 
   /* 🔹 GRID (CLEAN LIST) */
   .homeGalleryGrid{
@@ -1294,15 +1316,35 @@ function renderHome(){
       });
     };
 
-    const paintBubbles = () => {   stopBubbles();    // ❌ disable on mobile   if(window.innerWidth < 800){     canvas.innerHTML = '';     return;   }    if(homeSearch.trim()){     canvas.innerHTML = '';     return;   }    const items = buildBubbleElements(categories, canvas);   startBubbles(items); };
-      stopBubbles();
-      if(homeSearch.trim()){
-        canvas.innerHTML = '';
-        return;
-      }
-      const items = buildBubbleElements(categories, canvas);
-      startBubbles(items);
-    };
+   const paintBubbles = () => {
+  stopBubbles();
+
+  // ✅ MOBILE: show static layout instead of bubbles
+  if(window.innerWidth < 800){
+    canvas.innerHTML = categories.map(cat => `
+      <div class="categoryCard" data-slug="${cat.slug}" style="background:${cat.color}">
+        <div class="categoryTitle">${cat.name}</div>
+        <div class="categorySubtitle">${cat.subtitle}</div>
+      </div>
+    `).join('');
+
+    canvas.querySelectorAll('.categoryCard').forEach(card => {
+      const cat = categories.find(c => c.slug === card.dataset.slug);
+      card.addEventListener('click', () => openCategory(cat));
+    });
+
+    return;
+  }
+
+  // ✅ DESKTOP: keep bubbles
+  if(homeSearch.trim()){
+    canvas.innerHTML = '';
+    return;
+  }
+
+  const items = buildBubbleElements(categories, canvas);
+  startBubbles(items);
+};
 
     const paintGallery = () => {
       const found = MATERIALS.filter(m => matchesSearch(m, homeSearch));
