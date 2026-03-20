@@ -411,7 +411,7 @@ button,input,textarea{font:inherit}
   .detailTitle{font-size:28px}
   .detailText{font-size:16px}
   .gridHeader h2,.homeGalleryHeader h2,.favoritesTitle{font-size:24px}
-  .homeGalleryGrid{column-count:2}
+  .homeGalleryGrid{   display:grid;   grid-template-columns:1fr;   gap:16px; }
   .homeGallerySection{width:min(1240px, calc(100vw - 20px))}
   .favoritesShell,.profileShell{padding:20px}
   .creatorPage{padding:88px 18px 24px}
@@ -462,30 +462,29 @@ button,input,textarea{font:inherit}
   .homeGalleryDesc{
     font-size:13px;
   }
+.homeGalleryImageWrap{
+  min-height:120px;
+  padding:14px;
+}
 
-  .homeGalleryImageWrap{
-    padding:16px;
-    min-height:140px;
-  }
-
-  .homeGalleryImageWrap img{
-    max-height:140px;
-  }
+.homeGalleryImageWrap img{
+  max-height:120px;
+}
 
   .navArrow{
-    width:56px;
-    height:56px;
-    font-size:20px;
-  }
+  width:44px;
+  height:44px;
+  font-size:18px;
+}
 
   .scrollArrow{
     width:44px;
     height:44px;
   }
 
-  .navPill{
-    padding:12px 14px;
-  }
+.navPill{
+  padding:10px 12px;
+}
 
   .homeNavArrows{
     left:16px;
@@ -1249,7 +1248,7 @@ function renderHome(){
       });
     };
 
-    const paintBubbles = () => {
+    const paintBubbles = () => {   stopBubbles();    // ❌ disable on mobile   if(window.innerWidth < 800){     canvas.innerHTML = '';     return;   }    if(homeSearch.trim()){     canvas.innerHTML = '';     return;   }    const items = buildBubbleElements(categories, canvas);   startBubbles(items); };
       stopBubbles();
       if(homeSearch.trim()){
         canvas.innerHTML = '';
@@ -1605,7 +1604,17 @@ function render(){
 }
 
 window.addEventListener('popstate', render);
-window.addEventListener('resize', () => { if(window.location.pathname === '/') renderHome(); });
+let resizeTimeout;
+
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+
+  resizeTimeout = setTimeout(() => {
+    if(window.innerWidth > 800 && window.location.pathname === '/'){
+      renderHome();
+    }
+  }, 300);
+});
 
 initAuth().then(render);
 </script>
