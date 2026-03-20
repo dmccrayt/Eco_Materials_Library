@@ -430,70 +430,116 @@ button,input,textarea{font:inherit}
 }
 @media (max-width: 800px){
 
+  /* 🔹 PAGE PADDING */
   .pagePad{
-    padding:0 16px 32px;
+    padding:0 12px 24px;
+  }
+
+  /* 🔹 HEADER */
+  .header{
+    padding-top:16px;
   }
 
   .header h1{
-    font-size:22px;
+    font-size:18px;
   }
 
   .header p{
-    font-size:12px;
+    font-size:11px;
+    margin-top:6px;
+  }
+
+  /* 🔹 SEARCH */
+  .searchWrap{
+    margin-top:16px;
+  }
+
+  .searchShell{
+    padding:6px;
   }
 
   .searchBar{
-    height:56px;
-    font-size:16px;
+    height:42px;
+    font-size:14px;
   }
 
+  /* 🔹 REMOVE BUBBLE SPACE */
+  .homeCanvas{
+    height:0;
+    margin:0;
+  }
+
+  /* 🔹 GRID (CLEAN LIST) */
+  .homeGalleryGrid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  /* 🔹 CARD */
   .homeGalleryCard{
-    border-radius:20px;
+    border-radius:16px;
   }
 
   .homeGalleryBody{
-    padding:14px;
+    padding:12px;
   }
 
   .homeGalleryTitle{
-    font-size:16px;
+    font-size:15px;
   }
 
   .homeGalleryDesc{
-    font-size:13px;
+    font-size:12px;
+    margin-top:4px;
   }
-.homeGalleryImageWrap{
-  min-height:120px;
-  padding:14px;
-}
 
-.homeGalleryImageWrap img{
-  max-height:120px;
-}
+  /* 🔹 IMAGE */
+  .homeGalleryImageWrap{
+    min-height:100px;
+    padding:12px;
+  }
 
+  .homeGalleryImageWrap img{
+    max-height:100px;
+  }
+
+  /* 🔹 TAGS */
+  .tag{
+    font-size:11px;
+    padding:4px 8px;
+  }
+
+  /* 🔹 BUTTONS (SMALL + CLEAN) */
   .navArrow{
-  width:44px;
-  height:44px;
-  font-size:18px;
-}
+    width:36px;
+    height:36px;
+    font-size:16px;
+  }
 
   .scrollArrow{
-    width:44px;
-    height:44px;
+    width:34px;
+    height:34px;
   }
 
-.navPill{
-  padding:10px 12px;
-}
+  .navPill{
+    padding:8px 10px;
+  }
 
+  .navText{
+    font-size:13px;
+  }
+
+  /* 🔹 ARROWS POSITION */
   .homeNavArrows{
-    left:16px;
-    right:auto;
-    bottom:16px;
+    left:12px;
+    bottom:12px;
   }
-}
-  button{
-  -webkit-tap-highlight-color: transparent;
+
+  /* 🔹 CREATOR IMAGE */
+  .creatorPhoto{
+    width:140px;
+  }
 }
 
 body{
