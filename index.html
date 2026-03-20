@@ -532,27 +532,18 @@ function imageCandidates(mat){
   const safeName = mat.name.replaceAll('/', '-');
   return [`./${mat.name}.jpeg`,`./${mat.name}.jpg`,`./${safeName}.jpeg`,`./${safeName}.jpg`,`./${mat.slug}.jpeg`,`./${mat.slug}.jpg`,`./${mat.slug}.png`];
 }
-
 function renderMaterialImage(mat, extraClass = ''){
   const classAttr = extraClass ? ` class="${extraClass}"` : '';
-  const candidates = imageCandidates(mat);
+  const src = `./${mat.slug}.jpg`;
 
   return `
     <img
       ${classAttr}
-      src="${candidates[0]}"
+      src="${src}"
       alt="${mat.name}"
       loading="lazy"
       style="background:#f2f2f4;border-radius:12px;"
-      onerror="(function(img){
-        const list = ${JSON.stringify(candidates)};
-        const next = list.find(p => !img.src.includes(p));
-        if(next){
-          img.src = next;
-        } else {
-          img.style.opacity = '0.3';
-        }
-      })(this)"
+      onerror="this.style.display='none'"
     >
   `;
 }
