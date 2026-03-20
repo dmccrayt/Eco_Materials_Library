@@ -1,29 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Home -->
   <url>
     <loc>https://www.ecomaterials.xyz/</loc>
   </url>
 
-  <url>
-    <loc>https://www.ecomaterials.xyz/category/structural</loc>
-  </url>
+  <!-- Categories -->
+  <url><loc>https://www.ecomaterials.xyz/category/structural</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/envelope</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/insulation</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/finishes</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/bio-based</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/reclaimed-recycled</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/category/low-carbon</loc></url>
 
-  <url>
-    <loc>https://www.ecomaterials.xyz/category/envelope</loc>
-  </url>
-
-  <url>
-    <loc>https://www.ecomaterials.xyz/category/insulation</loc>
-  </url>
-
-  <!-- ADD YOUR MATERIALS -->
-  <url>
-    <loc>https://www.ecomaterials.xyz/material/hempcrete</loc>
-  </url>
-
-  <url>
-    <loc>https://www.ecomaterials.xyz/material/cross-laminated-timber-clt</loc>
-  </url>
+  <!-- Materials -->
+  <url><loc>https://www.ecomaterials.xyz/material/cross-laminated-timber-clt</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/hempcrete</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/rammed-earth</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/low-carbon-concrete-lc3-blended-cement</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/bamboo</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/cork</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/cellulose-insulation</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/high-performance-glass-double-triple-glazing</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-steel</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/reclaimed-wood</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/mycelium-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/straw-bale</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/glulam-glue-laminated-timber</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/adobe</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/fly-ash-concrete</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/aerogel-insulation</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/timber-cladding</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/terracotta-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/sheep-wool-insulation</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/mineral-wool</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-brick</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/engineered-wood-lvl</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/glass-fiber-reinforced-concrete-gfrc</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/green-wall-systems</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/locally-sourced-stone</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/clay-plaster</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/low-voc-paint</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-plastic-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/hemp-fiber-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/eps-expanded-polystyrene</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/xps-extruded-polystyrene</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/linoleum</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/fsc-certified-timber</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/permeable-pavers</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/etfe</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/zinc-cladding</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-aluminum</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/bio-resin-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/paper-composite-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/gypsum-board-recycled</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/straw-panels</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-glass-tiles</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/cool-roof-coatings</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/phase-change-materials-pcm</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/wood-fiber-insulation</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/biochar-concrete</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/compressed-earth-blocks-ceb</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/recycled-rubber-flooring</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/glass-block</loc></url>
+  <url><loc>https://www.ecomaterials.xyz/material/linseed-oil-finishes</loc></url>
 
 </urlset>
