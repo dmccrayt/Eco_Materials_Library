@@ -3,7 +3,52 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Eco-Friendly Materials</title>
+<title>Eco-Friendly Materials Library | Sustainable Architecture Materials</title>
+
+<meta name="description" content="Explore a curated library of eco-friendly, sustainable building materials including bio-based, recycled, and low-carbon systems for architecture and design." />
+
+<meta name="keywords" content="sustainable materials, eco friendly materials, green building materials, sustainable architecture materials, low carbon construction, bio based materials, recycled building materials, architecture material library" />
+
+<meta name="author" content="Dillon Thomas" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#f5f5f7" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Eco-Friendly Materials Library" />
+<meta property="og:description" content="A curated library of sustainable materials for architecture, design, and low-carbon construction." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.ecomaterials.xyz/" />
+<meta property="og:image" content="https://www.ecomaterials.xyz/preview.jpg" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Eco-Friendly Materials Library" />
+<meta name="twitter:description" content="Explore sustainable materials for architecture and design." />
+<meta name="twitter:image" content="https://www.ecomaterials.xyz/preview.jpg" />
+
+<!-- Canonical -->
+<link rel="canonical" href="https://www.ecomaterials.xyz/" />
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Eco-Friendly Materials Library",
+  "url": "https://www.ecomaterials.xyz/",
+  "description": "A curated library of sustainable building materials for architecture and design.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Dillon Thomas"
+  }
+}
+</script>
+
+<!-- Mobile / App -->
+<meta name="application-name" content="Eco Materials Library" />
+<meta name="apple-mobile-web-app-title" content="Eco Materials" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
 <style>
 :root{
   --bg:#f5f5f7;
@@ -21,6 +66,9 @@
   --pastel-mint:#ecfaf1;
   --dark-green:#1f5c3f;
 }
+  html{
+  scroll-behavior:smooth;
+}
 
 *{box-sizing:border-box}
 html,body{
@@ -36,7 +84,10 @@ body{animation:fadeIn .35s ease}
 a{color:inherit}
 button,input,textarea{font:inherit}
 #app{min-height:100vh}
-.fade-layer{min-height:100vh;animation:pageFade .25s ease}
+.fade-layer{
+  min-height:100vh;
+  animation:pageFade .35s cubic-bezier(.22,.61,.36,1);
+}
 
 .siteNav{
   position:sticky;
@@ -204,7 +255,7 @@ button,input,textarea{font:inherit}
 .homeGalleryHeader p,.gridHeader p,.favoritesSub{margin:6px 0 0;color:var(--muted)}
 .homeGalleryGrid{column-count:4;column-gap:18px}
 .homeGalleryCard{break-inside:avoid;margin-bottom:18px;border-radius:24px;overflow:hidden;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
-.homeGalleryCard:hover,.card:hover,.socialCard:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.08)}
+.homeGalleryCard:hover, .card:hover, .socialCard:hover{   transform:translateY(-4px) scale(1.01);   box-shadow:0 20px 40px rgba(0,0,0,.08); }
 .homeGalleryImageWrap{background:linear-gradient(180deg,#ffffff 0%,#f8f8fa 100%);display:flex;align-items:center;justify-content:center;padding:22px;min-height:180px}
 .homeGalleryImageWrap img{width:100%;max-height:200px;object-fit:contain}
 .homeGalleryBody{padding:16px 16px 18px;position:relative}
@@ -484,10 +535,27 @@ function imageCandidates(mat){
 
 function renderMaterialImage(mat, extraClass = ''){
   const classAttr = extraClass ? ` class="${extraClass}"` : '';
-  const candidates = JSON.stringify(imageCandidates(mat)).replace(/"/g, '&quot;');
-  return `<img${classAttr} src="${imageCandidates(mat)[0]}" alt="${mat.name}" data-candidates="${candidates}" onerror="(function(img){const list=JSON.parse(img.dataset.candidates||'[]');const current=img.getAttribute('src');const next=list.find(path=>path!==current);if(next){img.dataset.candidates=JSON.stringify(list.filter(path=>path!==next));img.src=next;}else{img.style.display='none';}})(this)">`;
-}
+  const candidates = imageCandidates(mat);
 
+  return `
+    <img
+      ${classAttr}
+      src="${candidates[0]}"
+      alt="${mat.name}"
+      loading="lazy"
+      style="background:#f2f2f4;border-radius:12px;"
+      onerror="(function(img){
+        const list = ${JSON.stringify(candidates)};
+        const next = list.find(p => !img.src.includes(p));
+        if(next){
+          img.src = next;
+        } else {
+          img.style.opacity = '0.3';
+        }
+      })(this)"
+    >
+  `;
+}
 function categoryPath(cat){ return '/category/' + cat.slug; }
 function materialPath(mat){ return '/material/' + mat.slug; }
 
@@ -533,6 +601,8 @@ function startBubbles(items){
     for(const item of bubbleItems){
       item.x += item.vx * dt;
       item.y += item.vy * dt;
+      item.vx *= 0.998;
+item.vy *= 0.998;
 
       const minX = 10, minY = 10, maxX = w - item.size - 10, maxY = h - item.size - 10;
       if(item.x <= minX){ item.x = minX; item.vx = Math.abs(item.vx); }
@@ -624,8 +694,8 @@ function buildBubbleElements(list, wrap){
     wrap.appendChild(el);
     items.push({
       el, size, x, y,
-      vx:(Math.random() * .012) + .002,
-      vy:(Math.random() * .010) + .002,
+     vx:(Math.random() * .006) + .0015,
+    vy:(Math.random() * .005) + .0015,
       scale:1
     });
 
@@ -726,6 +796,7 @@ function wireStars(root){
   root.querySelectorAll('[data-favorite]').forEach(btn => {
     btn.addEventListener('click', async e => {
       e.stopPropagation();
+
       const mat = MATERIALS.find(m => m.slug === btn.dataset.favorite);
       if(!mat) return;
 
@@ -740,8 +811,23 @@ function wireStars(root){
         return;
       }
 
-      await toggleFavorite(mat.name);
-      render();
+      const isActive = favorites.has(mat.name);
+
+      // instant UI update
+      btn.classList.toggle('active', !isActive);
+      btn.textContent = !isActive ? '★' : '☆';
+
+      if(isActive){
+        favorites.delete(mat.name);
+      } else {
+        favorites.add(mat.name);
+      }
+
+      try{
+        await toggleFavorite(mat.name);
+      } catch(err){
+        console.error(err);
+      }
     });
   });
 }
@@ -1207,6 +1293,17 @@ function renderMaterial(mat){
   fadeRender(layer => {
     layer.innerHTML = `
       ${renderNav()}
+      document.title = mat.name + " | Eco-Friendly Materials";
+
+const metaDesc = document.querySelector('meta[name="description"]');
+if(metaDesc){
+  metaDesc.setAttribute("content", mat.description.slice(0, 150));
+}
+
+const canonical = document.querySelector('link[rel="canonical"]');
+if(canonical){
+  canonical.setAttribute("href", window.location.href);
+}
       <div class="detail">
         <div class="detailInner">
           <div class="detailTop">
