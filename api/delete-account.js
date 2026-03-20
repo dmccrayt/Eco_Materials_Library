@@ -1,48 +1,44 @@
+import { createClient } from '@supabase/supabase-js';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { userId } = req.body || {};
+    const authHeader = req.headers.authorization || '';
+    const token = authHeader.replace('Bearer ', '').trim();
 
-    if (!userId) {
-      return res.status(400).json({ error: 'Missing userId' });
+    if (!token) {
+      return res.status(401).json({ error: 'Missing access token' });
     }
 
-    const SUPABASE_URL = process.env.SUPABASE_URL;
-    const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      return res.status(500).json({ error: 'Missing server environment variables' });
-    }
-
-    const response = await fetch(
-      `${SUPABASE_URL}/auth/v1/admin/users/${userId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          apikey: SUPABASE_SERVICE_ROLE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
+    const supabaseUserClient = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    const text = await response.text();
+    const {
+      data: { user },
+      error: userError,
+    } = await supabaseUserClient.auth.getUser(token);
 
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: 'Supabase admin delete failed',
-        details: text
-      });
+    if (userError || !user) {
+      return res.status(401).json({ error: 'Invalid user token' });
+    }
+
+    const { error: deleteError } = await supabaseUserClient.auth.admin.deleteUser(
+      user.id
+    );
+
+    if (deleteError) {
+      return res.status(500).json({ error: deleteError.message });
     }
 
     return res.status(200).json({ success: true });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      error: 'Server error',
-      details: error.message
+      error: err?.message || 'Unexpected server error',
     });
   }
 }
