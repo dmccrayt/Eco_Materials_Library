@@ -1081,22 +1081,8 @@ function bindAuthModal(root){
 
 function renderHome(){
   fadeRender(layer => {
+
     layer.innerHTML = `
-    // ✅ RESET SEO FOR HOMEPAGE
-document.title = "Eco-Friendly Materials Library | Sustainable Architecture Materials";
-
-const metaDesc = document.querySelector('meta[name="description"]');
-if(metaDesc){
-  metaDesc.setAttribute(
-    "content",
-    "Explore a curated library of eco-friendly, sustainable building materials including bio-based, recycled, and low-carbon systems."
-  );
-}
-
-const canonical = document.querySelector('link[rel="canonical"]');
-if(canonical){
-  canonical.setAttribute("href", "https://www.ecomaterials.xyz/");
-}
       ${renderNav('home')}
       <div class="pagePad">
         <div class="header">
@@ -1139,6 +1125,22 @@ if(canonical){
       ${authModal()}
       ${feedbackModal()}
     `;
+
+    // ✅ CORRECT PLACE FOR SEO (OUTSIDE HTML STRING)
+    document.title = "Eco-Friendly Materials Library | Sustainable Architecture Materials";
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc){
+      metaDesc.setAttribute(
+        "content",
+        "Explore a curated library of eco-friendly, sustainable building materials including bio-based, recycled, and low-carbon systems."
+      );
+    }
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if(canonical){
+      canonical.setAttribute("href", "https://www.ecomaterials.xyz/");
+    }
 
     attachNav(layer);
     bindAuthModal(layer);
