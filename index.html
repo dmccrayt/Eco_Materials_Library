@@ -853,31 +853,23 @@ async function submitAuth(){
   }
 
   if(authMode === 'signup'){
-    const { data, error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: window.location.origin }
-    });
+const { data, error } = await supabaseClient.auth.signUp({
+  email,
+  password,
+  options: {
+    data: { full_name: fullName }
+  }
+});
 
-    if(error){
-      authMessage = error.message;
-      render();
-      return;
-    }
+if (error) {
+  authMessage = error.message;
+  render();
+  return;
+}
 
-    const newUser = data.user || data.session?.user;
-    if(newUser){
-      const { error: profileError } = await supabaseClient.from('profiles').upsert({ id: newUser.id, full_name: fullName });
-      if(profileError){
-        authMessage = profileError.message;
-        render();
-        return;
-      }
-    }
-
-    authMessage = 'Welcome! Check your email to confirm your account and get started — Dillon';
-    render();
-    return;
+authMessage = 'Welcome! Check your email to confirm your account and get started – Dillon';
+closeAuth();
+return;
   }
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
