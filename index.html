@@ -1082,6 +1082,21 @@ function bindAuthModal(root){
 function renderHome(){
   fadeRender(layer => {
     layer.innerHTML = `
+    // ✅ RESET SEO FOR HOMEPAGE
+document.title = "Eco-Friendly Materials Library | Sustainable Architecture Materials";
+
+const metaDesc = document.querySelector('meta[name="description"]');
+if(metaDesc){
+  metaDesc.setAttribute(
+    "content",
+    "Explore a curated library of eco-friendly, sustainable building materials including bio-based, recycled, and low-carbon systems."
+  );
+}
+
+const canonical = document.querySelector('link[rel="canonical"]');
+if(canonical){
+  canonical.setAttribute("href", "https://www.ecomaterials.xyz/");
+}
       ${renderNav('home')}
       <div class="pagePad">
         <div class="header">
@@ -1291,44 +1306,59 @@ function renderCategory(cat){
 
 function renderMaterial(mat){
   fadeRender(layer => {
+
     layer.innerHTML = `
       ${renderNav()}
-      document.title = mat.name + " | Eco-Friendly Materials";
-
-const metaDesc = document.querySelector('meta[name="description"]');
-if(metaDesc){
-  metaDesc.setAttribute("content", mat.description.slice(0, 150));
-}
-
-const canonical = document.querySelector('link[rel="canonical"]');
-if(canonical){
-  canonical.setAttribute("href", window.location.href);
-}
       <div class="detail">
         <div class="detailInner">
           <div class="detailTop">
-            <div class="detailImageWrap">${starButton(mat)}${renderMaterialImage(mat)}</div>
+            <div class="detailImageWrap">
+              ${starButton(mat)}
+              ${renderMaterialImage(mat)}
+            </div>
             <div>
               <div class="detailTitle">${mat.name}</div>
-              <div class="tagRow">${mat.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+              <div class="tagRow">
+                ${mat.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+              </div>
               <div class="detailText">${mat.description}</div>
-              <div class="impactBox"><h3>Climate Impact</h3><p>${mat.climateImpact}</p></div>
-              <div class="inlineActions"><button class="secondaryBtn" id="detailBack">Back</button></div>
+              <div class="impactBox">
+                <h3>Climate Impact</h3>
+                <p>${mat.climateImpact}</p>
+              </div>
+              <div class="inlineActions">
+                <button class="secondaryBtn" id="detailBack">Back</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       ${feedbackFab()}
       ${authModal()}
       ${feedbackModal()}
     `;
+
+    // ✅ SEO (FIXED — NOT INSIDE HTML)
+    document.title = mat.name + " | Eco-Friendly Materials";
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc){
+      metaDesc.setAttribute("content", mat.description.slice(0, 150));
+    }
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if(canonical){
+      canonical.setAttribute("href", window.location.href);
+    }
 
     attachNav(layer);
     bindAuthModal(layer);
     attachFeedback(layer);
     wireStars(layer);
 
-    layer.querySelector('#detailBack').addEventListener('click', () => history.back());
+    layer.querySelector('#detailBack')
+      .addEventListener('click', () => history.back());
   });
 }
 
